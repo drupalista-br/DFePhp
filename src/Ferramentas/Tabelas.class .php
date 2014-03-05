@@ -2,14 +2,17 @@
 /**
  * Tabelas de Dados.
  *
- * @author https://github.com/nfephp-org/nfephp/graphs/contributors
- * @version https://github.com/nfephp-org/nfephp/releases
+ * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
+ * @version https://github.com/drupalista-br/DFePhp/releases
  * @license http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
  *
  */
 
-namespace Nfephp\Ferramentas;
- 
+namespace DFePhp\Ferramentas;
+
+/**
+ * Classe para criar tabelas de dados.
+ */
 class Tabelas {
 
   /**

@@ -1,24 +1,21 @@
 <?php
 /**
- * Contém as estruturas de dados dos documentos fiscais a serem enviados aos
- * Web Services.
+ * Armazena e seleciona os layouts de entrada de dados de cada Tipo de
+ * Documento Fiscal Eletrônico.
  *
- * @author https://github.com/nfephp-org/nfephp/graphs/contributors
- * @version https://github.com/nfephp-org/nfephp/releases
+ * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
+ * @version https://github.com/drupalista-br/DFePhp/releases
  * @license http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
  *
  */
 
-namespace Nfephp\ManuaisDeIntegracao;
+namespace DFePhp\LayoutsDeEntradas;
 
 /**
- * Contém as estruturas de dados dos documentos fiscais a serem enviados aos
- * Web Services.
+ * Classe para criar os Layouts de Entrada de Dados dos DFe.
  *
- * @see https://github.com/drupalista-br/nfephp/wiki/Estrutura-do-Manual-de-Integra%C3%A7%C3%A3o
- * 
  */
-class ManuaisDeIntegracao {
+class LayoutsDeEntradas {
   /**
    * Quando o valor de entrada é requerido mas, caso não seja enviado, o valor
    * padrão será usado.
@@ -40,7 +37,7 @@ class ManuaisDeIntegracao {
   /**
    * Instruções para construir o documento fiscal. 
    */
-  protected $estrutura_do_documento_fiscal;
+  protected $layout_do_dfe;
 
   /**
    * Gera as instruções e estrutura de dados dos documentos fiscais.

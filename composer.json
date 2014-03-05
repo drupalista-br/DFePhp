@@ -1,22 +1,16 @@
 {
-    "name": "nfephp",
+    "name": "drupalista-br/DFePhp",
     "type": "library",
-    "description": "NFePHP é uma API para gerar e validar os arquivos TXT e XML da NFe e consumir os",
-    "keywords": ["nfe","nfephp"],
-    "homepage": "https://github.com/nfephp-org/nfephp",
+    "description": "API para gerar os arquivos TXT e XML dos Documentos Fiscais Eletrônicos e consumir seus Webservices.",
+    "keywords": ["nfe","nfephp","cte", "nota fiscal"],
+    "homepage": "https://github.com/drupalista-br/DFePhp",
     "license": ["GPL 3", "LGPL 3"],
     "authors": [
         {
-            "name": "Roberto Machado",
-            "email": "roberto.machado@superig.com.br",
-            "homepage": "http://www.nfephp.org",
-            "role": "Developer"
-        },
-        {
             "name": "Francisco Luz",
             "email": "franciscoferreiraluz@yahoo.com.au",
-            "homepage": "http://www.nfephp.org",
-            "role": "Contributer"
+            "homepage": "http://www.nortaox.com",
+            "role": "Mantenedor"
         }
         
     ],
@@ -25,7 +19,7 @@
     },
     "autoload": {
         "psr-0": {
-            "NFePHP": "src"
+            "DFePhp\\": "src/"
         }
     }
 }
