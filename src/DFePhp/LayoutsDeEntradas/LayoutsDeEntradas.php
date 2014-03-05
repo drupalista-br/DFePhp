@@ -64,9 +64,9 @@ class LayoutsDeEntradas {
   }
 
   /**
-   *
+   * 
    */
-  function private NFe_5() {
+  private function NFe_5() {
     return array (
       'NFe_5.0.0' => array (
         'webservices' => array(
@@ -468,6 +468,7 @@ class LayoutsDeEntradas {
 
 }
 
+/*
         B|cUF|cNF|||||||||||TpImp|TpEmis|cDV|tpAmb|finNFe|procEmi|VerProc|dhCont|xJust|
           [0 a N] {
             [seleção entre  ou B14 ou B20a ou B20i ou B20j] {
@@ -829,5 +830,9 @@ coluna dec: indica a quantidade máxima de casas decimais do campo;
 * No caso das pessoas desobrigadas de inscrição no CNPJ/MF, deverá ser informado o CPF da pessoa, exceto nas operações com o exterior;
 
 
+*/
 
+function teste() {
+  echo 'test';
+}
 

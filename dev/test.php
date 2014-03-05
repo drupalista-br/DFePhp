@@ -1,7 +1,11 @@
 <?php
 
-function stripAccents($str) {
-  return trim(strtr(utf8_decode($str), utf8_decode('ªºàáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aoaaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY'));
-}
+include_once '../autoloader.php';
 
-echo stripAccents('nº é ª ãõñ');
+use DFePhp\MakeDFe;
+
+$test = new MakeDFe();
+
+//echo teste();
+
+echo 'test';

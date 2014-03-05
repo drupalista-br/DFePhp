@@ -60,4 +60,17 @@ class Validacoes {
     return FALSE;
   }
 
+  /**
+   * Busca por caracteres especiais e coverte-os para formato UTF8.
+   *
+   * @param String $texto
+   *   String a ser checada.
+   * @return String
+   *   O mesmo texto de entrada mas com caracteres especiais convertidos para
+   *   UTF8.
+   */
+  function utf8($texto) {
+    return trim(strtr(utf8_decode($texto), utf8_decode('ªºàáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aoaaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY'));
+  }
+
 }
