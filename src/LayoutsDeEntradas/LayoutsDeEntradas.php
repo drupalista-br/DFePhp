@@ -13,7 +13,6 @@ namespace DFePhp\LayoutsDeEntradas;
 
 /**
  * Classe para criar os Layouts de Entrada de Dados dos DFe.
- *
  */
 class LayoutsDeEntradas {
   /**
@@ -46,18 +45,36 @@ class LayoutsDeEntradas {
    *   A versão do manual desejado.
    * @return Array
    *   As instruções e estrutura de dados de um documento fiscal específico.
-   *   
    */
   protected function integre_com($versao) {
     $estrutura_dos_documentos_fiscais = array (
+
+      'CTe_2.0.0' => array (
+        'documentacao' => '',
+        'webservices' => array(
+          // TODO.
+        ),
+        'estrutura_de_dados' => array(
+          // TODO.
+        ),
+      ),
+    );
+
+    $this->layout_do_dfe = $estrutura_dos_documentos_fiscais[$versao];
+  }
+
+  /**
+   *
+   */
+  function private NFe_5() {
+    return array (
       'NFe_5.0.0' => array (
-        'documentacao' => 'https://github.com/drupalista-br/nfephp/wiki/Manual-de-Integra%C3%A7%C3%A3o-%7C--NFe-5.0',
         'webservices' => array(
           'homologacao' => array(),
           'producao' => array(),
         ),
         // A partir da página 148.
-        'estrutura_de_dados' => array (
+        'layout_dos_dados' => array (
           array (
             'tag_txt_cabecalho' => FALSE,
             'descricao_do_manual' => 'TAG raiz da NF-e',
@@ -446,18 +463,7 @@ class LayoutsDeEntradas {
           
         ),
       ),
-      'CTe_2.0.0' => array (
-        'documentacao' => '',
-        'webservices' => array(
-          // TODO.
-        ),
-        'estrutura_de_dados' => array(
-          // TODO.
-        ),
-      ),
     );
-
-    $this->estrutura_do_documento_fiscal = $estrutura_dos_documentos_fiscais[$versao];
   }
 
 }

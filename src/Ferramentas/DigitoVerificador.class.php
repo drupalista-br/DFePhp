@@ -97,7 +97,7 @@ class DigitoVerificador {
     );
 
     if ($result['digito'] == 10){
-       $result['digito'] = 0;
+      $result['digito'] = 0;
     }
     return $result;
   }

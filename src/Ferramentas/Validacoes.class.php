@@ -1,6 +1,6 @@
 <?php
 /**
- * Validação de Dados.
+ * Validação de Dados de Entrada.
  *
  * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
  * @version https://github.com/drupalista-br/DFePhp/releases
@@ -11,7 +11,7 @@
 namespace DFePhp\Ferramentas;
 
 /**
- *
+ * Classe para validar entrada de dados.
  */
 class Validacoes {
 
@@ -61,6 +61,3 @@ class Validacoes {
   }
 
 }
-
-
-

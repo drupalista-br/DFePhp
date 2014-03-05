@@ -1,6 +1,6 @@
 <?php
 /**
- * Bootstrap do PHPUnit.
+ * Bootstrap para fazer Unit Tests com PHPUnit.
  *
  * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
  * @version https://github.com/drupalista-br/DFePhp/releases
