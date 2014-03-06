@@ -22,6 +22,8 @@ class MakeDFe extends LayoutDeDados {
    */
   public function __construct() {
     $this->seleciona_layout();
+    
+    
   }
   
   private function teste() {
