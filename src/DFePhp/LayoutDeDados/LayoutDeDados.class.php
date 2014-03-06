@@ -1,20 +1,19 @@
 <?php
 /**
- * Armazena e seleciona os layouts de entrada de dados de cada Tipo de
- * Documento Fiscal Eletrônico.
+ * Comporta os layout da entrada de dados de cada Tipo de Documento Fiscal
+ * Eletrônico.
  *
  * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
  * @version https://github.com/drupalista-br/DFePhp/releases
  * @license http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
- *
  */
 
-namespace DFePhp\LayoutsDeEntradas;
+namespace DFePhp\LayoutDeDados;
 
 /**
  * Classe para criar os Layouts de Entrada de Dados dos DFe.
  */
-class LayoutsDeEntradas {
+class LayoutDeDados {
   /**
    * Quando o valor de entrada é requerido mas, caso não seja enviado, o valor
    * padrão será usado.
@@ -34,54 +33,63 @@ class LayoutsDeEntradas {
   const CHAMADA_NORMAL = 2;
 
   /**
-   * Instruções para construir o documento fiscal. 
+   * Layout do DFe a ser gerado. 
    */
-  protected $layout_do_dfe;
+  protected $layout_escolhido;
 
   /**
-   * Gera as instruções e estrutura de dados dos documentos fiscais.
+   * Seleciona a estrutura de dados do documento fiscal a ser gerado.
    *
    * @param String $versao
-   *   A versão do manual desejado.
+   *   A versão do manual de integração do DFe desejado.
    * @return Array
-   *   As instruções e estrutura de dados de um documento fiscal específico.
+   *   O layout da estrutura de dados de um DFe específico.
    */
-  protected function integre_com($versao) {
-    $estrutura_dos_documentos_fiscais = array (
+  protected function seleciona_layout() {
 
-      'CTe_2.0.0' => array (
+    $estrutura_dos_documentos_fiscais = [
+
+      'CTe_2.0.0' => [
         'documentacao' => '',
-        'webservices' => array(
+        'webservices' => [
           // TODO.
-        ),
-        'estrutura_de_dados' => array(
+        ],
+        'estrutura_de_dados' => [
           // TODO.
-        ),
-      ),
-    );
+        ],
+      ],
+    ];
 
-    $this->layout_do_dfe = $estrutura_dos_documentos_fiscais[$versao];
+    $this->layout_escolhido = $estrutura_dos_documentos_fiscais;
+    
+    
+  $class = new \ReflectionClass($this);
+  $methods = $class->getMethods(\ReflectionMethod::IS_PRIVATE);
+  echo '<pre>';
+  print_r($methods);
+  print_r(get_declared_classes());
+    
   }
 
   /**
    * 
    */
   private function NFe_5() {
-    return array (
-      'NFe_5.0.0' => array (
+    return array(
+      'NFe_5.0.0' => array(
         'webservices' => array(
           'homologacao' => array(),
           'producao' => array(),
         ),
         // A partir da página 148.
-        'layout_dos_dados' => array (
-          array (
+        'layout_dos_dados' => array(
+          array(
             'tag_txt_cabecalho' => FALSE,
             'descricao_do_manual' => 'TAG raiz da NF-e',
             'ocorrencia' => '1-1',
             'tag_xml' => 'NFe',
             'valor' => FALSE,
-            'atributos' => array (
+            'atributos' => array(
               'xmlns' => array(
                 'valor_padrao' => 'http://www.portalfiscal.inf.br/nfe',
                 'requerido' => FALSE,
@@ -96,14 +104,14 @@ class LayoutsDeEntradas {
             'tag_xml_parentes' => FALSE,
             'tag_xml_da_linha_txt' => FALSE,
           ),
-          array (
+          array(
             // Linha 1.
             'tag_txt_cabecalho' => 'A',
             'descricao_do_manual' => 'Grupo que contém as informações da NF-e',
             'ocorrencia' => '1-1',
             'tag_xml' => 'infNFe',
             'valor' => FALSE,
-            'atributos' => array (
+            'atributos' => array(
               // Linha 2.
               'versao' => array(
                 'valor_padrao' => '2.00',
@@ -132,7 +140,7 @@ class LayoutsDeEntradas {
             'tag_xml_da_linha_txt' => FALSE,
           ),
           // Linha 5.
-          array (
+          array(
             'tag_txt_cabecalho' => 'B',
             'descricao_do_manual' => 'Grupo das informações de identificação da NF-e',
             'ocorrencia' => '1-1',
@@ -155,9 +163,9 @@ class LayoutsDeEntradas {
                   'casas_decimais' => FALSE,
                   'metodos_antes' => FALSE,
                   'metodos_depois' => array(
-                    array (
+                    array(
                       'class' => 'Validacoes',
-                      'metodo_ou_funcao' => array (
+                      'metodo_ou_funcao' => array(
                         'nome'=> 'is_ibge_unidade_uf_numerico',
                         'chamada' => self::CHAMADA_ESTATICA,
                         'parametros' => '',
@@ -222,8 +230,8 @@ class LayoutsDeEntradas {
                   'metodos_antes' => FALSE,
                   'metodos_depois' => array(
                     'class' => 'Validacoes',
-                    'metodo_ou_funcao' => array (
-                      array (
+                    'metodo_ou_funcao' => array(
+                      array(
                         'nome'=> 'regex',
                         'chamada' => self::CHAMADA_ESTATICA,
                         'parametros' => array(
@@ -343,8 +351,8 @@ class LayoutsDeEntradas {
                   'metodos_antes' => FALSE,
                   'metodos_depois' => array(
                     'class' => 'Validacoes',
-                    'metodo_ou_funcao' => array (
-                      array (
+                    'metodo_ou_funcao' => array(
+                      array(
                         'nome'=> 'regex',
                         'chamada' => self::CHAMADA_ESTATICA,
                         'parametros' => array(
@@ -371,8 +379,8 @@ class LayoutsDeEntradas {
                   'metodos_antes' => FALSE,
                   'metodos_depois' => array(
                     'class' => 'Validacoes',
-                    'metodo_ou_funcao' => array (
-                      array (
+                    'metodo_ou_funcao' => array(
+                      array(
                         'nome'=> 'is_ibge_cod_municipio',
                         'chamada' => self::CHAMADA_ESTATICA,
                         'parametros' => '',
@@ -385,7 +393,7 @@ class LayoutsDeEntradas {
               ),
             ),
           ),
-          array (
+          array(
             'tag_txt_cabecalho' => 'B13',
             'descricao_do_manual' => 'Grupo com as informações das NF/NF-e /NF de produtor/ Cupom Fiscal ' .
                                       'referenciadas. Esta informação será utilizada nas hipóteses ' .
@@ -415,7 +423,7 @@ class LayoutsDeEntradas {
               ),
             ),
           ),
-          array (
+          array(
             // Linha 18.
             'tag_txt_cabecalho' => 'B14',
             'descricao_do_manual' => 'Grupo de informação da NF modelo 1/1A referenciada',
@@ -464,6 +472,13 @@ class LayoutsDeEntradas {
         ),
       ),
     );
+  }
+  
+  /**
+   * 
+   */
+  private function CTe_2() {
+  
   }
 
 }

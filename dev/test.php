@@ -6,6 +6,5 @@ use DFePhp\MakeDFe;
 
 $test = new MakeDFe();
 
-//echo teste();
-
-echo 'test';
+echo '<pre>';
+print_r( $test);

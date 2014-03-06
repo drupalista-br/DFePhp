@@ -7,22 +7,24 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
  */
 
-use DFePhp\LayoutsDeEntradas\LayoutsDeEntradas;
+namespace DFePhp;
+
+use DFePhp\LayoutDeDados\LayoutDeDados;
+use DFePhp\LayoutDeDados\VersoesDosLayouts\NFe_500;
 
 /**
  * Classe para construir o Documento Fiscal Eletrônico.
  */
-class MakeDFe extends LayoutsDeEntradas {
+class MakeDFe extends LayoutDeDados {
 
   /**
    * 
    */
   public function __construct() {
-    //$DFe = new LayoutsDeEntradas();
-    
+    $this->seleciona_layout();
   }
   
-  public function teste() {
+  private function teste() {
     echo 'teste';
   }
 }

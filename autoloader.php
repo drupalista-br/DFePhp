@@ -8,7 +8,7 @@
  */
 
 spl_autoload_register(function($className) {
-  $filename = str_replace(array('\\', '_'), DIRECTORY_SEPARATOR, $className) . '.php';
+  $filename = str_replace(array('\\', '_'), DIRECTORY_SEPARATOR, $className) . '.class.php';
   $path = __DIR__ . "/src/" . $filename;
   if (is_file($path)) {
     include $path;
