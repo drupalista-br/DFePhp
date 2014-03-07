@@ -48,22 +48,6 @@ class LayoutDeDados {
    */
   protected function seleciona_layout() {
 
-    $estrutura_dos_documentos_fiscais = array(
-
-      'CTe_2.0.0' => array(
-        'documentacao' => '',
-        'webservices' => array(
-          // TODO.
-        ),
-        'estrutura_de_dados' => array(
-          // TODO.
-        ),
-      ),
-    );
-
-    $this->layout_escolhido = $estrutura_dos_documentos_fiscais;
-    
-    
     /*$class = new \ReflectionClass($this);
     $methods = $class->getMethods(\ReflectionMethod::IS_PRIVATE);
     echo '<pre>';

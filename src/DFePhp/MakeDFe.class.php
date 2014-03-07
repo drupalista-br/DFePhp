@@ -14,18 +14,12 @@ use DFePhp\LayoutDeDados\LayoutDeDados;
 /**
  * Classe para construir o Documento Fiscal Eletrônico.
  */
-class MakeDFe extends LayoutDeDados {
+class MakeDFe {
 
   /**
    * 
    */
-  public function __construct() {
-    $this->seleciona_layout();
-    
-    
-  }
-  
-  private function teste() {
-    echo 'teste';
+  public function __construct($versao_do_layout, $dados_da_dfe) {
+    $dfe = new $versao_do_layout();
   }
 }
