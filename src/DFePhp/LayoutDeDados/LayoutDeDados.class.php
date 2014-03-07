@@ -11,8 +11,6 @@ namespace DFePhp\LayoutDeDados;
 
 include_once '../autoloader.php';
 
-use DFePhp\LayoutDeDados\VersoesDosLayout as Versoes;
-
 /**
  * Classe para criar os Layouts de Entrada de Dados dos DFe.
  */
@@ -87,7 +85,7 @@ class LayoutDeDados {
     echo '<pre>';
     print_r($class_files);
     
-    $test = new Versoes\NFe_500();
+
 
 
     

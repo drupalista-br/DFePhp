@@ -1,6 +1,6 @@
 <?php
 /**
- * Arquivo com a classe do layout da NFe versão 5.0.
+ * Contrutor de Documento Fiscal Eletrônico Específico.
  *
  * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
  * @version https://github.com/drupalista-br/DFePhp/releases
@@ -9,11 +9,12 @@
 
 namespace DFePhp\LayoutDeDados\VersoesDosLayouts;
 
-/**
- * Classe do layout da NFe versão 5.0.
- */
-class NFe_500 {
+use DFePhp\LayoutDeDados\LayoutDeDados;
 
+/**
+ * Classe para construir o Documento Fiscal Eletrônico.
+ */
+class NFe500 extends LayoutDeDados {
   /**
    *
    */

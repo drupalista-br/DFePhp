@@ -10,7 +10,6 @@
 namespace DFePhp;
 
 use DFePhp\LayoutDeDados\LayoutDeDados;
-use DFePhp\LayoutDeDados\VersoesDosLayouts\NFe_500;
 
 /**
  * Classe para construir o Documento Fiscal Eletrônico.
