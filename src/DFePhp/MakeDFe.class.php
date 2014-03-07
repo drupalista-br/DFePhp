@@ -9,17 +9,36 @@
 
 namespace DFePhp;
 
-use DFePhp\LayoutDeDados\LayoutDeDados;
-
 /**
  * Classe para construir o Documento Fiscal Eletrônico.
  */
 class MakeDFe {
 
   /**
-   * 
+   * Layout do DFe a ser gerado. 
    */
-  public function __construct($versao_do_layout, $dados_da_dfe) {
-    $dfe = new $versao_do_layout();
+  private $layout_escolhido;
+
+  /**
+   * 
+   * @param String $versao_do_layout
+   *   Versão do Layout da Estrutura de Dados da DFe.
+   */
+  public function __construct($versao_do_layout) {
+    $class_name = 'DFePhp\\LayoutDeDados\\VersoesDosLayouts\\' . $versao_do_layout;
+    $layout = new $class_name();
+    $this->layout_escolhido = $layout->layout_escolhido;
+  }
+
+  private function gera_dfe_com_dados($dados_da_dfe) {
+    
+  }
+
+  private function gera_dfe_com_txt($txt) {
+    
+  }
+
+  public function test() {
+    return $this->layout_escolhido;
   }
 }

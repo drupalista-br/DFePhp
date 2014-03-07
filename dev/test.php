@@ -3,12 +3,10 @@
 include_once '../autoloader.php';
 
 use DFePhp\MakeDFe;
-use DFePhp\AutoLoader as Loader;
 
-$test = new MakeDFe();
+$test = new MakeDFe('NFe500', array());
 
-$df =  Loader\NS_VERSOES . 'NFe500';
+echo "<pre>";
 
-$test2 = new $df();
+print_r($test->test());
 
-print_r($test2);
