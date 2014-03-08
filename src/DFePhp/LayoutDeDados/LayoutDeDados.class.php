@@ -31,16 +31,4 @@ abstract class LayoutDeDados {
    */
   const CHAMADA_NORMAL = 2;
 
-  /**
-   * Layout do DFe a ser gerado. 
-   */
-  public $layout_escolhido;
-
-  /**
-   * Seleciona o Layout do DFe.
-   */
-  public function __construct() {
-    $this->layout_escolhido = $this->layout(); 
-  }
-
 }

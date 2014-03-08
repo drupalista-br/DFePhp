@@ -12,17 +12,17 @@ namespace DFePhp\LayoutDeDados\VersoesDosLayouts;
 use DFePhp\LayoutDeDados\LayoutDeDados;
 
 /**
- * Classe para construir o Layout da NFe.
+ * Classe para construir o Layout da NFe conforme o Manual do Contribuinte 5.0.
  */
 class NFe500 extends LayoutDeDados {
-  protected function layout() {
+  static function layout() {
     return array(
-      'webservices' => array(
+      'webservice' => array(
         'homologacao' => array(),
         'producao' => array(),
       ),
       // A partir da página 148.
-      'layout_dos_dados' => array(
+      'layout_do_dfe' => array(
         array(
           'tag_txt_cabecalho' => FALSE,
           'descricao_do_manual' => 'TAG raiz da NF-e',
@@ -408,7 +408,6 @@ class NFe500 extends LayoutDeDados {
             // 
           ),
         ),
-        
       ),
     );
 
