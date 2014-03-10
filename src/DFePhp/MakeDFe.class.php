@@ -79,8 +79,63 @@ class MakeDFe {
     
   }
 
-  private function transforma_txt2array() {
-    
+  /**
+   * Lê arquivo TXT e extrai conteúdo.
+   *
+   * @param String $nome_do_arquivo
+   *   Nome do arquivo a ser lido.
+   *
+   * @param String $path
+   *   Caminho físico do diretório onde o arquivo está arquivado.
+   */
+  private function transforma_txt2array($nome_do_arquivo, $path = '') {
+    // Define o Path padrão.
+    if (empty($path)) {
+      $path = $this->get_path_to('arquivosDfe' . DIRECTORY_SEPARATOR . 'txts');
+    }
+
+    $handle = fopen($path . DIRECTORY_SEPARATOR . $nome_do_arquivo, "r");
+    if ($handle) {
+      $txt = array();
+      $primeiro_loop = TRUE;
+      $segundo_loop = TRUE;
+      $qtde_dfe = 0;
+      $dfe_seq = 0;
+      
+      while (($linha = fgets($handle)) !== false) {
+        $linha_explode = explode('|', $linha);
+        
+        if($primeiro_loop) {
+          $qtde_dfe = $linha_explode[1];
+
+          $txt['config'] = array(
+            'qtde_dfe' => $linha_explode[1],
+            'tag_1a_linha' => $linha_explode[0],
+          );
+          $primeiro_loop = FALSE;
+        }
+        else {
+          if ($segundo_loop) {
+            $tag_inicial = trim($linha_explode[0]);
+
+            $segundo_loop = FALSE;
+          }
+
+          $tag_da_linha_atual = trim($linha_explode[0]);
+
+          if ($tag_da_linha_atual == $tag_inicial) {
+            // Inicia um novo DFe.
+            $dfe_seq += 1;
+            // Reinicia a numeração das linhas do DFe.
+            $num_linha = 1;
+          }
+
+          $txt["dfe_$dfe_seq"]["linha_$num_linha"] = $linha_explode;
+          $num_linha += 1;
+        }
+      }
+    }
+    $this->txt_do_dfe = $txt;
   }
 
   private function transforma_txt2xml() {
@@ -101,6 +156,7 @@ class MakeDFe {
    * @param String $file_path
    *   Caminho interno da biblioteca. Opcionalmente poderá também informar
    *   o nome do arquivo. Ex. 'arquivosDfe/txts/NF25.txt'
+   *
    * @return String
    *   O caminho físico da biblioteca + $file_path.
    */
@@ -122,7 +178,11 @@ class MakeDFe {
 
     echo "<pre>";
 
-    print_r($this->get_path_to('arquivosDfe/txts')) . '<br>';
+    $arquivo = 'NOTAFISCAL.txt';
+
+    $this->transforma_txt2array($arquivo);
+    
+    print_r($this->txt_do_dfe);
 
 
     return $this->layout_do_dfe;
