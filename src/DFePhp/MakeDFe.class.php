@@ -40,7 +40,7 @@ class MakeDFe {
    * @param Array $input
    *   Veja a descrição do método dfe_data_input().
    */
-  public function __construct($versao_do_layout = '', $input = '') {
+  public function __construct($versao_do_layout = '', $input_data = '') {
     try {
       $exception_error_message = FALSE;
 
@@ -67,7 +67,7 @@ class MakeDFe {
     }
 
     if (!empty($input)) {
-      $this->dfe_data_input($input);
+      $this->dfe_data_input($input_data);
     }
   }
 
@@ -96,13 +96,35 @@ class MakeDFe {
   }
 
   /**
+   * Constroi o caminho físico onde a biblioteca está instalada.
+   *
+   * @param String $file_path
+   *   Caminho interno da biblioteca. Opcionalmente poderá também informar
+   *   o nome do arquivo. Ex. 'arquivosDfe/txts/NF25.txt'
+   * @return String
+   *   O caminho físico da biblioteca + $file_path.
+   */
+  private function get_path_to($file_path = '') {
+    $lib_path = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+    return realpath(__DIR__ . $lib_path . $file_path);
+  }
+
+  /**
    * 
    */
-  public function dfe_data_input($input) {
+  public function dfe_data_input($input_data) {
     
   }
 
+
+
   public function test() {
+
+    echo "<pre>";
+
+    print_r($this->get_path_to('arquivosDfe/txts')) . '<br>';
+
+
     return $this->layout_do_dfe;
   }
 }
