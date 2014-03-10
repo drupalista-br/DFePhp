@@ -19,26 +19,28 @@ class MakeDFe {
   private $layout_do_dfe;
   
   /**
-   * Array com as informações da DFe sendo gerada.
+   * Array com os dados estruturados do DFe sendo gerado.
    */
-  private $dados_do_dfe;
+  private $array_do_dfe;
 
   /**
-   * XML do DFe sendo gerada.
+   * XML do DFe sendo gerado.
    */
   private $xml_do_dfe;
 
   /**
-   * XML do DFe sendo gerada.
+   * XML do DFe sendo gerado.
    */
   private $txt_do_dfe;
 
   /**
    * 
    * @param String $versao_do_layout
-   *   Versão do Layout do DFe.
+   *   Versão do Layout para gerar o DFe.
+   * @param Array $input
+   *   Veja a descrição do método dfe_data_input().
    */
-  public function __construct($versao_do_layout = '') {
+  public function __construct($versao_do_layout = '', $input = '') {
     try {
       $exception_error_message = FALSE;
 
@@ -63,13 +65,40 @@ class MakeDFe {
     catch (\Exception $e) {
       echo $e->getMessage();
     }
+
+    if (!empty($input)) {
+      $this->dfe_data_input($input);
+    }
   }
 
-  private function gera_xml() {
+  private function transforma_array2xml() {
     
   }
 
-  private function gera_txt() {
+  private function transforma_array2txt() {
+    
+  }
+
+  private function transforma_txt2array() {
+    
+  }
+
+  private function transforma_txt2xml() {
+    
+  }
+
+  private function transforma_xml2array() {
+    
+  }
+
+  private function transforma_xml2txt() {
+    
+  }
+
+  /**
+   * 
+   */
+  public function dfe_data_input($input) {
     
   }
 
