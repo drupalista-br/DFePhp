@@ -15,14 +15,14 @@ namespace DFePhp;
 class MakeDFe {
 
   /**
-   * Tipo da entrada de dados. Arquivo XML.
+   * Extensão dos arquivos XML.
    */
-  const ARQUIVO_INPUT_EXTENSAO_XML = 1;
+  const EXTENSAO_XML = 'xml';
 
   /**
-   * Tipo da entrada de dados. Arquivo TXT.
+   * Extensão dos rquivos TXT.
    */
-  const ARQUIVO_INPUT_EXTENSAO_TXT = 2;
+  const EXTENSAO_TXT = 'txt';
 
   /**
    * Pasta para armazenar os arquivos TXT dos DFe.
@@ -55,39 +55,45 @@ class MakeDFe {
   const PASTA_5_XML_CANCELADOS = '5_xml_cancelados';
 
   /**
-   * Tipo de entrada de dados. 
-   */
-  private $extensao_do_arquivo_input;
-
-  /**
-   * Layout do DFe a ser gerado. 
+   * Layout do DFe a ser gerado. O Layout é definido por uma sub-classe da
+   * classe LayoutDeDados.
    */
   private $layout_do_dfe;
   
   /**
-   * Array com os dados estruturados do DFe sendo gerado.
+   * Array com os dados do DFe sendo gerado.
    */
-  private $array_do_dfe;
+  private $dados_dfe_array;
 
   /**
    * XML do DFe sendo gerado.
    */
-  private $xml_do_dfe;
+  private $dados_dfe_xml;
 
   /**
-   * XML do DFe sendo gerado.
+   * TXT do DFe sendo gerado.
    */
-  private $txt_do_dfe;
+  private $dados_dfe_txt;
 
   /**
-   * Caminho físico da biblioteca.
+   * Caminho físico da pasta pai onde são arquivados os DFe.
    */
-  private $path_das_pastas_dfe;
+  private $output_path;
 
   /**
-   * Nome do arquivo que contém/conterá o DFe.
+   * Caminho físico da pasta do(s) arquivo(s) de entrada de dados dos DFe(s).
    */
-  private $nome_do_arquivo;
+  private $input_path;
+
+  /**
+   * Nome do arquivo que contém os dados de entrada do(s) DFe(s).
+   */
+  private $input_nome_do_arquivo;
+
+  /**
+   * Tipo de entrada de dados. 
+   */
+  private $input_extensao_do_arquivo;
 
   /**
    * Define a versão do layout da estrutura de dados do DFe.
@@ -122,7 +128,7 @@ class MakeDFe {
     }
 
     // Define o Path padrão onde os arquivos DFe ficarão armazenados.
-    $this->path_das_pastas_dfe = $this->get_path_to('arquivosDfe');
+    $this->output_path = $this->get_path_da_biblioteca('arquivosDfe');
   }
 
   private function transforma_array2xml() {
@@ -136,17 +142,17 @@ class MakeDFe {
   /**
    * Lê arquivo TXT e extrai conteúdo.
    *
-   * @param String $nome_do_arquivo
+   * @param String $input_nome_do_arquivo
    *   Nome do arquivo a ser lido.
    *
    * @param String $path
    *   Caminho físico do diretório onde o arquivo está arquivado.
    */
-  private function transforma_txt2array() {
-    $path_das_pastas_dfe = $this->path_das_pastas_dfe;
-    $nome_do_arquivo = $this->nome_do_arquivo;
+  private function arquivo_txt2array() {
+    $output_path = $this->output_path;
+    $input_nome_do_arquivo = $this->input_nome_do_arquivo;
 
-    $handle = fopen($path_das_pastas_dfe . DIRECTORY_SEPARATOR . $nome_do_arquivo, "r");
+    $handle = fopen($output_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo, "r");
     if ($handle) {
       $txt = array();
       $primeiro_loop = TRUE;
@@ -187,7 +193,7 @@ class MakeDFe {
         }
       }
     }
-    $this->txt_do_dfe = $txt;
+    $this->dados_dfe_txt = $txt;
   }
 
   private function transforma_txt2xml() {
@@ -212,22 +218,11 @@ class MakeDFe {
    * @return String
    *   O caminho físico da biblioteca + $file_path.
    */
-  private function get_path_to($file_path = '') {
+  private function get_path_da_biblioteca($file_path = '') {
     $lib_path = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
     return realpath(__DIR__ . $lib_path . $file_path);
   }
 
-
-
-  public function test() {
-
-    echo "<pre>";
-
-    $nome_do_arquivo = 'REGISTROSCTE.txt';
-
-
-  }
-  
   /**
    * Define nova localização física da pasta contendo os DFe(s).
    *
@@ -235,39 +230,54 @@ class MakeDFe {
    *   Caminho físico da pasta pai onde ficam armazenadas as pastas que contém
    *   os arquivos dos DFe.
    */
-  public function set_path_das_pastas_dfe($novo_path) {
-    $this->path_das_pastas_dfe = $novo_path;
+  public function set_output_path($novo_path) {
+    $this->output_path = $novo_path;
   }
 
   /**
    * Envia array com os dados do(s) DFe(s).
    *
-   * @param Array $data_input
+   * @param Array $input_array
    *   Array estruturada com os dados do(s) DFe(s).
    */
-  public function set_dfe_data_input($data_input) {
-    $this->data_input = $data_input;
+  public function set_input_array($input_array) {
+    $this->dados_dfe_array = $input_array;
   }
 
   /**
-   * Envia a localização do arquivo que contém o(s) DFe(s).
+   * Envia o caminho da pasta onde estão o(s) arquivo(s) de entrada de dados.
    *
-   * @param String $nome_do_arquivo
+   * @param String $input_path
+   *   Caminho da pasta.
+   */
+  public function set_input_path($input_path) {
+    $this->input_path = $input_path;
+  }
+
+  /**
+   * Envia o nome do arquivo que contém o(s) DFe(s).
+   *
+   * @param String $input_nome_do_arquivo
    *   Nome do arquivo que contém os dados do(s) DFe(s).
    */
-  public function set_dfe_file_input($nome_do_arquivo) {
-    $this->nome_do_arquivo = $nome_do_arquivo;
+  public function set_input_nome_do_arquivo($input_nome_do_arquivo) {
+    $this->input_nome_do_arquivo = $input_nome_do_arquivo;
 
-    $extensao = explode('.', $nome_do_arquivo);
+    $extensao = explode('.', $input_nome_do_arquivo);
     $extensao = strtolower($extensao[1]);
 
     switch($extensao) {
-      case self::ARQUIVO_INPUT_EXTENSAO_TXT:
-        $this->extensao_do_arquivo_input = self::ARQUIVO_INPUT_EXTENSAO_TXT;
+      case self::EXTENSAO_TXT:
+        $this->input_extensao_do_arquivo = self::EXTENSAO_TXT;
       break;
-      case self::ARQUIVO_INPUT_EXTENSAO_XML:
-        $this->extensao_do_arquivo_input = self::ARQUIVO_INPUT_EXTENSAO_XML;
+      case self::EXTENSAO_XML:
+        $this->input_extensao_do_arquivo = self::EXTENSAO_XML;
       break;
     }
+  }
+
+  public function test() {
+    echo "<pre>";
+    $input_nome_do_arquivo = 'REGISTROSCTE.txt';
   }
 }
