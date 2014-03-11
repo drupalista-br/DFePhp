@@ -139,63 +139,6 @@ class MakeDFe {
     
   }
 
-  /**
-   * Lê arquivo TXT e extrai conteúdo.
-   *
-   * @param String $input_nome_do_arquivo
-   *   Nome do arquivo a ser lido.
-   *
-   * @param String $path
-   *   Caminho físico do diretório onde o arquivo está arquivado.
-   */
-  private function arquivo_txt2array() {
-    $output_path = $this->output_path;
-    $input_nome_do_arquivo = $this->input_nome_do_arquivo;
-
-    $handle = fopen($output_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo, "r");
-    if ($handle) {
-      $txt = array();
-      $primeiro_loop = TRUE;
-      $segundo_loop = TRUE;
-      $qtde_dfe = 0;
-      $dfe_seq = 0;
-      
-      while (($linha = fgets($handle)) !== false) {
-        $linha_explode = explode('|', $linha);
-        
-        if($primeiro_loop) {
-          $qtde_dfe = $linha_explode[1];
-
-          $txt['config'] = array(
-            'qtde_dfe' => $linha_explode[1],
-            'tag_1a_linha' => $linha_explode[0],
-          );
-          $primeiro_loop = FALSE;
-        }
-        else {
-          if ($segundo_loop) {
-            $tag_inicial = trim($linha_explode[0]);
-
-            $segundo_loop = FALSE;
-          }
-
-          $tag_da_linha_atual = trim($linha_explode[0]);
-
-          if ($tag_da_linha_atual == $tag_inicial) {
-            // Inicia um novo DFe.
-            $dfe_seq += 1;
-            // Reinicia a numeração das linhas do DFe.
-            $num_linha = 1;
-          }
-
-          $txt["dfe_$dfe_seq"]["linha_$num_linha"] = $linha_explode;
-          $num_linha += 1;
-        }
-      }
-    }
-    $this->dados_dfe_txt = $txt;
-  }
-
   private function transforma_txt2xml() {
     
   }
@@ -276,8 +219,77 @@ class MakeDFe {
     }
   }
 
+  /**
+   * Lê e carrega os dados do DFe armazenado em arquivo TXT ou XML.
+   */
+  private function carrega_dados_do_arquivo() {
+    $input_extensao_do_arquivo = $this->input_extensao_do_arquivo;
+    $input_path = $this->input_path;
+    $input_nome_do_arquivo = $this->input_nome_do_arquivo;
+    $conteudo_do_arquivo = fopen($input_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo, "r");
+
+    switch($input_extensao_do_arquivo) {
+      case self::EXTENSAO_TXT:
+        $this->dados_dfe_txt = $conteudo_do_arquivo;
+      break;
+      case self::EXTENSAO_XML:
+        $this->dados_dfe_xml = $conteudo_do_arquivo;
+      break;
+    }
+  }
+
+  /**
+   * Converte dados TXT para Array Estruturada.
+   */
+  public function converte_txt2array() {
+    $this->carrega_dados_do_arquivo();
+    $conteudo_do_arquivo = $this->dados_dfe_txt;
+
+    if ($conteudo_do_arquivo) {
+      $txt = array();
+      $primeiro_loop = TRUE;
+      $segundo_loop = TRUE;
+      $qtde_dfe = 0;
+      $dfe_seq = 0;
+      
+      while (($linha = fgets($conteudo_do_arquivo)) !== false) {
+        $linha_explode = explode('|', $linha);
+        
+        if($primeiro_loop) {
+          $qtde_dfe = $linha_explode[1];
+
+          $txt['config'] = array(
+            'qtde_dfe' => $linha_explode[1],
+            'tag_1a_linha' => $linha_explode[0],
+          );
+          $primeiro_loop = FALSE;
+        }
+        else {
+          if ($segundo_loop) {
+            $tag_inicial = trim($linha_explode[0]);
+
+            $segundo_loop = FALSE;
+          }
+
+          $tag_da_linha_atual = trim($linha_explode[0]);
+
+          if ($tag_da_linha_atual == $tag_inicial) {
+            // Inicia um novo DFe.
+            $dfe_seq += 1;
+            // Reinicia a numeração das linhas do DFe.
+            $num_linha = 1;
+          }
+
+          $txt["dfe_$dfe_seq"]["linha_$num_linha"] = $linha_explode;
+          $num_linha += 1;
+        }
+      }
+    }
+    $this->dados_dfe_txt = $txt;
+  }
+
   public function test() {
     echo "<pre>";
-    $input_nome_do_arquivo = 'REGISTROSCTE.txt';
+    //print_r($this->dados_dfe_txt);
   }
 }

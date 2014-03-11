@@ -11,4 +11,7 @@ $test->set_input_nome_do_arquivo('NOTAFISCAL2.txt');
 
 echo '<pre>';
 
+$test->converte_txt2array();
+
 print_r($test);
+//$test->test();
