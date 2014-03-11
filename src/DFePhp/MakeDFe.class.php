@@ -15,19 +15,49 @@ namespace DFePhp;
 class MakeDFe {
 
   /**
-   * Tipo da entrada de dados. Arquivo TXT ou XML.
+   * Tipo da entrada de dados. Arquivo XML.
    */
-  const TIPO_INPUT_ARQUIVO = 1;
+  const ARQUIVO_INPUT_EXTENSAO_XML = 1;
 
   /**
-   * Tipo da entrada de dados. Array estruturada.
+   * Tipo da entrada de dados. Arquivo TXT.
    */
-  const TIPO_INPUT_ARRAY = 2;
+  const ARQUIVO_INPUT_EXTENSAO_TXT = 2;
+
+  /**
+   * Pasta para armazenar os arquivos TXT dos DFe.
+   */
+  const PASTA_TXTS = 'txts';
+
+  /**
+   * Pasta para armazenar os arquivos XMLs sem assinaturas.
+   */
+  const PASTA_1_XML_NAO_ASSINADOS = '1_xml_sem_assinaturas';
+
+  /**
+   * Pasta para armazenar os arquivos XMLs somente assinados.
+   */
+  const PASTA_2_XML_ASSINADOS = '2_xml_assinados';
+
+  /**
+   * Pasta para armazenar os arquivos XMLs Autorizados.
+   */
+  const PASTA_3_XML_AUTORIZADOS = '3_xml_autorizados';
+
+  /**
+   * Pasta para armazenar os arquivos XMLs NÃO Autorizados.
+   */
+  const PASTA_4_XML_NAO_AUTORIZADOS = '4_xml_nao_autorizados';
+
+  /**
+   * Pasta para armazenar os arquivos XMLs Cancelados.
+   */
+  const PASTA_5_XML_CANCELADOS = '5_xml_cancelados';
 
   /**
    * Tipo de entrada de dados. 
    */
-  private $tipo_de_input;
+  private $extensao_do_arquivo_input;
 
   /**
    * Layout do DFe a ser gerado. 
@@ -52,7 +82,7 @@ class MakeDFe {
   /**
    * Caminho físico da biblioteca.
    */
-  private $path_dos_arquivos_dfe;
+  private $path_das_pastas_dfe;
 
   /**
    * Nome do arquivo que contém/conterá o DFe.
@@ -64,16 +94,8 @@ class MakeDFe {
    * 
    * @param String $versao_do_layout
    *   Versão do Layout para gerar o DFe.
-   *
-   * @param Array/String $input_data
-   *   Opcional:
-   *   String | Nome do arquivo que contém a DFe.
-   *   Array | Os dados da DFe.
-   *
-   * @param String $path_dos_arquivos_dfe
-   *   Opcional: O caminho físico da pasta onde os arquivos DFe estão/serão armazenados.
    */
-  public function __construct($versao_do_layout = '', $input_data = '', $path_dos_arquivos_dfe = '') {
+  public function __construct($versao_do_layout = '') {
     try {
       $exception_error_message = FALSE;
 
@@ -99,39 +121,8 @@ class MakeDFe {
       echo $e->getMessage();
     }
 
-    $this->input_datainput_data($input_data, $path_dos_arquivos_dfe);
-  }
-
-  /**
-   *
-   */
-  private function set_input_data($input_data = '') {
-    
-    if (!empty($input_data)) {
-      $this->input_data = $input_data;
-    }
-
-    if (is_string($this->input_data)) {
-      $this->nome_do_arquivo = $input_data;
-      $this->tipo_de_input = self::TIPO_INPUT_ARQUIVO;
-    }
-    else {
-      $this->array_do_dfe = $input_data;
-      $this->tipo_de_input = self::TIPO_INPUT_ARRAY;
-    }
-
-  }
-
-  /**
-   *
-   */
-  private function set_path_dos_arquivos_dfe($path_dos_arquivos_dfe = '') {
-    // Define o Path padrão.
-    $this->path_dos_arquivos_dfe = $this->get_path_to('arquivosDfe' . DIRECTORY_SEPARATOR . 'txts');
-
-    if (!empty($path_dos_arquivos_dfe)) {
-      $this->path_dos_arquivos_dfe = $path_dos_arquivos_dfe;
-    }
+    // Define o Path padrão onde os arquivos DFe ficarão armazenados.
+    $this->path_das_pastas_dfe = $this->get_path_to('arquivosDfe');
   }
 
   private function transforma_array2xml() {
@@ -152,10 +143,10 @@ class MakeDFe {
    *   Caminho físico do diretório onde o arquivo está arquivado.
    */
   private function transforma_txt2array() {
-    $path_dos_arquivos_dfe = $this->path_dos_arquivos_dfe;
+    $path_das_pastas_dfe = $this->path_das_pastas_dfe;
     $nome_do_arquivo = $this->nome_do_arquivo;
 
-    $handle = fopen($path_dos_arquivos_dfe . DIRECTORY_SEPARATOR . $nome_do_arquivo, "r");
+    $handle = fopen($path_das_pastas_dfe . DIRECTORY_SEPARATOR . $nome_do_arquivo, "r");
     if ($handle) {
       $txt = array();
       $primeiro_loop = TRUE;
@@ -226,36 +217,6 @@ class MakeDFe {
     return realpath(__DIR__ . $lib_path . $file_path);
   }
 
-  /**
-   *
-   *
-   *
-   * @param String $tipo_do_input
-   *   array: A entrada de dados é uma array, assim será gerado o XML e o TXT.
-   *   arquivo: A entrada de dados é um arquivo ( TXT ou XML ).
-   */
-  public function entrada_de_dados($input_data, $path_dos_arquivos_dfe = '') {
-
-    switch($this->tipo_de_input) {
-      case self::TIPO_INPUT_ARQUIVO:
-        $extensao = explode('.', $input_data);
-        $extensao = strtolower($extensao[1]);
-  
-        switch($extensao) {
-          case 'txt':
-            $this->transforma_txt2array();
-          break;
-          case 'xml':
-            $this->transforma_txt2xml();
-          break;
-        }
-      break;
-      case self::TIPO_INPUT_ARRAY:
-        
-      break;
-    }
-  }
-
 
 
   public function test() {
@@ -264,11 +225,49 @@ class MakeDFe {
 
     $nome_do_arquivo = 'REGISTROSCTE.txt';
 
-    $this->transforma_txt2array($nome_do_arquivo);
 
-    print_r($this->txt_do_dfe);
+  }
+  
+  /**
+   * Define nova localização física da pasta contendo os DFe(s).
+   *
+   * @param String $novo_path
+   *   Caminho físico da pasta pai onde ficam armazenadas as pastas que contém
+   *   os arquivos dos DFe.
+   */
+  public function set_path_das_pastas_dfe($novo_path) {
+    $this->path_das_pastas_dfe = $novo_path;
+  }
 
+  /**
+   * Envia array com os dados do(s) DFe(s).
+   *
+   * @param Array $data_input
+   *   Array estruturada com os dados do(s) DFe(s).
+   */
+  public function set_dfe_data_input($data_input) {
+    $this->data_input = $data_input;
+  }
 
-    return $this->layout_do_dfe;
+  /**
+   * Envia a localização do arquivo que contém o(s) DFe(s).
+   *
+   * @param String $nome_do_arquivo
+   *   Nome do arquivo que contém os dados do(s) DFe(s).
+   */
+  public function set_dfe_file_input($nome_do_arquivo) {
+    $this->nome_do_arquivo = $nome_do_arquivo;
+
+    $extensao = explode('.', $nome_do_arquivo);
+    $extensao = strtolower($extensao[1]);
+
+    switch($extensao) {
+      case self::ARQUIVO_INPUT_EXTENSAO_TXT:
+        $this->extensao_do_arquivo_input = self::ARQUIVO_INPUT_EXTENSAO_TXT;
+      break;
+      case self::ARQUIVO_INPUT_EXTENSAO_XML:
+        $this->extensao_do_arquivo_input = self::ARQUIVO_INPUT_EXTENSAO_XML;
+      break;
+    }
   }
 }

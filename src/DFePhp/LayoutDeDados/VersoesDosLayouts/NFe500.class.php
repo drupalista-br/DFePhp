@@ -21,6 +21,13 @@ class NFe500 extends LayoutDeDados {
         'homologacao' => array(),
         'producao' => array(),
       ),
+      'dados_do_dfe' => array(
+        'nome' => 'NFe',
+        'txt' => array(
+          'gera_txt' => TRUE,
+          'tag_cabecalho_1a_linha_txt' => 'NOTAFISCAL',
+        ),
+      ),
       // A partir da página 148.
       'layout_do_dfe' => array(
         array(
