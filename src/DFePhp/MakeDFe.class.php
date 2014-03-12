@@ -131,26 +131,6 @@ class MakeDFe {
     $this->output_path = $this->get_path_da_biblioteca('arquivosDfe');
   }
 
-  private function transforma_array2xml() {
-    
-  }
-
-  private function transforma_array2txt() {
-    
-  }
-
-  private function transforma_txt2xml() {
-    
-  }
-
-  private function transforma_xml2array() {
-    
-  }
-
-  private function transforma_xml2txt() {
-    
-  }
-
   /**
    * Constroi o caminho físico onde a biblioteca está instalada.
    *
@@ -238,8 +218,20 @@ class MakeDFe {
     }
   }
 
+  public function converte_array2xml() {
+    
+  }
+
+  public function converte_array2txt() {
+    
+  }
+
+  public function converte_txt2xml() {
+    
+  }
+
   /**
-   * Converte dados TXT para Array Estruturada.
+   * Converte dados do DFe em TXT para Array.
    */
   public function converte_txt2array() {
     $this->carrega_dados_do_arquivo();
@@ -286,6 +278,14 @@ class MakeDFe {
       }
     }
     $this->dados_dfe_txt = $txt;
+  }
+
+  public function converte_xml2array() {
+    
+  }
+
+  public function converte_xml2txt() {
+    
   }
 
   public function test() {
