@@ -49,7 +49,7 @@ class NFe500 extends LayoutDeDados {
             ),
           ),
           'tag_xml_parentes' => FALSE,
-          'tag_xml_da_linha_txt' => FALSE,
+          'tags_xml_da_linha_txt' => FALSE,
         ),
         array(
           // Linha 1.
@@ -84,7 +84,7 @@ class NFe500 extends LayoutDeDados {
             ),
           ),
           'tag_xml_parentes' => array('NFe'),
-          'tag_xml_da_linha_txt' => FALSE,
+          'tags_xml_da_linha_txt' => FALSE,
         ),
         // Linha 5.
         array(
@@ -95,7 +95,7 @@ class NFe500 extends LayoutDeDados {
           'valor' => FALSE,
           'atributos' => FALSE,
           'tag_xml_parentes' => array('NFe', 'infNFe'),
-          'tag_xml_da_linha_txt' => array(
+          'tags_xml_da_linha_txt' => array(
             // Linha 6.
             'cUF' => array(
               'descricao_do_manual' => 'Código da UF do emitente do Documento Fiscal. Utilizar a ' .
@@ -191,6 +191,7 @@ class NFe500 extends LayoutDeDados {
               'atributos' => FALSE,
               'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
+            // Linha 10.
             'mod' => array(
               'descricao_do_manual' => 'Utilizar o código 55 para identificação da NF-e, emitida ' .
                                         'em substituição ao modelo 1 ou 1A.',
@@ -207,6 +208,7 @@ class NFe500 extends LayoutDeDados {
               'atributos' => FALSE,
               'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
+            // Linha 11.
             'serie' => array(
               'descricao_do_manual' => 'Série do Documento Fiscal, preencher com zeros na hipótese ' .
                                         'de a NF-e não possuir série. (v2.0) Série 890-899 de uso exclusivo ' .
@@ -226,6 +228,7 @@ class NFe500 extends LayoutDeDados {
               'atributos' => FALSE,
               'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
+            // Linha 12.
             'nNF' => array(
               'descricao_do_manual' => 'Número do Documento Fiscal.',
               'ocorrencia' => '1-1',
@@ -241,6 +244,7 @@ class NFe500 extends LayoutDeDados {
               'atributos' => FALSE,
               'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
+            // Linha 13.
             'dEmi' => array(
               'descricao_do_manual' => 'Data de emissão do Documento Fiscal',
               'ocorrencia' => '1-1',
@@ -256,6 +260,7 @@ class NFe500 extends LayoutDeDados {
               'atributos' => FALSE,
               'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
+            // Linha 14.
             'dSaiEnt' => array(
               'descricao_do_manual' => 'Data de Saída ou da Entrada da Mercadoria/Produto',
               'ocorrencia' => '0-1',
@@ -271,6 +276,7 @@ class NFe500 extends LayoutDeDados {
               'atributos' => FALSE,
               'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
+            // Linha 14a.
             'hSaiEnt' => array(
               'descricao_do_manual' => 'Hora de Saída ou da Entrada da Mercadoria/Produto',
               'ocorrencia' => '0-1',
@@ -286,6 +292,7 @@ class NFe500 extends LayoutDeDados {
               'atributos' => FALSE,
               'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
+            // Linha 15.
             'tpNF' => array(
               'descricao_do_manual' => 'Tipo de Operação',
               'ocorrencia' => '1-1',
@@ -312,6 +319,7 @@ class NFe500 extends LayoutDeDados {
               'atributos' => FALSE,
               'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
+            // Linha 16.
             'cMunFG' => array(
               'descricao_do_manual' => 'Informar o município de ocorrência do fato gerador do ICMS. ' .
                                         'Utilizar a Tabela do IBGE (Anexo IX - Tabela de UF, Município ' .
@@ -341,6 +349,7 @@ class NFe500 extends LayoutDeDados {
           ),
         ),
         array(
+          // Linha 16a.
           'tag_txt_cabecalho' => 'B13',
           'descricao_do_manual' => 'Grupo com as informações das NF/NF-e /NF de produtor/ Cupom Fiscal ' .
                                     'referenciadas. Esta informação será utilizada nas hipóteses ' .
@@ -351,7 +360,8 @@ class NFe500 extends LayoutDeDados {
           'valor' => FALSE,
           'atributos' => FALSE,
           'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
-          'tag_xml_da_linha_txt' => array(
+          'tags_xml_da_linha_txt' => array(
+            // Linha 17.
             'refNFe' => array(
               'descricao_do_manual' => 'Utilizar esta TAG para referenciar uma Nota Fiscal Eletrônica emitida ' .
                                         'anteriormente, vinculada a NF-e atual.',
@@ -379,7 +389,7 @@ class NFe500 extends LayoutDeDados {
           'valor' => FALSE,
           'atributos' => FALSE,
           'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref'),
-          'tag_xml_da_linha_txt' => array(
+          'tags_xml_da_linha_txt' => array(
             // Linha 19.
             'cUF' => array(
               'descricao_do_manual' => 'Utilizar a Tabela do IBGE (Anexo IX - Tabela de UF, Município e País)',
@@ -412,9 +422,176 @@ class NFe500 extends LayoutDeDados {
               'atributos' => FALSE,
               'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
             ),
-            // 
+            // Linha 21.
+            'CNPJ' => array(
+              'descricao_do_manual' => 'Informar o CNPJ do emitente da NF',
+              'ocorrencia' => '1-1',
+              'valor' => array(
+                'valor_padrao' => '',
+                'requerido' => TRUE,
+                'tipo' => 'C',
+                'tamanho' => '14',
+                'casas_decimais' => FALSE,
+                'metodos_antes' => FALSE,
+                'metodos_depois' => FALSE,
+              ),
+              'atributos' => FALSE,
+              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
+            ),
+            // Linha 22.
+            'mod' => array(
+              'descricao_do_manual' => 'Informar o código do modelo do Documento fiscal: 01 – modelo 01',
+              'ocorrencia' => '1-1',
+              'valor' => array(
+                'valor_padrao' => '',
+                'requerido' => TRUE,
+                'tipo' => 'N',
+                'tamanho' => '2',
+                'casas_decimais' => FALSE,
+                'metodos_antes' => FALSE,
+                'metodos_depois' => FALSE,
+              ),
+              'atributos' => FALSE,
+              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
+            ),
+            // Linha 23.
+            'serie' => array(
+              'descricao_do_manual' => 'Informar a série do documento fiscal (informar zero se inexistente).',
+              'ocorrencia' => '1-1',
+              'valor' => array(
+                'valor_padrao' => '',
+                'requerido' => TRUE,
+                'tipo' => 'N',
+                'tamanho' => '1-3',
+                'casas_decimais' => FALSE,
+                'metodos_antes' => FALSE,
+                'metodos_depois' => FALSE,
+              ),
+              'atributos' => FALSE,
+              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
+            ),
+            // Linha 24.
+            'nNF' => array(
+              'descricao_do_manual' => 'Número do Documento Fiscal',
+              'ocorrencia' => '1-1',
+              'valor' => array(
+                'valor_padrao' => '',
+                'requerido' => TRUE,
+                'tipo' => 'N',
+                'tamanho' => '1-9',
+                'casas_decimais' => FALSE,
+                'metodos_antes' => FALSE,
+                'metodos_depois' => FALSE,
+              ),
+              'atributos' => FALSE,
+              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
+            ),
           ),
         ),
+        array(
+          // Linha 24a.
+          'tag_txt_cabecalho' => 'B20a',
+          'descricao_do_manual' => 'Grupo de informações da NF de produtor rural referenciada',
+          'ocorrencia' => '1-1',
+          'tag_xml' => 'refNFP',
+          'valor' => FALSE,
+          'atributos' => FALSE,
+          'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref'),
+          'tags_xml_da_linha_txt' => array(
+            // Linha 24b.
+            'cUF' => array(
+              'descricao_do_manual' => 'Código da UF do emitente do Documento Fiscal. Utilizar' .
+                                        'a Tabela do IBGE (Anexo IX - Tabela de UF, Município e País)' .
+                                        '(v2.0)',
+              'ocorrencia' => '1-1',
+              'valor' => array(
+                'valor_padrao' => '',
+                'requerido' => FALSE,
+                'tipo' => 'N',
+                'tamanho' => '2',
+                'casas_decimais' => FALSE,
+                'metodos_antes' => FALSE,
+                'metodos_depois' => FALSE,
+              ),
+              'atributos' => FALSE,
+              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
+            ),
+            // Linha 24b.
+            'cUF' => array(
+              'descricao_do_manual' => 'Código da UF do emitente do Documento Fiscal. Utilizar' .
+                                        'a Tabela do IBGE (Anexo IX - Tabela de UF, Município e País)' .
+                                        '(v2.0)',
+              'ocorrencia' => '1-1',
+              'valor' => array(
+                'valor_padrao' => '',
+                'requerido' => FALSE,
+                'tipo' => 'N',
+                'tamanho' => '2',
+                'casas_decimais' => FALSE,
+                'metodos_antes' => FALSE,
+                'metodos_depois' => FALSE,
+              ),
+              'atributos' => FALSE,
+              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
+            ),
+            // Linha 24c.
+            'AAMM' => array(
+              'descricao_do_manual' => 'AAMM da emissão da NF de produtor (v2.0)',
+              'ocorrencia' => '1-1',
+              'valor' => array(
+                'valor_padrao' => '',
+                'requerido' => FALSE,
+                'tipo' => 'N',
+                'tamanho' => '4',
+                'casas_decimais' => FALSE,
+                'metodos_antes' => FALSE,
+                'metodos_depois' => FALSE,
+              ),
+              'atributos' => FALSE,
+              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
+            ),
+          ),
+        ),
+        array(
+          // Linha 24d.
+          'tag_txt_cabecalho' => 'B20d',
+          'descricao_do_manual' => 'Informar o CNPJ do emitente da NF de produtor (v2.0)',
+          'ocorrencia' => '1-1',
+          'tag_xml' => 'CNPJ',
+          'valor' => array(
+            'valor_padrao' => '',
+            'requerido' => FALSE,
+            'tipo' => 'N',
+            'tamanho' => '14',
+            'casas_decimais' => FALSE,
+            'metodos_antes' => FALSE, // TODO: Requerido caso B20a exista e B20e NÃO exista.
+            'metodos_depois' => FALSE,
+          ),
+          'atributos' => FALSE,
+          'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
+          'tags_xml_da_linha_txt' => FALSE,
+        ),
+        array(
+          // Linha 24e.
+          'tag_txt_cabecalho' => 'B20e',
+          'descricao_do_manual' => 'Informar o CPF do emitente da NF de produtor (v2.0)',
+          'ocorrencia' => '1-1',
+          'tag_xml' => 'CPF',
+          'valor' => array(
+            'valor_padrao' => '',
+            'requerido' => FALSE,
+            'tipo' => 'N',
+            'tamanho' => '11',
+            'casas_decimais' => FALSE,
+            'metodos_antes' => FALSE, // TODO: Requerido caso B20a exista e B20d NÃO exista.
+            'metodos_depois' => FALSE,
+          ),
+          'atributos' => FALSE,
+          'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
+          'tags_xml_da_linha_txt' => FALSE,
+        ),
+
+
       ),
     );
 

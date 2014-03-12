@@ -241,13 +241,16 @@ class MakeDFe {
       $txt = array();
       $primeiro_loop = TRUE;
       $segundo_loop = TRUE;
+      // Quantidade de DFe(s) no arquivo TXT.
       $qtde_dfe = 0;
+      // Contagem sequencial do(s) DFe(s).
       $dfe_seq = 0;
       
       while (($linha = fgets($conteudo_do_arquivo)) !== false) {
         $linha_explode = explode('|', $linha);
         
         if($primeiro_loop) {
+          // Quantidade de DFe(s) no arquivo TXT.
           $qtde_dfe = $linha_explode[1];
 
           $txt['config'] = array(
@@ -258,6 +261,7 @@ class MakeDFe {
         }
         else {
           if ($segundo_loop) {
+            // Define a tag cabeçalho da primeira linha de cada DFe.
             $tag_inicial = trim($linha_explode[0]);
 
             $segundo_loop = FALSE;
