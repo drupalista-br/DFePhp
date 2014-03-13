@@ -58,6 +58,11 @@ class MakeDFe {
   const PASTA_5_XML_CANCELADOS = '5_xml_cancelados';
 
   /**
+   * Nome da classe que gera o Layout do DFe.
+   */
+  private $classe_do_layout;
+
+  /**
    * Layout do DFe a ser gerado. O Layout é definido por uma sub-classe da
    * classe LayoutDeDados.
    */
@@ -109,13 +114,16 @@ class MakeDFe {
     $InvalidArgumentException = new DFeInvalidArgumentException();
     $exception = new MakeDFeExceptions();
 
-    try {
-      $exception_error_message = FALSE;
+    // TODO:
+    // InvalidArgumentException | Verificar se $versao_do_layout está vazio
+    //                            Verificar se $versao_do_layout não é uma string.
+    // Exception | Verificar se a $classe_do_layout existe.
+    $this->classe_do_layout = $classe_do_layout = 'DFePhp\\LayoutDeDados\\VersoesDosLayouts\\' . $versao_do_layout;
 
+    
       if (!empty($versao_do_layout) && is_string($versao_do_layout)) {
-        $class_name = 'DFePhp\\LayoutDeDados\\VersoesDosLayouts\\' . $versao_do_layout;
 
-        if (!class_exists($class_name, TRUE)) {
+        if (!class_exists($classe_do_layout, TRUE)) {
           $exception_error_message = "O Layout $versao_do_layout nao e' valido ou nao e' mais suportado.";
         }
       }
@@ -123,16 +131,10 @@ class MakeDFe {
         $exception_error_message = "Voce nao informou a versao do Layout do DFe ou o informado nao e' uma string.";
       }
 
-      if ($exception_error_message) {
-        throw new \Exception($exception_error_message);
-      }
-      else {
-        $this->layout_do_dfe = $class_name::layout();
-      }
-    }
-    catch (\Exception $e) {
-      echo $e->getMessage();
-    }
+    $this->layout_do_dfe = $classe_do_layout::layout();
+
+    // TODO:
+    // Exception | Verificar se $layout_do_dfe é uma array não vazia.
 
     // Define o Path padrão onde os arquivos DFe ficarão armazenados.
     $this->output_path = $this->get_path_da_biblioteca('arquivosDfe');
@@ -212,6 +214,7 @@ class MakeDFe {
   private function carrega_dados_do_arquivo() {
     // Instancia o Objeto para fazer Exception throws.
     $exception = new MakeDFeExceptions();
+
     // Checa se a propriedade $input_extensao_do_arquivo contém o valor
     // self::EXTENSAO_TXT.
     $exception->is_txt_input_extensao_do_arquivo($this);
@@ -229,9 +232,15 @@ class MakeDFe {
     switch($input_extensao_do_arquivo) {
       case self::EXTENSAO_TXT:
         $this->dados_dfe_txt = $conteudo_do_arquivo;
+
+        // Checa se a propriedade $dados_dfe_txt está vazia.
+        $exception->is_empty_dados_dfe_txt($this);
       break;
       case self::EXTENSAO_XML:
         $this->dados_dfe_xml = $conteudo_do_arquivo;
+
+        // Checa se a propriedade $dados_dfe_xml está vazia.
+        $exception->is_empty_dados_dfe_xml($this);
       break;
     }
   }
@@ -258,9 +267,6 @@ class MakeDFe {
     // Abre o arquivo TXT e salva o conteúdo na propriedade $dados_dfe_txt.
     $this->carrega_dados_do_arquivo();
 
-    // Checa se a propriedade $dados_dfe_txt está vazia.
-    $exception->is_empty_dados_dfe_txt($this);
-
     $conteudo_do_arquivo = $this->dados_dfe_txt;
     if ($conteudo_do_arquivo) {
       $array = array();
@@ -270,10 +276,10 @@ class MakeDFe {
       $qtde_dfe = 0;
       // Contagem sequencial do(s) DFe(s).
       $dfe_seq = 0;
-      
+
       while (($linha = fgets($conteudo_do_arquivo)) !== false) {
         $linha_explode = explode('|', $linha);
-        
+
         if($primeiro_loop) {
           // Quantidade de DFe(s) no arquivo TXT.
           $qtde_dfe = $linha_explode[1];
@@ -307,6 +313,8 @@ class MakeDFe {
       }
     }
     $this->dados_dfe_array = $array;
+
+    // TODO: Checar Exception para dados_dfe_array;
   }
 
   public function converte_xml2array() {
