@@ -1,6 +1,6 @@
 <?php
 /**
- * Constroi a mensagem de error para argumentos inválidos.
+ * Gerencia o throw Exception para a classe MakeDFe.
  *
  * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
  * @version https://github.com/drupalista-br/DFePhp/releases
@@ -9,39 +9,49 @@
 
 namespace DFePhp\Exceptions;
 
+/**
+ * Classe para gerenciar os throw Exceptions da classe MakeDFe.
+ */
 class MakeDFeExceptions extends \Exception {
 
   /**
-   * O objeto $DFe construido pela classe MakeDFe.
+   * Impede que o throw Exception seja feito antes da checagem por Exceptions.
    */
-  private $DFe;
+  public function __construct() {}
 
   /**
-   * Salva o Objeto DFe na propriedade $DFe.
-   * 
-   * @param Object $MakeDFe
-   *   O objeto $DFe construido pela classe MakeDFe.
+   * Faz o throw Exception após a devida checagem tenha sido feita por um dos
+   * métodos públicos desta classe.
+   *
+   * @param String $mensagem
+   *   A mensagem da Exception.
    */
-  public function __construct($DFe) {
-    $this->DFe = $DFe;
+  private function _throw_exception($mensagem) {
+    $mensagem = sprintf('%s | %s', $this->get_trace_caller(), $mensagem);
+    parent::__construct($mensagem);
+    throw $this;
   }
 
   /**
+   * Verifica se a propriedade $dados_dfe_txt está vazia.
    *
+   * @param Objeto $DFe
+   *   O objeto DFe.
    */
-  public function is_empty_dados_dfe_txt() {
-
-    $this->makeDFe_trace();
-    parent::__construct('test');
-    
-    throw $this;
-    if (empty($this->DFe->dados_dfe_txt)) {
-      //parent::__construct();
+  public function is_empty_dados_dfe_txt($DFe) {
+    if (empty($DFe->dados_dfe_txt)) {
+      $this->_throw_exception('A propriedade $dados_dfe_txt esta vazia.');
     }
   }
 
-  private function makeDFe_trace() {
+  /**
+   * Identifica o método que fez a chamada para checar se há Exception.
+   *
+   * @return String
+   *   O nome do método que fez a chamada para fazer o throw Exception.
+   */
+  private function get_trace_caller() {
     $trace = $this->getTrace();
-    print_r($trace);
+    return sprintf('Exception no Metodo %s da classe %s', $trace[0]['function'], $trace[0]['class']);
   }
 }
