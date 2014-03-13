@@ -20,16 +20,13 @@ class DFeInvalidArgumentException extends \InvalidArgumentException {
   private $mensagem;
 
   /**
-   * Isola o construtor da classe \Exception.
+   * Isola o construtor da classe \InvalidArgumentException.
    */
   public function __construct() {}
 
   /**
    * Faz o throw Exception após a devida checagem tenha sido feita por um dos
    * métodos públicos desta classe.
-   *
-   * @param String $mensagem
-   *   A mensagem da Exception.
    */
   private function _throw_exception() {
     parent::__construct($this->mensagem);

@@ -212,10 +212,13 @@ class MakeDFe {
     $exception->is_txt_input_extensao_do_arquivo($this);
 
     $input_extensao_do_arquivo = $this->input_extensao_do_arquivo;
+
+    // Checa se o arquivo em $input_nome_do_arquivo existe.
+
+
     $input_path = $this->input_path;
-
-
     $input_nome_do_arquivo = $this->input_nome_do_arquivo;
+
     $conteudo_do_arquivo = fopen($input_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo, "r");
 
     switch($input_extensao_do_arquivo) {
