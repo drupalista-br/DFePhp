@@ -48,18 +48,18 @@ class NFe500 extends LayoutDeDados {
               'descricao_do_manual' => 'TAG raiz da NF-e',
             ),
           ),
-          'tag_xml_parentes' => FALSE,
-          'tags_xml_da_linha_txt' => FALSE,
+          'tags_xml_parentes' => FALSE,
+          'tags_xml_filhas' => FALSE,
         ),
         array(
-          // Linha 1.
+          // Manual #1.
           'tag_txt_cabecalho' => 'A',
           'descricao_do_manual' => 'Grupo que contém as informações da NF-e',
           'ocorrencia' => '1-1',
           'tag_xml' => 'infNFe',
           'valor' => FALSE,
           'atributos' => array(
-            // Linha 2.
+            // Manual #2.
             'versao' => array(
               'valor_padrao' => '2.00',
               'requerido' => FALSE,
@@ -70,7 +70,7 @@ class NFe500 extends LayoutDeDados {
               'metodos_depois' => FALSE,
               'descricao_do_manual' => 'Versão do leiaute (v2.0)',
             ),
-            // Linha 3.
+            // Manual #3.
             'Id' => array(
               'valor_padrao' => '',
               'requerido' => TRUE,
@@ -83,10 +83,10 @@ class NFe500 extends LayoutDeDados {
                                         'a validação do formato (v2.0).',
             ),
           ),
-          'tag_xml_parentes' => array('NFe'),
-          'tags_xml_da_linha_txt' => FALSE,
+          'tags_xml_parentes' => array('NFe'),
+          'tags_xml_filhas' => FALSE,
         ),
-        // Linha 5.
+        // Manual #5.
         array(
           'tag_txt_cabecalho' => 'B',
           'descricao_do_manual' => 'Grupo das informações de identificação da NF-e',
@@ -94,9 +94,9 @@ class NFe500 extends LayoutDeDados {
           'tag_xml' => 'ide',
           'valor' => FALSE,
           'atributos' => FALSE,
-          'tag_xml_parentes' => array('NFe', 'infNFe'),
-          'tags_xml_da_linha_txt' => array(
-            // Linha 6.
+          'tags_xml_parentes' => array('NFe', 'infNFe'),
+          'tags_xml_filhas' => array(
+            // Manual #6.
             'cUF' => array(
               'descricao_do_manual' => 'Código da UF do emitente do Documento Fiscal. Utilizar a ' .
                                        'Tabela do IBGE de código de unidades da federação (Anexo ' .
@@ -121,9 +121,9 @@ class NFe500 extends LayoutDeDados {
                 ),
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
-            // Linha 7.
+            // Manual #7.
             'cNF' => array(
               'descricao_do_manual' => 'Código numérico que compõe a Chave de Acesso. Número aleatório ' .
                                         'gerado pelo emitente para cada NF-e para evitar acessos indevidos ' .
@@ -139,9 +139,9 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
-            // Linha 8.
+            // Manual #8.
             'NatOp' => array(
               'descricao_do_manual' => 'Informar a natureza da operação de que decorrer a ' .
                                         'saída ou a entrada, tais como: venda, compra, transferência, ' .
@@ -159,9 +159,9 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
-            // Linha 9.
+            // Manual #9.
             'intPag' => array(
               'descricao_do_manual' => 'Indicador da forma de pagamento: ' .
                                         '0 – pagamento à vista; ' .
@@ -189,9 +189,9 @@ class NFe500 extends LayoutDeDados {
                 ),
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
-            // Linha 10.
+            // Manual #10.
             'mod' => array(
               'descricao_do_manual' => 'Utilizar o código 55 para identificação da NF-e, emitida ' .
                                         'em substituição ao modelo 1 ou 1A.',
@@ -206,9 +206,9 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
-            // Linha 11.
+            // Manual #11.
             'serie' => array(
               'descricao_do_manual' => 'Série do Documento Fiscal, preencher com zeros na hipótese ' .
                                         'de a NF-e não possuir série. (v2.0) Série 890-899 de uso exclusivo ' .
@@ -226,9 +226,9 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
-            // Linha 12.
+            // Manual #12.
             'nNF' => array(
               'descricao_do_manual' => 'Número do Documento Fiscal.',
               'ocorrencia' => '1-1',
@@ -242,9 +242,9 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
-            // Linha 13.
+            // Manual #13.
             'dEmi' => array(
               'descricao_do_manual' => 'Data de emissão do Documento Fiscal',
               'ocorrencia' => '1-1',
@@ -258,9 +258,9 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
-            // Linha 14.
+            // Manual #14.
             'dSaiEnt' => array(
               'descricao_do_manual' => 'Data de Saída ou da Entrada da Mercadoria/Produto',
               'ocorrencia' => '0-1',
@@ -274,9 +274,9 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
-            // Linha 14a.
+            // Manual #14a.
             'hSaiEnt' => array(
               'descricao_do_manual' => 'Hora de Saída ou da Entrada da Mercadoria/Produto',
               'ocorrencia' => '0-1',
@@ -290,9 +290,9 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
-            // Linha 15.
+            // Manual #15.
             'tpNF' => array(
               'descricao_do_manual' => 'Tipo de Operação',
               'ocorrencia' => '1-1',
@@ -317,9 +317,9 @@ class NFe500 extends LayoutDeDados {
                 ),
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
-            // Linha 16.
+            // Manual #16.
             'cMunFG' => array(
               'descricao_do_manual' => 'Informar o município de ocorrência do fato gerador do ICMS. ' .
                                         'Utilizar a Tabela do IBGE (Anexo IX - Tabela de UF, Município ' .
@@ -344,12 +344,12 @@ class NFe500 extends LayoutDeDados {
                 ),
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide'),
             ),
           ),
         ),
         array(
-          // Linha 16a.
+          // Manual #16a.
           'tag_txt_cabecalho' => 'B13',
           'descricao_do_manual' => 'Grupo com as informações das NF/NF-e /NF de produtor/ Cupom Fiscal ' .
                                     'referenciadas. Esta informação será utilizada nas hipóteses ' .
@@ -359,9 +359,9 @@ class NFe500 extends LayoutDeDados {
           'tag_xml' => 'NFref', // B12a
           'valor' => FALSE,
           'atributos' => FALSE,
-          'tag_xml_parentes' => array('NFe', 'infNFe', 'ide'),
-          'tags_xml_da_linha_txt' => array(
-            // Linha 17.
+          'tags_xml_parentes' => array('NFe', 'infNFe', 'ide'),
+          'tags_xml_filhas' => array(
+            // Manual #17.
             'refNFe' => array(
               'descricao_do_manual' => 'Utilizar esta TAG para referenciar uma Nota Fiscal Eletrônica emitida ' .
                                         'anteriormente, vinculada a NF-e atual.',
@@ -376,21 +376,21 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref'),
             ),
           ),
         ),
         array(
-          // Linha 18.
+          // Manual #18.
           'tag_txt_cabecalho' => 'B14',
           'descricao_do_manual' => 'Grupo de informação da NF modelo 1/1A referenciada',
           'ocorrencia' => '1-1',
           'tag_xml' => 'refNF',
           'valor' => FALSE,
           'atributos' => FALSE,
-          'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref'),
-          'tags_xml_da_linha_txt' => array(
-            // Linha 19.
+          'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref'),
+          'tags_xml_filhas' => array(
+            // Manual #19.
             'cUF' => array(
               'descricao_do_manual' => 'Utilizar a Tabela do IBGE (Anexo IX - Tabela de UF, Município e País)',
               'ocorrencia' => '1-1',
@@ -404,9 +404,9 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
             ),
-            // Linha 20.
+            // Manual #20.
             'AAMM' => array(
               'descricao_do_manual' => 'Ano e Mês de emissão da NF-e',
               'ocorrencia' => '1-1',
@@ -420,9 +420,9 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
             ),
-            // Linha 21.
+            // Manual #21.
             'CNPJ' => array(
               'descricao_do_manual' => 'Informar o CNPJ do emitente da NF',
               'ocorrencia' => '1-1',
@@ -436,9 +436,9 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
             ),
-            // Linha 22.
+            // Manual #22.
             'mod' => array(
               'descricao_do_manual' => 'Informar o código do modelo do Documento fiscal: 01 – modelo 01',
               'ocorrencia' => '1-1',
@@ -452,9 +452,9 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
             ),
-            // Linha 23.
+            // Manual #23.
             'serie' => array(
               'descricao_do_manual' => 'Informar a série do documento fiscal (informar zero se inexistente).',
               'ocorrencia' => '1-1',
@@ -468,9 +468,9 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
             ),
-            // Linha 24.
+            // Manual #24.
             'nNF' => array(
               'descricao_do_manual' => 'Número do Documento Fiscal',
               'ocorrencia' => '1-1',
@@ -484,21 +484,21 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNF'),
             ),
           ),
         ),
         array(
-          // Linha 24a.
+          // Manual #24a.
           'tag_txt_cabecalho' => 'B20a',
           'descricao_do_manual' => 'Grupo de informações da NF de produtor rural referenciada',
           'ocorrencia' => '1-1',
           'tag_xml' => 'refNFP',
           'valor' => FALSE,
           'atributos' => FALSE,
-          'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref'),
-          'tags_xml_da_linha_txt' => array(
-            // Linha 24b.
+          'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref'),
+          'tags_xml_filhas' => array(
+            // Manual #24b.
             'cUF' => array(
               'descricao_do_manual' => 'Código da UF do emitente do Documento Fiscal. Utilizar' .
                                         'a Tabela do IBGE (Anexo IX - Tabela de UF, Município e País)' .
@@ -514,27 +514,9 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
             ),
-            // Linha 24b.
-            'cUF' => array(
-              'descricao_do_manual' => 'Código da UF do emitente do Documento Fiscal. Utilizar' .
-                                        'a Tabela do IBGE (Anexo IX - Tabela de UF, Município e País)' .
-                                        '(v2.0)',
-              'ocorrencia' => '1-1',
-              'valor' => array(
-                'valor_padrao' => '',
-                'requerido' => FALSE,
-                'tipo' => 'N',
-                'tamanho' => '2',
-                'casas_decimais' => FALSE,
-                'metodos_antes' => FALSE,
-                'metodos_depois' => FALSE,
-              ),
-              'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
-            ),
-            // Linha 24c.
+            // Manual #24c.
             'AAMM' => array(
               'descricao_do_manual' => 'AAMM da emissão da NF de produtor (v2.0)',
               'ocorrencia' => '1-1',
@@ -548,12 +530,76 @@ class NFe500 extends LayoutDeDados {
                 'metodos_depois' => FALSE,
               ),
               'atributos' => FALSE,
-              'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
+            ),
+            // Manual #24f.
+            'IE' => array(
+              'descricao_do_manual' => 'Informar a IE do emitente da NF de Produtor ou “ISENTO” (v2.0)',
+              'ocorrencia' => '1-1',
+              'valor' => array(
+                'valor_padrao' => '',
+                'requerido' => FALSE,
+                'tipo' => 'C',
+                'tamanho' => '1-14',
+                'casas_decimais' => FALSE,
+                'metodos_antes' => FALSE,
+                'metodos_depois' => FALSE,
+              ),
+              'atributos' => FALSE,
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
+            ),
+            // Manual #24g.
+            'mod' => array(
+              'descricao_do_manual' => 'Informar o código 04 – NF de Produtor ou 01- para NF avulsa (v2.0)',
+              'ocorrencia' => '1-1',
+              'valor' => array(
+                'valor_padrao' => '',
+                'requerido' => FALSE,
+                'tipo' => 'N',
+                'tamanho' => '2',
+                'casas_decimais' => FALSE,
+                'metodos_antes' => FALSE,
+                'metodos_depois' => FALSE,
+              ),
+              'atributos' => FALSE,
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
+            ),
+            // Manual #24h.
+            'serie' => array(
+              'descricao_do_manual' => 'Informar a série do documento fiscal (informar zero se inexistente) (v2.0).',
+              'ocorrencia' => '1-1',
+              'valor' => array(
+                'valor_padrao' => '',
+                'requerido' => FALSE,
+                'tipo' => 'N',
+                'tamanho' => '1-3',
+                'casas_decimais' => FALSE,
+                'metodos_antes' => FALSE,
+                'metodos_depois' => FALSE,
+              ),
+              'atributos' => FALSE,
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
+            ),
+            // Manual #24ha.
+            'nNF' => array(
+              'descricao_do_manual' => 'Número do Documento Fiscal',
+              'ocorrencia' => '1-1',
+              'valor' => array(
+                'valor_padrao' => '',
+                'requerido' => FALSE,
+                'tipo' => 'N',
+                'tamanho' => '1-6',
+                'casas_decimais' => FALSE,
+                'metodos_antes' => FALSE,
+                'metodos_depois' => FALSE,
+              ),
+              'atributos' => FALSE,
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
             ),
           ),
         ),
         array(
-          // Linha 24d.
+          // Manual #24d.
           'tag_txt_cabecalho' => 'B20d',
           'descricao_do_manual' => 'Informar o CNPJ do emitente da NF de produtor (v2.0)',
           'ocorrencia' => '1-1',
@@ -568,11 +614,11 @@ class NFe500 extends LayoutDeDados {
             'metodos_depois' => FALSE,
           ),
           'atributos' => FALSE,
-          'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
-          'tags_xml_da_linha_txt' => FALSE,
+          'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
+          'tags_xml_filhas' => FALSE,
         ),
         array(
-          // Linha 24e.
+          // Manual #24e.
           'tag_txt_cabecalho' => 'B20e',
           'descricao_do_manual' => 'Informar o CPF do emitente da NF de produtor (v2.0)',
           'ocorrencia' => '1-1',
@@ -587,11 +633,79 @@ class NFe500 extends LayoutDeDados {
             'metodos_depois' => FALSE,
           ),
           'atributos' => FALSE,
-          'tag_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
-          'tags_xml_da_linha_txt' => FALSE,
+          'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refNFP'),
+          'tags_xml_filhas' => FALSE,
         ),
-
-
+        array(
+          // Manual #24i.
+          'tag_txt_cabecalho' => 'B20i',
+          'descricao_do_manual' => 'Utilizar esta TAG para referenciar um CT-e emitido anteriormente, ' .
+                                    'vinculada a NF-e atual - (v2.0).',
+          'ocorrencia' => '1-1',
+          'tag_xml' => 'refCTe',
+          'valor' => array(
+            'valor_padrao' => '',
+            'requerido' => FALSE,
+            'tipo' => 'N',
+            'tamanho' => '44',
+            'casas_decimais' => FALSE,
+            'metodos_antes' => FALSE,
+            'metodos_depois' => FALSE,
+          ),
+          'atributos' => FALSE,
+          'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref'),
+          'tags_xml_filhas' => FALSE,
+        ),
+        array(
+          // Manual #24j.
+          'tag_txt_cabecalho' => 'B20j',
+          'descricao_do_manual' => 'Informações do Cupom Fiscal referenciado',
+          'ocorrencia' => '1-1',
+          'tag_xml' => 'refECF',
+          'valor' => FALSE,
+          'atributos' => FALSE,
+          'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref'),
+          'tags_xml_filhas' => array(
+            // Manual #24k.
+            'mod' => array(
+              'descricao_do_manual' => 'Preencher com "2B", quando se tratar de Cupom Fiscal emitido por ' .
+                                        'máquina registradora (não ECF), com "2C", quando se tratar de ' .
+                                        'Cupom Fiscal PDV, ou "2D", quando se tratar de Cupom Fiscal ' .
+                                        '(emitido por ECF) (v2.0).',
+              'ocorrencia' => '1-1',
+              'valor' => array(
+                'valor_padrao' => '',
+                'requerido' => FALSE,
+                'tipo' => 'C',
+                'tamanho' => '2',
+                'casas_decimais' => FALSE,
+                'metodos_antes' => FALSE,
+                'metodos_depois' => FALSE,
+              ),
+              'atributos' => FALSE,
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refECF'),
+            ),
+            // Manual #24l.
+            'nECF' => array(
+              'descricao_do_manual' => 'Preencher com "2B", quando se tratar de Cupom Fiscal emitido por ' .
+                                        'máquina registradora (não ECF), com "2C", quando se tratar de ' .
+                                        'Cupom Fiscal PDV, ou "2D", quando se tratar de Cupom Fiscal ' .
+                                        '(emitido por ECF) (v2.0).',
+              'ocorrencia' => '1-1',
+              'valor' => array(
+                'valor_padrao' => '',
+                'requerido' => FALSE,
+                'tipo' => 'C',
+                'tamanho' => '2',
+                'casas_decimais' => FALSE,
+                'metodos_antes' => FALSE,
+                'metodos_depois' => FALSE,
+              ),
+              'atributos' => FALSE,
+              'tags_xml_parentes' => array('NFe', 'infNFe', 'ide', 'NFref', 'refECF'),
+            ),
+          ),
+        ),
       ),
     );
 

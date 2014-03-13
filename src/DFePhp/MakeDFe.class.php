@@ -9,6 +9,8 @@
 
 namespace DFePhp;
 
+use DFePhp\Exceptions\MakeDFeExceptions;
+
 /**
  * Classe para construir o Documento Fiscal Eletrônico.
  */
@@ -235,10 +237,20 @@ class MakeDFe {
    */
   public function converte_txt2array() {
     $this->carrega_dados_do_arquivo();
+
+    // Throw exceptions.
+    if ($this->input_extensao_do_arquivo != self::EXTENSAO_TXT) {
+      $mensagem = sprintf("%s nao e' um arquivo TXT.", $this->input_nome_do_arquivo);
+      throw new MakeDFeExceptions($this, 'empty_dados_dfe_txt');
+      
+      //throw new \Exception($mensagem);
+    }
+
+    
     $conteudo_do_arquivo = $this->dados_dfe_txt;
 
     if ($conteudo_do_arquivo) {
-      $txt = array();
+      $array = array();
       $primeiro_loop = TRUE;
       $segundo_loop = TRUE;
       // Quantidade de DFe(s) no arquivo TXT.
@@ -253,7 +265,7 @@ class MakeDFe {
           // Quantidade de DFe(s) no arquivo TXT.
           $qtde_dfe = $linha_explode[1];
 
-          $txt['config'] = array(
+          $array['config'] = array(
             'qtde_dfe' => $linha_explode[1],
             'tag_1a_linha' => $linha_explode[0],
           );
@@ -276,12 +288,12 @@ class MakeDFe {
             $num_linha = 1;
           }
 
-          $txt["dfe_$dfe_seq"]["linha_$num_linha"] = $linha_explode;
+          $array["dfe_$dfe_seq"]["linha_$num_linha"] = $linha_explode;
           $num_linha += 1;
         }
       }
     }
-    $this->dados_dfe_txt = $txt;
+    $this->dados_dfe_array = $array;
   }
 
   public function converte_xml2array() {
