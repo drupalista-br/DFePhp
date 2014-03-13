@@ -22,7 +22,7 @@ class NFe500 extends LayoutDeDados {
         'producao' => array(),
       ),
       'dados_do_dfe' => array(
-        'nome' => 'NFe',
+        'nome' => 'NFe / NFCe',
         'txt' => array(
           'gera_txt' => TRUE,
           'tag_cabecalho_1a_linha_txt' => 'NOTAFISCAL',

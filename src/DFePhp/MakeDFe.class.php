@@ -205,8 +205,16 @@ class MakeDFe {
    * Lê e carrega os dados do DFe armazenado em arquivo TXT ou XML.
    */
   private function carrega_dados_do_arquivo() {
+    // Instancia o Objeto para fazer Exception throws.
+    $exception = new MakeDFeExceptions();
+    // Checa se a propriedade $input_extensao_do_arquivo contém o valor
+    // self::EXTENSAO_TXT.
+    $exception->is_txt_input_extensao_do_arquivo($this);
+
     $input_extensao_do_arquivo = $this->input_extensao_do_arquivo;
     $input_path = $this->input_path;
+
+
     $input_nome_do_arquivo = $this->input_nome_do_arquivo;
     $conteudo_do_arquivo = fopen($input_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo, "r");
 
@@ -236,16 +244,11 @@ class MakeDFe {
    * Converte dados do DFe em TXT para Array.
    */
   public function converte_txt2array() {
-    // Instancia o Objeto para fazer Exception throws.
-    $exception = new MakeDFeExceptions();
-
     // Abre o arquivo TXT e salva o conteúdo na propriedade $dados_dfe_txt.
     $this->carrega_dados_do_arquivo();
 
-    // Checa se a propriedade $input_extensao_do_arquivo contém o valor
-    // self::EXTENSAO_TXT.
-    $exception->is_txt_input_extensao_do_arquivo($this);
-
+    // Instancia o Objeto para fazer Exception throws.
+    $exception = new MakeDFeExceptions();
     // Checa se a propriedade $dados_dfe_txt está vazia.
     $exception->is_empty_dados_dfe_txt($this);
 

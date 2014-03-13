@@ -53,7 +53,7 @@ class MakeDFeExceptions extends \Exception {
    */
   public function is_txt_input_extensao_do_arquivo($DFe) {
     if ($DFe->get_input_extensao_do_arquivo() != $DFe::EXTENSAO_TXT) {
-      $mensagem = sprintf("%s nao possui extensao TXT.", $DFe->get_input_nome_do_arquivo());
+      $mensagem = sprintf("A extensao do arquivo %s nao e' TXT.", $DFe->get_input_nome_do_arquivo());
       $this->_throw_exception($mensagem);
     }
   }
