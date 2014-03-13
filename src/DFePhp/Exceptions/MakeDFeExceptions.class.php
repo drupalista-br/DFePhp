@@ -12,30 +12,30 @@ namespace DFePhp\Exceptions;
 class MakeDFeExceptions extends \Exception {
 
   /**
-   * O objeto $MakeDFe.
+   * O objeto $DFe construido pela classe MakeDFe.
    */
-  private $MakeDFe;
+  private $DFe;
 
   /**
-   *
+   * Salva o Objeto DFe na propriedade $DFe.
+   * 
    * @param Object $MakeDFe
-   *   O objeto $MakeDFe.
-   * @param String $method_checker
-   *   O nome do método que deverá ser chamada para verificar se a exceção.
+   *   O objeto $DFe construido pela classe MakeDFe.
    */
-  public function __construct($MakeDFe, $method_checker) {
-    $this->MakeDFe = $MakeDFe;
-    $this->$method_checker();
+  public function __construct($DFe) {
+    $this->DFe = $DFe;
   }
 
   /**
    *
    */
-  private function empty_dados_dfe_txt() {
-    $MakeDFe = $this->MakeDFe;
+  public function is_empty_dados_dfe_txt() {
 
     $this->makeDFe_trace();
-    if (empty($MakeDFe->dados_dfe_txt)) {
+    parent::__construct('test');
+    
+    throw $this;
+    if (empty($this->DFe->dados_dfe_txt)) {
       //parent::__construct();
     }
   }

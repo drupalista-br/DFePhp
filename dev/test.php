@@ -16,10 +16,11 @@ try {
 }
 catch(\Exception $e) {
   echo $e->getMessage();
+  
 }
 
 
-print_r($test);
+//print_r($test);
 //$test->test();
 
 
