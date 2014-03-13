@@ -242,18 +242,14 @@ class MakeDFe {
     // Abre o arquivo TXT e salva o conteúdo na propriedade $dados_dfe_txt.
     $this->carrega_dados_do_arquivo();
 
-    // Throw exceptions.
-    if ($this->input_extensao_do_arquivo != self::EXTENSAO_TXT) {
-      $mensagem = sprintf("%s nao e' um arquivo TXT.", $this->input_nome_do_arquivo);
-      
-      
-      //new MakeDFeExceptions($this, 'empty_dados_dfe_txt');
-      //throw new \Exception($mensagem);
-    }
+    // Checa se a propriedade $input_extensao_do_arquivo contém o valor
+    // self::EXTENSAO_TXT.
+    $exception->is_txt_input_extensao_do_arquivo($this);
 
+    // Checa se a propriedade $dados_dfe_txt está vazia.
     $exception->is_empty_dados_dfe_txt($this);
-    $conteudo_do_arquivo = $this->dados_dfe_txt;
 
+    $conteudo_do_arquivo = $this->dados_dfe_txt;
     if ($conteudo_do_arquivo) {
       $array = array();
       $primeiro_loop = TRUE;
@@ -308,6 +304,21 @@ class MakeDFe {
   public function converte_xml2txt() {
     
   }
+
+  /**
+   * Busca o valor de $input_nome_do_arquivo.
+   */
+  public function get_input_nome_do_arquivo() {
+    return $this->input_nome_do_arquivo;
+  }
+
+  /**
+   * Busca o valor de $input_extensao_do_arquivo.
+   */
+  public function get_input_extensao_do_arquivo() {
+    return $this->input_extensao_do_arquivo;
+  }
+
 
   public function test() {
     echo "<pre>";

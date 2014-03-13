@@ -15,7 +15,7 @@ namespace DFePhp\Exceptions;
 class MakeDFeExceptions extends \Exception {
 
   /**
-   * Impede que o throw Exception seja feito antes da checagem por Exceptions.
+   * Isola o construtor da classe \Exception.
    */
   public function __construct() {}
 
@@ -41,6 +41,20 @@ class MakeDFeExceptions extends \Exception {
   public function is_empty_dados_dfe_txt($DFe) {
     if (empty($DFe->dados_dfe_txt)) {
       $this->_throw_exception('A propriedade $dados_dfe_txt esta vazia.');
+    }
+  }
+
+  /**
+   * Verifica se a propriedade $input_extensao_do_arquivo contém o valor
+   * $DFe::EXTENSAO_TXT.
+   *
+   * @param Objeto $DFe
+   *   O objeto DFe.
+   */
+  public function is_txt_input_extensao_do_arquivo($DFe) {
+    if ($DFe->get_input_extensao_do_arquivo() != $DFe::EXTENSAO_TXT) {
+      $mensagem = sprintf("%s nao possui extensao TXT.", $DFe->get_input_nome_do_arquivo());
+      $this->_throw_exception($mensagem);
     }
   }
 

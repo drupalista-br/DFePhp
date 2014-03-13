@@ -1,6 +1,6 @@
 <?php
 /**
- * Constroi a mensagem de error para argumentos inválidos.
+ * Gerencia o throw Exception para a classe InvalidArgumentException.
  *
  * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
  * @version https://github.com/drupalista-br/DFePhp/releases
