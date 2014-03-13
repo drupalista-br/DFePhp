@@ -193,6 +193,10 @@ class MakeDFe {
    *   Nome do arquivo que contém os dados do(s) DFe(s).
    */
   public function set_input_nome_do_arquivo($input_nome_do_arquivo) {
+    // Instancia os Objetos para fazer Exception throws.
+    $InvalidArgumentException = new DFeInvalidArgumentException();
+    $exception = new MakeDFeExceptions();
+
     $this->input_nome_do_arquivo = $input_nome_do_arquivo;
 
     $extensao = explode('.', $input_nome_do_arquivo);
@@ -206,6 +210,8 @@ class MakeDFe {
         $this->input_extensao_do_arquivo = self::EXTENSAO_XML;
       break;
     }
+    // TODO:
+    // Exception | Verificar se $input_extensao_do_arquivo não está vazio.
   }
 
   /**
