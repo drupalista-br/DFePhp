@@ -10,6 +10,7 @@
 namespace DFePhp;
 
 use DFePhp\Exceptions\MakeDFeExceptions;
+use DFePhp\Exceptions\DFeInvalidArgumentException;
 
 /**
  * Classe para construir o Documento Fiscal Eletrônico.
@@ -104,6 +105,10 @@ class MakeDFe {
    *   Versão do Layout para gerar o DFe.
    */
   public function __construct($versao_do_layout = '') {
+    // Instancia os Objetos para fazer Exception throws.
+    $InvalidArgumentException = new DFeInvalidArgumentException();
+    $exception = new MakeDFeExceptions();
+
     try {
       $exception_error_message = FALSE;
 
@@ -213,8 +218,8 @@ class MakeDFe {
 
     $input_extensao_do_arquivo = $this->input_extensao_do_arquivo;
 
-    // Checa se o arquivo em $input_nome_do_arquivo existe.
-
+    // Checa se o arquivo de entrada de dados existe.
+    $exception->input_arquivo_existe($this);
 
     $input_path = $this->input_path;
     $input_nome_do_arquivo = $this->input_nome_do_arquivo;
@@ -247,11 +252,12 @@ class MakeDFe {
    * Converte dados do DFe em TXT para Array.
    */
   public function converte_txt2array() {
+    // Instancia o Objeto para fazer Exception throws.
+    $exception = new MakeDFeExceptions();
+
     // Abre o arquivo TXT e salva o conteúdo na propriedade $dados_dfe_txt.
     $this->carrega_dados_do_arquivo();
 
-    // Instancia o Objeto para fazer Exception throws.
-    $exception = new MakeDFeExceptions();
     // Checa se a propriedade $dados_dfe_txt está vazia.
     $exception->is_empty_dados_dfe_txt($this);
 
@@ -312,6 +318,13 @@ class MakeDFe {
   }
 
   /**
+   * Busca o valor de $input_path.
+   */
+  public function get_input_path() {
+    return $this->input_path;
+  }
+
+  /**
    * Busca o valor de $input_nome_do_arquivo.
    */
   public function get_input_nome_do_arquivo() {
@@ -323,6 +336,20 @@ class MakeDFe {
    */
   public function get_input_extensao_do_arquivo() {
     return $this->input_extensao_do_arquivo;
+  }
+
+  /**
+   * Busca o valor de $dados_dfe_txt.
+   */
+  public function get_dados_dfe_txt() {
+    return $this->dados_dfe_txt;
+  }
+
+  /**
+   * Busca o valor de $dados_dfe_xml.
+   */
+  public function get_dados_dfe_xml() {
+    return $this->dados_dfe_xml;
   }
 
 

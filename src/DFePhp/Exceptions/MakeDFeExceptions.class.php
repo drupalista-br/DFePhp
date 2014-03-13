@@ -39,8 +39,20 @@ class MakeDFeExceptions extends \Exception {
    *   O objeto DFe.
    */
   public function is_empty_dados_dfe_txt($DFe) {
-    if (empty($DFe->dados_dfe_txt)) {
+    if (!is_resource($DFe->get_dados_dfe_txt())) {
       $this->_throw_exception('A propriedade $dados_dfe_txt esta vazia.');
+    }
+  }
+
+  /**
+   * Verifica se a propriedade $dados_dfe_xml está vazia.
+   *
+   * @param Objeto $DFe
+   *   O objeto DFe.
+   */
+  public function is_empty_dados_dfe_xml($DFe) {
+    if (!is_resource($DFe->get_dados_dfe_xml())) {
+      $this->_throw_exception('A propriedade $dados_dfe_xml esta vazia.');
     }
   }
 
@@ -54,6 +66,22 @@ class MakeDFeExceptions extends \Exception {
   public function is_txt_input_extensao_do_arquivo($DFe) {
     if ($DFe->get_input_extensao_do_arquivo() != $DFe::EXTENSAO_TXT) {
       $mensagem = sprintf("A extensao do arquivo %s nao e' TXT.", $DFe->get_input_nome_do_arquivo());
+      $this->_throw_exception($mensagem);
+    }
+  }
+
+  /**
+   * Verifica se arquivo de entrada de dados existe.
+   *
+   * @param Objeto $DFe
+   *   O objeto DFe.
+   */
+  public function input_arquivo_existe($DFe) {
+    $input_path = $DFe->get_input_path();
+    $input_nome_do_arquivo = $DFe->get_input_nome_do_arquivo();
+
+    if (!file_exists($input_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo)) {
+      $mensagem = sprintf("O arquivo de entrada de dados %s NAO existe na pasta %s.", $input_nome_do_arquivo, $input_path);
       $this->_throw_exception($mensagem);
     }
   }
