@@ -12,10 +12,4 @@ class NFe500Test extends \PHPUnit_Framework_TestCase {
     $this->assertTrue($foo);
   }
 
-  /**
-   * @expectedException InvalidArgumentException
-   * /
-  public function testException() {
-  }*/
-
 }

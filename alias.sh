@@ -7,3 +7,4 @@ alias a="git add . "
 
 c() { git commit -m "$@"; }
 r() { git rm $@;}
+rr() { git rm -r $@;}
