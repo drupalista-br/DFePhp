@@ -109,7 +109,7 @@ class MakeDFe {
    * @param String $versao_do_layout
    *   Versão do Layout para gerar o DFe.
    */
-  public function __construct($versao_do_layout = '') {
+  public function __construct($versao_do_layout = null) {
     // Instancia os Objetos para fazer Exception throws.
     $InvalidArgumentException = new DFeInvalidArgumentException();
     $exception = new MakeDFeExceptions();
