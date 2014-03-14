@@ -39,7 +39,9 @@ class MakeDFeExceptions extends \Exception {
    *   O objeto DFe.
    */
   public function is_empty_dados_dfe_txt($DFe) {
-    if (!is_resource($DFe->get_dados_dfe_txt())) {
+    $dados_dfe_txt = self::get_valor_da_propriedade('dados_dfe_txt', $DFe);
+
+    if (!is_resource($dados_dfe_txt)) {
       $this->_throw_exception('A propriedade $dados_dfe_txt esta vazia.');
     }
   }
@@ -51,7 +53,9 @@ class MakeDFeExceptions extends \Exception {
    *   O objeto DFe.
    */
   public function is_empty_dados_dfe_xml($DFe) {
-    if (!is_resource($DFe->get_dados_dfe_xml())) {
+    $dados_dfe_xml = self::get_valor_da_propriedade('dados_dfe_xml', $DFe);
+
+    if (!is_resource($dados_dfe_xml)) {
       $this->_throw_exception('A propriedade $dados_dfe_xml esta vazia.');
     }
   }
@@ -64,8 +68,11 @@ class MakeDFeExceptions extends \Exception {
    *   O objeto DFe.
    */
   public function is_txt_input_extensao_do_arquivo($DFe) {
-    if ($DFe->get_input_extensao_do_arquivo() != $DFe::EXTENSAO_TXT) {
-      $mensagem = sprintf("A extensao do arquivo %s nao e' TXT.", $DFe->get_input_nome_do_arquivo());
+    $input_extensao_do_arquivo = self::get_valor_da_propriedade('input_extensao_do_arquivo', $DFe);
+    $input_nome_do_arquivo = self::get_valor_da_propriedade('input_nome_do_arquivo', $DFe);
+
+    if ($input_extensao_do_arquivo != $DFe::EXTENSAO_TXT) {
+      $mensagem = sprintf("A extensao do arquivo %s nao e' TXT.", $input_nome_do_arquivo);
       $this->_throw_exception($mensagem);
     }
   }
@@ -77,13 +84,33 @@ class MakeDFeExceptions extends \Exception {
    *   O objeto DFe.
    */
   public function input_arquivo_existe($DFe) {
-    $input_path = $DFe->get_input_path();
-    $input_nome_do_arquivo = $DFe->get_input_nome_do_arquivo();
+    $input_path = self::get_valor_da_propriedade('input_path', $DFe);
+    $input_nome_do_arquivo = self::get_valor_da_propriedade('input_nome_do_arquivo', $DFe);
 
     if (!file_exists($input_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo)) {
-      $mensagem = sprintf("O arquivo de entrada de dados %s NAO existe na pasta %s.", $input_nome_do_arquivo, $input_path);
+      $mensagem = sprintf("O arquivo de entrada de dados %s ou a pasta %s NAO existem.", $input_nome_do_arquivo, $input_path);
       $this->_throw_exception($mensagem);
     }
+  }
+
+  /**
+   * Extrai o valor de qualquer tipo de propriedade ( privada, protegida
+   * e publica ) do objeto $DFe ( class MakeDFe ).
+   *
+   * @param String $nome_da_propriedade
+   *   O nome da propriedade que contém o valor desejado.
+   * @param Object $DFe
+   *   O Objeto DFe.
+   * @return AnyType
+   *   O valor da propriedade em questão.
+   */
+  private function get_valor_da_propriedade($nome_da_propriedade, $DFe) {
+    $reflection = new \ReflectionObject($DFe);
+
+    $propriedade = $reflection->getProperty($nome_da_propriedade);
+    // Caso a propriedade seja protegida ou privada.
+    $propriedade->setAccessible(TRUE);
+    return $propriedade->getValue($DFe);
   }
 
   /**
@@ -96,4 +123,5 @@ class MakeDFeExceptions extends \Exception {
     $trace = $this->getTrace();
     return sprintf('Exception no Metodo %s da classe %s', $trace[0]['function'], $trace[0]['class']);
   }
+ 
 }

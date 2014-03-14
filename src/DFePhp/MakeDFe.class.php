@@ -232,17 +232,15 @@ class MakeDFe {
     $input_path = $this->input_path;
     $input_nome_do_arquivo = $this->input_nome_do_arquivo;
 
-    $conteudo_do_arquivo = fopen($input_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo, "r");
-
     switch($input_extensao_do_arquivo) {
       case self::EXTENSAO_TXT:
-        $this->dados_dfe_txt = $conteudo_do_arquivo;
+        $this->dados_dfe_txt = fopen($input_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo, "r");
 
         // Checa se a propriedade $dados_dfe_txt está vazia.
         $exception->is_empty_dados_dfe_txt($this);
       break;
       case self::EXTENSAO_XML:
-        $this->dados_dfe_xml = $conteudo_do_arquivo;
+        $this->dados_dfe_xml = file_get_contents($input_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo);
 
         // Checa se a propriedade $dados_dfe_xml está vazia.
         $exception->is_empty_dados_dfe_xml($this);
@@ -329,42 +327,6 @@ class MakeDFe {
   public function converte_xml2txt() {
     
   }
-
-  /**
-   * Busca o valor de $input_path.
-   */
-  public function get_input_path() {
-    return $this->input_path;
-  }
-
-  /**
-   * Busca o valor de $input_nome_do_arquivo.
-   */
-  public function get_input_nome_do_arquivo() {
-    return $this->input_nome_do_arquivo;
-  }
-
-  /**
-   * Busca o valor de $input_extensao_do_arquivo.
-   */
-  public function get_input_extensao_do_arquivo() {
-    return $this->input_extensao_do_arquivo;
-  }
-
-  /**
-   * Busca o valor de $dados_dfe_txt.
-   */
-  public function get_dados_dfe_txt() {
-    return $this->dados_dfe_txt;
-  }
-
-  /**
-   * Busca o valor de $dados_dfe_xml.
-   */
-  public function get_dados_dfe_xml() {
-    return $this->dados_dfe_xml;
-  }
-
 
   public function test() {
     echo "<pre>";
