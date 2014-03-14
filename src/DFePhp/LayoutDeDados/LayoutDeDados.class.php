@@ -31,4 +31,19 @@ abstract class LayoutDeDados {
    */
   const CHAMADA_NORMAL = 2;
 
+  /**
+   * Lista todos os campos de dados do DFe.
+   *
+   * @param Bool $xml
+   *   Retorna todos os campos do DFe estruturado em XML.
+   * @param Bool $descricao
+   *   Inclui a descrição do manual de integração para cada campo.
+   * @return Array/Resource
+   *   Quando o parâmetro $xml for falso retorna a
+   *   
+   */
+  public function get_campos_da_dfe($xml = FALSE, $descricao = FALSE) {
+    // TODO.
+  }
+
 }

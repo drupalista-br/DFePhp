@@ -1,5 +1,5 @@
 {
-    "name": "drupalista-br/DFePhp",
+    "name": "drupalista-br/dfephp",
     "type": "library",
     "description": "API para gerar os arquivos TXT e XML dos Documentos Fiscais Eletrônicos e consumir seus Webservices.",
     "keywords": ["nfe","nfephp","cte", "nota fiscal"],
