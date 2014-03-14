@@ -199,8 +199,7 @@ class MakeDFe {
 
     $this->input_nome_do_arquivo = $input_nome_do_arquivo;
 
-    $extensao = explode('.', $input_nome_do_arquivo);
-    $extensao = strtolower($extensao[1]);
+    $extensao = strtolower(pathinfo($input_nome_do_arquivo, PATHINFO_EXTENSION));
 
     switch($extensao) {
       case self::EXTENSAO_TXT:

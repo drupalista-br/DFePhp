@@ -18,7 +18,9 @@ catch(\Exception $e) {
   echo $e->getMessage();
 }
 
-
+$input_nome_do_arquivo = 'test.TXT';
+$file = strtolower(pathinfo($input_nome_do_arquivo, PATHINFO_EXTENSION));
+print_r($file);
 //print_r($test);
 //$test->test();
 
