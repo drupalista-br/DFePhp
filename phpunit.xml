@@ -3,7 +3,7 @@
          bootstrap="autoloader.php">
   <testsuites>
     <testsuite name="Application Test Suite">
-      <directory>./src/DFePhp/Test/</directory>
+      <directory>tests/</directory>
     </testsuite>
   </testsuites>
 </phpunit>
