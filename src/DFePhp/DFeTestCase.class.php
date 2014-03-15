@@ -21,7 +21,6 @@ abstract class DFeTestCase extends \PHPUnit_Framework_TestCase {
       $this->DFe = new MakeDFe($layout);
       $this->ReflectionDFe = new \ReflectionObject($this->DFe);
     }
-    
   }
 
   /**

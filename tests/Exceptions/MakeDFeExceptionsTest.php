@@ -1,16 +1,16 @@
 <?php
 
-namespace DFePhp\Tests;
+namespace DFePhp\Tests\Exceptions;
 
 use DFePhp\DFeTestCase;
-use DFePhp\Exceptions\DFeInvalidArgumentException;
+use DFePhp\Exceptions\MakeDFeExceptions;
 
-class DFeInvalidArgumentExceptionTest extends DFeTestCase {
-
+class MakeDFeExceptionsTest extends DFeTestCase {
   public function setUp() {
     $this->DFe_set_up('NFe500');
-    $this->DFeInvalidArgumentException = new DFeInvalidArgumentException();
+    $this->DFeExceptions = new MakeDFeExceptions();
   }
+
   /**
    * @expectedException Exception
    */

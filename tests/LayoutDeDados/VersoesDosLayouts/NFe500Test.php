@@ -1,5 +1,5 @@
 <?php
-namespace DFePhp\Tests;
+namespace DFePhp\Tests\LayoutDeDados\VersoesDosLayouts;
 
 use DFePhp\DFeTestCase;
 
