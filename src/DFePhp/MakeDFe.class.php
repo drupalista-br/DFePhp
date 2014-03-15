@@ -102,7 +102,7 @@ class MakeDFe {
    * Tipo de entrada de dados. 
    */
   private $input_extensao_do_arquivo;
-
+  
   /**
    * Define a versão do layout da estrutura de dados do DFe.
    * 
@@ -150,7 +150,7 @@ class MakeDFe {
    * @return String
    *   O caminho físico da biblioteca + $file_path.
    */
-  private function get_path_da_biblioteca($file_path = '') {
+  public function get_path_da_biblioteca($file_path = '') {
     $lib_path = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
     return realpath(__DIR__ . $lib_path . $file_path);
   }

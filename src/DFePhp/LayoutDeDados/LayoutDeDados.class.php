@@ -39,10 +39,10 @@ abstract class LayoutDeDados {
    * @param Bool $descricao
    *   Inclui a descrição do manual de integração para cada campo.
    * @return Array/Resource
-   *   Quando o parâmetro $xml for falso retorna a
-   *   
+   *   Todos os campos do DFe estruturados ou em XML ou em uma Array MakeDFe
+   *   válida.
    */
-  public function get_campos_da_dfe($xml = FALSE, $descricao = FALSE) {
+  public function get_campos_do_dfe($xml = FALSE, $descricao = FALSE) {
     // TODO.
   }
 
