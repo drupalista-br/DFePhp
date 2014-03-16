@@ -10,6 +10,7 @@
 namespace DFePhp;
 
 use DFePhp\MakeDFe;
+use DFePhp\Exceptions\MakeDFeExceptions;
 
 /**
  * Classe para customizar o PHPUnit.
@@ -19,7 +20,7 @@ abstract class DFeTestCase extends \PHPUnit_Framework_TestCase {
   public function DFe_set_up($layout = null) {
     if ($layout) {
       $this->DFe = new MakeDFe($layout);
-      $this->ReflectionDFe = new \ReflectionObject($this->DFe);
+      $this->DFeReflection = new \ReflectionObject($this->DFe);
     }
   }
 
@@ -49,17 +50,15 @@ abstract class DFeTestCase extends \PHPUnit_Framework_TestCase {
    *   O nome do método a ser chamado.
    * @param Object $nome_do_objeto
    *   O nome da propriedade onde o objeto reflection foi instanciado.
-   * @param Array $argumentos
-   *   Lista de argumentos a serem enviados na chamada.
-   * /
-  public function reflection_chamar_metodo($nome_do_metodo, $nome_do_objeto, $argumentos = null) {
+   */
+  public function reflection_get_metodo($nome_do_metodo, $nome_do_objeto) {
     $objeto = $this->$nome_do_objeto;
 
     $metodo = $objeto->getMethod($nome_do_metodo);
     // Caso a propriedade seja protegida ou privada.
     $metodo->setAccessible(TRUE);
-    return $propriedade->getValue($obj);
-  }*/
+    return $metodo;
+  }
 
 }
 

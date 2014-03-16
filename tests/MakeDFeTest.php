@@ -9,9 +9,15 @@ class MakeDFeTest extends DFeTestCase {
   }
 
   public function testMetodoGetPathDaBiblioteca(){
+    $path_subpasta = $this->DFe->get_path_da_biblioteca('dev/tests');
+    $biblioteca = $this->DFe->get_path_da_biblioteca();
 
-    $foo = TRUE;
-    $this->assertTrue($foo);
+    // Testa o path + sub pasta.
+    $this->assertFileExists($path_subpasta);
+    // Testa o path somente da biblioteca.
+    $this->assertFileExists($biblioteca . DIRECTORY_SEPARATOR . 'phpunit.xml');
+    // Testa o path + arquivo.
+    $this->assertFileExists($path_subpasta . DIRECTORY_SEPARATOR . 'nfe.txt');
   }
 
 }

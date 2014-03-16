@@ -86,8 +86,14 @@ class MakeDFeExceptions extends \Exception {
   public function input_arquivo_existe($DFe) {
     $input_path = self::get_valor_da_propriedade('input_path', $DFe);
     $input_nome_do_arquivo = self::get_valor_da_propriedade('input_nome_do_arquivo', $DFe);
+    
+    $file_full_location = $input_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo;
 
-    if (!is_readable($input_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo)) {
+    if (empty($input_path) || empty($input_nome_do_arquivo)) {
+      $file_full_location = FALSE;
+    }
+
+    if (!is_readable($file_full_location)) {
       $mensagem = sprintf("O arquivo de entrada de dados %s ou a pasta %s NAO existem.", $input_nome_do_arquivo, $input_path);
       $this->_throw_exception($mensagem);
     }
