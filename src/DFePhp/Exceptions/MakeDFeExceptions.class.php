@@ -55,8 +55,8 @@ class MakeDFeExceptions extends \Exception {
   public function is_empty_dados_dfe_xml($DFe) {
     $dados_dfe_xml = self::get_valor_da_propriedade('dados_dfe_xml', $DFe);
 
-    if (!is_resource($dados_dfe_xml)) {
-      $this->_throw_exception('A propriedade $dados_dfe_xml esta vazia.');
+    if (empty($dados_dfe_xml)) {
+      $this->_throw_exception('A propriedade $dados_dfe_xml está vazia.');
     }
   }
 
@@ -77,7 +77,7 @@ class MakeDFeExceptions extends \Exception {
     }
 
     if (!is_readable($file_full_location)) {
-      $mensagem = sprintf("O arquivo de entrada de dados %s ou a pasta %s NAO existem.", $input_nome_do_arquivo, $input_path);
+      $mensagem = sprintf("O arquivo de entrada de dados %s ou a pasta %s NÃO existem.", $input_nome_do_arquivo, $input_path);
       $this->_throw_exception($mensagem);
     }
   }
@@ -110,7 +110,7 @@ class MakeDFeExceptions extends \Exception {
    */
   private function get_trace_caller() {
     $trace = $this->getTrace();
-    return sprintf('Exception no Metodo %s da classe %s', $trace[0]['function'], $trace[0]['class']);
+    return sprintf('Exception no Método %s da classe %s', $trace[0]['function'], $trace[0]['class']);
   }
  
 }

@@ -216,7 +216,7 @@ class MakeDFe {
   /**
    * Lê e carrega os dados do DFe armazenado em arquivo TXT ou XML.
    */
-  private function carrega_dados_do_arquivo() {
+  public function carrega_dados_do_arquivo() {
     // Instancia o Objeto para fazer Exception throws.
     $exception = new MakeDFeExceptions();
 

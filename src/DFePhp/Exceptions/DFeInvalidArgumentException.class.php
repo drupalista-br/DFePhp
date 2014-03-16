@@ -57,7 +57,7 @@ class DFeInvalidArgumentException extends \InvalidArgumentException {
     }
 
     $trace = $this->getTrace();
-    $this->mensagem = sprintf('Exception no Metodo %s da classe %s | %s deveria ser um(a) %s e NAO um(a) %s - Valor enviado: %s',
+    $this->mensagem = sprintf('Exception no Método %s da classe %s | %s deveria ser um(a) %s e NÃO um(a) %s - Valor enviado: %s',
       $trace[0]['function'],
       $trace[0]['class'],
       $nome_do_parametro,

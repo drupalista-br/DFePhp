@@ -17,7 +17,7 @@ class MakeDFeTest extends DFeTestCase {
     // Testa o path somente da biblioteca.
     $this->assertFileExists($biblioteca . DIRECTORY_SEPARATOR . 'phpunit.xml');
     // Testa o path + arquivo.
-    $this->assertFileExists($path_subpasta . DIRECTORY_SEPARATOR . 'nfe.txt');
+    $this->assertFileExists($path_subpasta . DIRECTORY_SEPARATOR . 'dfe.txt');
   }
 
 }

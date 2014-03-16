@@ -1,7 +1,7 @@
 {
     "name": "drupalista-br/dfephp",
     "type": "library",
-    "description": "API para gerar os arquivos TXT e XML dos Documentos Fiscais Eletrônicos ( NFe, NFCe, NFSe, CTe, etc ) e consumir seus Webservices.",
+    "description": "API em Php para gerar os arquivos TXT e XML dos Documentos Fiscais Eletrônicos ( NFe, NFCe, NFSe, CTe, etc ) e consumir os Webservices das SEFAZ e Prefeituras.",
     "keywords": ["nfe", "nfce", "nfse", "nfephp","cte", "nota fiscal"],
     "homepage": "https://github.com/drupalista-br/DFePhp",
     "license": ["GPL 3", "LGPL 3"],
