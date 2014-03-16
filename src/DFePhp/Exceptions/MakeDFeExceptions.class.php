@@ -61,23 +61,6 @@ class MakeDFeExceptions extends \Exception {
   }
 
   /**
-   * Verifica se a propriedade $input_extensao_do_arquivo contém o valor
-   * $DFe::EXTENSAO_TXT.
-   *
-   * @param Objeto $DFe
-   *   O objeto DFe.
-   */
-  public function is_txt_input_extensao_do_arquivo($DFe) {
-    $input_extensao_do_arquivo = self::get_valor_da_propriedade('input_extensao_do_arquivo', $DFe);
-    $input_nome_do_arquivo = self::get_valor_da_propriedade('input_nome_do_arquivo', $DFe);
-
-    if ($input_extensao_do_arquivo != $DFe::EXTENSAO_TXT) {
-      $mensagem = sprintf("A extensao do arquivo %s nao e' TXT.", $input_nome_do_arquivo);
-      $this->_throw_exception($mensagem);
-    }
-  }
-
-  /**
    * Verifica se arquivo de entrada de dados existe.
    *
    * @param Objeto $DFe

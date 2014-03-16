@@ -6,8 +6,8 @@ use DFePhp\MakeDFe;
 
 $test = new MakeDFe('NFe500');
 
-$test->set_input_path('/var/www/sites/saturnopecas.com.br/libraries/DFePhp/arquivosDfe/txts');
-$test->set_input_nome_do_arquivo('NOTAFISCAL23.txt');
+$test->set_input_path('/opt/lampp/htdocs/sites/saturnopecas.com.br/libraries/DFePhp/dev/tests');
+$test->set_input_nome_do_arquivo('nfe.xml');
 
 echo '<pre>';
 

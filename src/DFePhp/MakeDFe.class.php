@@ -220,10 +220,6 @@ class MakeDFe {
     // Instancia o Objeto para fazer Exception throws.
     $exception = new MakeDFeExceptions();
 
-    // Checa se a propriedade $input_extensao_do_arquivo contém o valor
-    // self::EXTENSAO_TXT.
-    $exception->is_txt_input_extensao_do_arquivo($this);
-
     $input_extensao_do_arquivo = $this->input_extensao_do_arquivo;
 
     // Checa se o arquivo de entrada de dados existe.
@@ -245,6 +241,9 @@ class MakeDFe {
         // Checa se a propriedade $dados_dfe_xml está vazia.
         $exception->is_empty_dados_dfe_xml($this);
       break;
+      default:
+        $mensagem = sprintf("A extensao do arquivo %s NAO e' TXT ou XML.", $input_nome_do_arquivo);
+        $exception->_throw_exception($mensagem);
     }
   }
 
