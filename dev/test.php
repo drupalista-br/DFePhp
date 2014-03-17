@@ -16,7 +16,7 @@ $test->carrega_dados_do_arquivo();*/
 
 // http://stackoverflow.com/questions/16098414/how-to-read-an-array-of-element-names-from-xmlschema-xml-file-in-php
 
-$doc = '/opt/lampp/htdocs/sites/saturnopecas.com.br/libraries/DFePhp/src/DFePhp/Schemas/NFe/PL008bXsd310/leiauteNFe_v3.10.xsd';
+$doc = '/var/www/sites/saturnopecas.com.br/libraries/DFePhp/src/DFePhp/Schemas/NFe/PL008bXsd310/leiauteNFe_v3.10.xsd';
 
 $xml = simplexml_load_file($doc);
 
@@ -30,6 +30,7 @@ echo "\nObtain all element names excl. complexTypes and those
 
 $elementNames = array_map('strval', $xml->xpath('//xs:element[not(node())]/@name'));
 print_r($elementNames);
+
 
 
 //print_r($doc);
