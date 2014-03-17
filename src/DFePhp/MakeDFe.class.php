@@ -60,7 +60,7 @@ class MakeDFe {
   /**
    * Nome da classe que gera o Layout do DFe.
    */
-  private $classe_do_layout;
+  private $classe_do_schema;
 
   /**
    * Layout do DFe a ser gerado. O Layout é definido por uma sub-classe da
@@ -106,38 +106,38 @@ class MakeDFe {
   /**
    * Define a versão do layout da estrutura de dados do DFe.
    * 
-   * @param String $versao_do_layout
+   * @param String $schema
    *   Versão do Layout para gerar o DFe.
    */
-  public function __construct($versao_do_layout = null) {
+  public function __construct($DFe = null, $schema = null) {
     // Instancia os Objetos para fazer Exception throws.
     $InvalidArgumentException = new DFeInvalidArgumentException();
     $exception = new MakeDFeExceptions();
 
     // TODO:
-    // InvalidArgumentException | Verificar se $versao_do_layout está vazio
-    //                            Verificar se $versao_do_layout não é uma string.
-    // Exception | Verificar se a $classe_do_layout existe.
-    $this->classe_do_layout = $classe_do_layout = 'DFePhp\\Schemas\\' . $versao_do_layout;
+    // InvalidArgumentException | Verificar se $schema está vazio
+    //                            Verificar se $schema não é uma string.
+    // Exception | Verificar se a $classe_do_schema existe.
+    $this->classe_do_schema = $classe_do_schema = "DFePhp\\Schemas\\$DFe\\$schema";
 
     
-      if (!empty($versao_do_layout) && is_string($versao_do_layout)) {
+      if (!empty($schema) && is_string($schema)) {
 
-        if (!class_exists($classe_do_layout, TRUE)) {
-          $exception_error_message = "O Layout $versao_do_layout nao e' valido ou nao e' mais suportado.";
+        if (!class_exists($classe_do_schema, TRUE)) {
+          $exception_error_message = "O Layout $schema nao e' valido ou nao e' mais suportado.";
         }
       }
       else {
         $exception_error_message = "Voce nao informou a versao do Layout do DFe ou o informado nao e' uma string.";
       }
 
-    $this->layout_do_dfe = $classe_do_layout::layout();
+    $this->layout_do_dfe = $classe_do_schema::layout();
 
     // TODO:
     // Exception | Verificar se $layout_do_dfe é uma array não vazia.
 
     // Define o Path padrão onde os arquivos DFe ficarão armazenados.
-    $this->output_path = $this->get_path_da_biblioteca('arquivosDfe');
+    $this->output_path = $this->get_path_da_biblioteca('DFe_outputs');
   }
 
   /**
