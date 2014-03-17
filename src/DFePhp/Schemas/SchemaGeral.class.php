@@ -7,12 +7,12 @@
  * @version https://github.com/drupalista-br/DFePhp/releases
  * @license http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
  */
-namespace DFePhp\LayoutDeDados;
+namespace DFePhp\Schemas;
 
 /**
  * Classe para criar os Layouts de Entrada de Dados dos DFe.
  */
-abstract class LayoutDeDados {
+abstract class SchemaGeral {
   /**
    * Quando o valor de entrada é requerido mas, caso não seja enviado, o valor
    * padrão será usado.

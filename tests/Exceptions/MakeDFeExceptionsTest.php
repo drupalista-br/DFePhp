@@ -7,7 +7,7 @@ use DFePhp\Exceptions\MakeDFeExceptions;
 
 class MakeDFeExceptionsTest extends DFeTestCase {
   public function setUp() {
-    $this->DFe_set_up('NFe500');
+    $this->DFe_set_up('NFePL008b');
     $this->DFeExceptions = new MakeDFeExceptions();
     $this->DFeExceptionsReflection = new \ReflectionObject($this->DFeExceptions);
   }
@@ -53,10 +53,24 @@ class MakeDFeExceptionsTest extends DFeTestCase {
     // Chama o método privado $DFe->carrega_dados_do_arquivo();
     $metodo = $this->reflection_get_metodo('carrega_dados_do_arquivo', 'DFeReflection');
     $metodo->invoke($DFe);
-
-    $assert = $this->DFeExceptions->is_empty_dados_dfe_xml($DFe);
-
-    $this->assertNull($assert);
   }
 
+  /**
+   * @expectedException \Exception
+   */
+  public function testMetodoIsEmptyDadosDfeTxtComThrowException(){
+    $this->DFeExceptions->is_empty_dados_dfe_Txt($this->DFe);
+  }
+
+  public function testMetodoIsEmptyDadosDfeTxtSemThrowException(){
+    $pasta = $this->DFe->get_path_da_biblioteca('dev/tests');
+
+    $DFe = $this->DFe;
+    $DFe->set_input_path($pasta);
+    $DFe->set_input_nome_do_arquivo('dfe.txt');
+
+    // Chama o método privado $DFe->carrega_dados_do_arquivo();
+    $metodo = $this->reflection_get_metodo('carrega_dados_do_arquivo', 'DFeReflection');
+    $metodo->invoke($DFe);
+  }
 }

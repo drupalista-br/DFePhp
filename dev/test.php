@@ -8,10 +8,16 @@ echo '<pre>';
 $test = new MakeDFe('NFe500');
 
 $test->set_input_path('/opt/lampp/htdocs/sites/saturnopecas.com.br/libraries/DFePhp/dev/tests');
-$test->set_input_nome_do_arquivo('nfe.xml');
+$test->set_input_nome_do_arquivo('dfe.xml');
 $test->carrega_dados_do_arquivo();
 
-
+if (file_exists('/opt/lampp/htdocs/sites/saturnopecas.com.br/libraries/DFePhp/arquivosDfe/3_xml_autorizados/test.XML')) {
+    //$xml = simplexml_load_file('/opt/lampp/htdocs/sites/saturnopecas.com.br/libraries/DFePhp/arquivosDfe/3_xml_autorizados/test.XML');
+ 
+    //print_r($xml);
+} else {
+    exit('Failed to open test.xml.');
+}
 
 
 /*try {

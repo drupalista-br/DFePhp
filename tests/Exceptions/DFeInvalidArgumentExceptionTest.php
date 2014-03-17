@@ -8,7 +8,7 @@ use DFePhp\Exceptions\DFeInvalidArgumentException;
 class DFeInvalidArgumentExceptionTest extends DFeTestCase {
 
   public function setUp() {
-    $this->DFe_set_up('NFe500');
+    $this->DFe_set_up('NFePL008b');
     $this->DFeInvalidArgumentException = new DFeInvalidArgumentException();
   }
   /**

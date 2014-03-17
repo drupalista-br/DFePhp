@@ -7,14 +7,14 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
  */
 
-namespace DFePhp\LayoutDeDados\VersoesDosLayouts;
+namespace DFePhp\Schemas;
 
-use DFePhp\LayoutDeDados\LayoutDeDados;
+use DFePhp\Schemas\SchemaGeral;
 
 /**
  * Classe para construir o Layout da NFe conforme o Manual do Contribuinte 5.0.
  */
-class NFe500 extends LayoutDeDados {
+class NFePL008b extends SchemaGeral {
   static function layout() {
     return array(
       'webservice' => array(

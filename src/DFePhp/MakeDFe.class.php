@@ -118,7 +118,7 @@ class MakeDFe {
     // InvalidArgumentException | Verificar se $versao_do_layout está vazio
     //                            Verificar se $versao_do_layout não é uma string.
     // Exception | Verificar se a $classe_do_layout existe.
-    $this->classe_do_layout = $classe_do_layout = 'DFePhp\\LayoutDeDados\\VersoesDosLayouts\\' . $versao_do_layout;
+    $this->classe_do_layout = $classe_do_layout = 'DFePhp\\Schemas\\' . $versao_do_layout;
 
     
       if (!empty($versao_do_layout) && is_string($versao_do_layout)) {
@@ -236,7 +236,7 @@ class MakeDFe {
         $exception->is_empty_dados_dfe_txt($this);
       break;
       case self::EXTENSAO_XML:
-        $this->dados_dfe_xml = file_get_contents($input_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo);
+        $this->dados_dfe_xml = simplexml_load_file($input_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo);
 
         // Checa se a propriedade $dados_dfe_xml está vazia.
         $exception->is_empty_dados_dfe_xml($this);
@@ -261,6 +261,8 @@ class MakeDFe {
 
   /**
    * Converte dados do DFe em TXT para Array.
+   *
+   * TODO: Criar tests | NFe500test
    */
   public function converte_txt2array() {
     // Instancia o Objeto para fazer Exception throws.
