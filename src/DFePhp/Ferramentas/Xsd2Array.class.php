@@ -1,5 +1,14 @@
 <?php
-use DFePhp\Ferramentas;
+/**
+ * Arquivo que contém a classe DFePhp\FerramentasXsd2PhpArray.
+ *
+ * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
+ * @version https://github.com/drupalista-br/DFePhp/releases
+ * @license http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
+ */
+
+namespace DFePhp\Ferramentas;
+
 header('Content-Type: text/html; charset=utf-8');
 echo '<pre>';
 
@@ -33,20 +42,37 @@ $array = array(
 
 
 
-$new_array = new Xsd2PhpArray();
-$new_array->ftest($array);
+$xsd_array = new Xsd2PhpArray();
+$xsd_array->generate_array($array);
 
-print_r($new_array);
+print_r($xsd_array);
 
+/**
+ * Classe para transformar arquivos xsd ( xml schema ) em arrays
+ * estruturadas.
+ */
 class Xsd2PhpArray {
-  public $new_array = array();
+
+  /**
+   * The generated array from the xsd content.
+   */
+  public $xsd_array = array();
+
+  /**
+   * Xsd content to be
+   */
+  private $xsd_content;
   
-  private function ftest ($array, $parentes = FALSE) {
-    $number_of_arrays = count($array);
+  /**
+   * Iterates throgh the xsd content nodes generating an php array along the
+   * way.
+   */
+  public function generate_array ($array, $parentes = FALSE) {
+    $number_of_nodes = count($array);
 
     $lineages_of_this_call = array();
 
-    for ($i = 1; $i <= $number_of_arrays; $i++) {
+    for ($i = 1; $i <= $number_of_nodes; $i++) {
       $lineages_of_this_call[$i] = $parentes;
     }
 
@@ -66,25 +92,32 @@ class Xsd2PhpArray {
 
             $filhas[$sub_node_key] = array(
               'tag' => $sub_node_key,
-              'valor' => $sub_node,
-              'tags_parentes' => $parentes_das_filhas,
+              'value' => $sub_node,
+              'tags_parents' => $parentes_das_filhas,
             );
           }
         }
 
-        $this->new_array[$key] = array(
+        $this->xsd_array[$key] = array(
           'tag' => $key,
-          'valor' => FALSE,
-          'tags_parentes' => $lineages_of_this_call[$loop_count],
-          'tags_filhas' => $filhas,
+          'value' => FALSE,
+          'tags_parents' => $lineages_of_this_call[$loop_count],
+          'tags_children' => $filhas,
         );
         $lineages_of_this_call[$loop_count][] = $key;
 
-        self::ftest($node, $lineages_of_this_call[$loop_count]);
+        self::generate_array($node, $lineages_of_this_call[$loop_count]);
       }
 
       $loop_count += 1;
     }
+  }
+  
+  /**
+   *
+   */
+  public function load_xsd_content($location) {
+    $this->xsd_content = simplexml_load_file($location);
   }
 }
 

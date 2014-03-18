@@ -1,6 +1,6 @@
 <?php
 /**
- * Contrutor do Documento Fiscal Eletrônico.
+ * Arquivo que contém a classe \DFePhp\MakeDFe.
  *
  * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
  * @version https://github.com/drupalista-br/DFePhp/releases
