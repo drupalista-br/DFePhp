@@ -42,7 +42,7 @@ class ctest {
   public $new_array = array();
   public $parentes = FALSE;
   
-  function ftest ($array) {
+  function ftest ($array, $first_call = TRUE) {
 
     foreach ($array as $key => $node) {
       if (is_array($node)) {
@@ -52,13 +52,13 @@ class ctest {
         // Checa se as filhas são strings.
         foreach ($node as $sub_node_key => $sub_node) {
           if (!is_array($sub_node)) {
-            $parentes = $this->parentes;
-            $parentes[] = $key;
+            $parentes_das_filhas = $this->parentes;
+            $parentes_das_filhas[] = $key;
 
             $filhas[$sub_node_key] = array(
               'tag' => $sub_node_key,
               'valor' => $sub_node,
-              'tags_parentes' => $parentes,
+              'tags_parentes' => $parentes_das_filhas,
             );
           }
         }
@@ -71,7 +71,10 @@ class ctest {
         );
         $this->parentes[] = $key;
   
-        self::ftest($node);
+        self::ftest($node, FALSE);
+      }
+      if ($first_call) {
+        $this->parentes = FALSE;
       }
     }
   }
