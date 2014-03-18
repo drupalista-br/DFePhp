@@ -7,106 +7,85 @@ $array = array(
   '1' => array(
     '1-1' => array(
       '1-1-1' => array(
-        '1-1-1-1' => array(
-          
-        ),
+        '1-1-1-1' => 'valor1',
+        '1-1-1-2' => 'valor2',
       ),
     ),
     '1-2' => array(
-      '1-2-1' => array(
-        
-      ),
+      '1-2-1' => 'valor1',
       '1-2-2' => array(
-        '1-2-2-1' => array(),
+        '1-2-2-1' => 'valor1',
       ),
     ),
+    '1-3' => 'valor--3',
   ),
   '2' => array(
     '2-1' => array(
-      '2-1-1' => array(
-        
-      ),
+      '2-1-1' => 'valor1',
     ),
     '2-2' => array(
       '2-2-1' => array(
-        '2-2-1-1' => array(
-          
-        ),
+        '2-2-1-1' => 'valor1',
       ),
     ),
   ),
 );
 
-print_r($array);
+//print_r($array);
 
-$array2 = array();
+$new_array = new ctest();
+$new_array->ftest($array);
 
-$column = array();
-$line = array();
+print_r($new_array);
 
-foreach ($array as $key => $value) {
+class ctest {
+  public $new_array = array();
+  public $parentes = FALSE;
   
+  function ftest ($array) {
+
+    foreach ($array as $key => $node) {
+      if (is_array($node)) {
+        // Padrão é não ter filhas.
+        $filhas = FALSE;
+
+        // Checa se as filhas são strings.
+        foreach ($node as $sub_node_key => $sub_node) {
+          if (!is_array($sub_node)) {
+            $parentes = $this->parentes;
+            $parentes[] = $key;
+
+            $filhas[$sub_node_key] = array(
+              'tag' => $sub_node_key,
+              'valor' => $sub_node,
+              'tags_parentes' => $parentes,
+            );
+          }
+        }
+
+        $this->new_array[] = array(
+          'tag' => $key,
+          'valor' => FALSE,
+          'tags_parentes' => $this->parentes,
+          'tags_filhas' => $filhas,
+        );
+        $this->parentes[] = $key;
+  
+        self::ftest($node);
+      }
+    }
+  }
 }
-
-/*
-column = 4
-line = 13
-
-'1'
-'1-1'
-'1-1-1'
-'1-1-1-1'
-'1-2'
-'1-2-1'
-'1-2-2'
-'1-2-2-1'
-'2'
-'2-1'
-'2-1-1'
-'2-2'
-'2-2-1'
-'2-2-1-1'*/
-
-
-$array = array(
- x'1' => array(
- x  '1-1' => array(
-      '1-1-1' => array(
-        '1-1-1-1' => array(
-          
-        ),
-      ),
-    ),
- x  '1-2' => array(
-      '1-2-1' => array(
-        
-      ),
-      '1-2-2' => array(
-        '1-2-2-1' => array(),
-      ),
-    ),
-  ),
-  '2' => array(
-    '2-1' => array(
-      '2-1-1' => array(
-        
-      ),
-    ),
-    '2-2' => array(
-      '2-2-1' => array(
-        '2-2-1-1' => array(
-          
-        ),
-      ),
-    ),
-  ),
-);
 
 $test = array(
   array (
     'tag' => '1',
-    'tag_filhas' = array('1-1', '1-2'),
+    'valor' => FALSE,
+    'tags_parentes' => FALSE,
+    'tags_filhas' => FALSE,
   ),
+
 );
+
 
 
