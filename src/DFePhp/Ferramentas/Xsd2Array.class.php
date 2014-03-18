@@ -1,5 +1,5 @@
 <?php
-use DFePhp\MakeDFe;
+use DFePhp\Ferramentas;
 header('Content-Type: text/html; charset=utf-8');
 echo '<pre>';
 
@@ -31,17 +31,17 @@ $array = array(
   ),
 );
 
-//print_r($array);
 
-$new_array = new ctest();
+
+$new_array = new Xsd2PhpArray();
 $new_array->ftest($array);
 
 print_r($new_array);
 
-class ctest {
+class Xsd2PhpArray {
   public $new_array = array();
   
-  function ftest ($array, $parentes = FALSE) {
+  private function ftest ($array, $parentes = FALSE) {
     $number_of_arrays = count($array);
 
     $lineages_of_this_call = array();
