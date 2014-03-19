@@ -116,7 +116,7 @@ class Xsd2PhpArray {
   }
   
   /**
-   *
+   * 
    */
   public function load_xsd_content($location) {
     $this->xsd_content = simplexml_load_file($location);

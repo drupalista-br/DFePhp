@@ -29,18 +29,22 @@ echo "Obtain all element names incl. complexTypes:\n";
 echo "\nObtain all element names excl. complexTypes and those
   which contain anything incl. comments, text etc.:\n";
 
-// $elementNames = array_map('strval', $xml->xpath('//xs:element[not(node())]/@name'));
-$elementNames = $xml->xpath("(./xs:complexType)[1]/xs:annotation[2]/xs:documentation");
-print_r($elementNames);
-print_r(get_class_methods($elementNames[0]));
+$elementNames = $xml->xpath("(./xs:complexType)[1]/xs:annotation/xs:documentation");
 
+print_r($elementNames);
 
 //print_r($doc);
 
 /*
 complexTypes
+  xs:sequence
+  xs:choice
+  xs:all
+    xs:element
+      xs:annotation
+        xs:documentation
 simpleType
-
+  xs:restriction
 
 
 */
