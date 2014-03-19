@@ -22,17 +22,26 @@ $xml = simplexml_load_file($doc);
 
 echo "Obtain all element names incl. complexTypes:\n";
 
-$elementNames = array_map('strval', $xml->xpath('//xs:element/@name'));
-print_r($elementNames);
+// $elementNames = array_map('strval', $xml->xpath('//xs:element/@name'));
+
+//print_r($elementNames);
 
 echo "\nObtain all element names excl. complexTypes and those
   which contain anything incl. comments, text etc.:\n";
 
-$elementNames = array_map('strval', $xml->xpath('//xs:element[not(node())]/@name'));
+// $elementNames = array_map('strval', $xml->xpath('//xs:element[not(node())]/@name'));
+$elementNames = $xml->xpath("(./xs:complexType)[1]/xs:annotation[2]/xs:documentation");
 print_r($elementNames);
-
+print_r(get_class_methods($elementNames[0]));
 
 
 //print_r($doc);
 
+/*
+complexTypes
+simpleType
+
+
+
+*/
 

@@ -59,7 +59,6 @@ class ctest {
 
         // Checa se as filhas são strings.
         foreach ($node as $sub_node_key => $sub_node) {
-
           if (!is_array($sub_node)) {
             $parentes_das_filhas = $lineages_of_this_call[$loop_count];
             $parentes_das_filhas[] = $key;
