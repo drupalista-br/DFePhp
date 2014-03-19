@@ -50,6 +50,8 @@ print_r($xsd_array);
 /**
  * Classe para transformar arquivos xsd ( xml schema ) em arrays
  * estruturadas.
+ *
+ * @see 
  */
 class Xsd2PhpArray {
 
