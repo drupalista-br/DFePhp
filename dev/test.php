@@ -24,7 +24,6 @@ $xsd = simplexml_load_file('leiauteNFe_v3.10.xsd');
 print_r(get_class_methods($xsd));
 print_r($xsd->getDocNamespaces());
 
-$xsd->registerXPathNamespace('xs', 'http://www.w3.org/2001/XMLSchema');
 
 echo "Obtain all element names incl. complexTypes:\n";
 
@@ -35,7 +34,10 @@ echo "Obtain all element names incl. complexTypes:\n";
 echo "\nObtain all element names excl. complexTypes and those
   which contain anything incl. comments, text etc.:\n";
 
-$elementNames = $xsd->xpath("./xs:complexType[1]/xs:annotation/xs:documentation");
+$xsd->registerXPathNamespace('xs', 'http://www.w3.org/2001/XMLSchema');
+
+//$elementNames = $xsd->xpath("./xs:complexType[1]/xs:annotation/xs:documentation");
+$elementNames = $xsd->xpath("/xs:schema/xs:complexType[1]/xs:annotation/xs:documentation/text()");
 // $elementNames = $xsd->xpath("./xs:complexType[1]/xs:annotation/xs:documentation[text()]");
 // $elementNames = $xsd->xpath("./xs:complexType[1]/xs:annotation/xs:documentation/text()");
 
