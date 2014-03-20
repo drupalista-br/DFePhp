@@ -18,12 +18,14 @@ $test->carrega_dados_do_arquivo();*/
 
 $doc = realpath(__DIR__ . '/../src/DFePhp/Schemas/NFe/PL008bXsd310/leiauteNFe_v3.10.xsd');
 
-$xsd = simplexml_load_file('leiauteNFe_v3.10.xsd');
-//$xsd->registerXPathNamespace('xs', 'http://www.portalfiscal.inf.br/nfe');
+$test = @get_headers('http://saturnopecas1.com.br');
 
-print_r(get_class_methods($xsd));
-print_r($xsd->getDocNamespaces());
+if (stripos($test[0], "200 OK")) {  
+  print_r(get_headers('http://saturnopecas.com.br'));
+}
 
+
+  $xsd = simplexml_load_file('http://saturnopecas.com.br/test.xsd'); 
 
 echo "Obtain all element names incl. complexTypes:\n";
 
@@ -34,12 +36,9 @@ echo "Obtain all element names incl. complexTypes:\n";
 echo "\nObtain all element names excl. complexTypes and those
   which contain anything incl. comments, text etc.:\n";
 
-$xsd->registerXPathNamespace('xs', 'http://www.w3.org/2001/XMLSchema');
 
-//$elementNames = $xsd->xpath("./xs:complexType[1]/xs:annotation/xs:documentation");
-$elementNames = $xsd->xpath("/xs:schema/xs:complexType[1]/xs:annotation/xs:documentation/text()");
-// $elementNames = $xsd->xpath("./xs:complexType[1]/xs:annotation/xs:documentation[text()]");
-// $elementNames = $xsd->xpath("./xs:complexType[1]/xs:annotation/xs:documentation/text()");
+$elementNames = $xsd->xpath("./xs:complexType[1]/xs:annotation/xs:documentation");
+
 
 print_r($elementNames);
 

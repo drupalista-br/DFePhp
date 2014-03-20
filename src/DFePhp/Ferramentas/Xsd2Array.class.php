@@ -9,6 +9,8 @@
 
 namespace DFePhp\Ferramentas;
 
+use DFePhp\Exceptions\MakeDFeExceptions;
+
 header('Content-Type: text/html; charset=utf-8');
 echo '<pre>';
 
@@ -61,7 +63,7 @@ class Xsd2PhpArray {
   public $xsd_array = array();
 
   /**
-   * Xsd content to be
+   * Xsd content once 
    */
   private $xsd_content;
   
@@ -116,10 +118,28 @@ class Xsd2PhpArray {
   }
   
   /**
-   * 
+   * Loads the XSD content into the $xsd_content property.
    */
   public function load_xsd_content($location) {
-    $this->xsd_content = simplexml_load_file($location);
+    $exist_check = @get_headers($location);
+
+    if (stripos($exist_check[0], "200 OK")) {
+      $exist_check = TRUE;
+    }
+    else {
+      // It isn't a remote file.
+      $exist_check = FALSE;
+
+      // Check if it is a local file.
+      $exist_check = file_exists($location);
+    }
+
+    if ($exist_check) {
+      $this->xsd_content = simplexml_load_file($location);
+    }
+    else {
+      throw new \Exception('The XSD file does not exist.');
+    }
   }
 }
 
