@@ -1,6 +1,6 @@
 <?php
 /**
- * Gerencia o throw Exception para a classe MakeDFe.
+ * Arquivo que contém a classe MakeDFeExceptions.
  *
  * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
  * @version https://github.com/drupalista-br/DFePhp/releases
@@ -10,7 +10,7 @@
 namespace DFePhp\Exceptions;
 
 /**
- * Classe para gerenciar os throw Exceptions da classe MakeDFe.
+ * Classe para gerenciar os Exception throws da classe MakeDFe.
  */
 class MakeDFeExceptions extends \Exception {
 

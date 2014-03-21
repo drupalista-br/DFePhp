@@ -6,6 +6,7 @@ use DFePhp\MakeDFe;
 header('Content-Type: text/html; charset=utf-8');
 echo '<pre>';
 
+print_r(get_headers('http://saturnopecas.com.br/test.xsd'));
 
 /*$test = new MakeDFe('NFe500');
 

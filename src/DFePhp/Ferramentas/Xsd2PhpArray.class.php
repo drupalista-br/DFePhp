@@ -9,46 +9,6 @@
 
 namespace DFePhp\Ferramentas;
 
-use DFePhp\Exceptions\MakeDFeExceptions;
-
-header('Content-Type: text/html; charset=utf-8');
-echo '<pre>';
-
-$array = array(
-  '1' => array(
-    '1-1' => array(
-      '1-1-1' => array(
-        '1-1-1-1' => 'valor1',
-        '1-1-1-2' => 'valor2',
-      ),
-    ),
-    '1-2' => array(
-      '1-2-1' => 'valor1',
-      '1-2-2' => array(
-        '1-2-2-1' => 'valor1',
-      ),
-    ),
-    '1-3' => 'valor--3',
-  ),
-  '2' => array(
-    '2-1' => array(
-      '2-1-1' => 'valor1',
-    ),
-    '2-2' => array(
-      '2-2-1' => array(
-        '2-2-1-1' => 'valor1',
-      ),
-    ),
-  ),
-);
-
-
-
-$xsd_array = new Xsd2PhpArray();
-$xsd_array->generate_array($array);
-
-print_r($xsd_array);
-
 /**
  * Classe para transformar arquivos xsd ( xml schema ) em arrays
  * estruturadas.
@@ -121,25 +81,27 @@ class Xsd2PhpArray {
    * Loads the XSD content into the $xsd_content property.
    */
   public function load_xsd_content($location) {
-    $exist_check = @get_headers($location);
+    $exist_check = is_readable($location);
 
-    if (stripos($exist_check[0], "200 OK")) {
-      $exist_check = TRUE;
-    }
-    else {
-      // It isn't a remote file.
-      $exist_check = FALSE;
+    if (!$exist_check) {
+      // TODO: Set a error/warning handler instead of suppressing it.
+      $exist_check = @get_headers($location);
 
-      // Check if it is a local file.
-      $exist_check = file_exists($location);
+      if (stripos($exist_check[0], "200 OK")) {
+        // Remote file could be read.
+        $exist_check = TRUE;
+      }
+      else {
+        // Can't reach it remotelly.
+        $exist_check = FALSE;
+      }
     }
 
     if ($exist_check) {
       $this->xsd_content = simplexml_load_file($location);
     }
     else {
-      throw new \Exception('The XSD file does not exist.');
+      throw new \Exception(sprintf("The XSD source at %s could not be found / read.", $location));
     }
   }
 }
-
