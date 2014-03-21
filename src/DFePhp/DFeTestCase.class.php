@@ -17,9 +17,15 @@ use DFePhp\Exceptions\MakeDFeExceptions;
  */
 abstract class DFeTestCase extends \PHPUnit_Framework_TestCase {
 
-  public function DFe_set_up($layout = null) {
-    if ($layout) {
-      $this->DFe = new MakeDFe($layout);
+  /**
+   * @param String $Dfe
+   *   O nome do Documento Fiscal. Ex. NFe, CTe, NFCe, etc.
+   * @param String $layout
+   *   A do layout a ser utilizado.
+   */
+  public function DFe_set_up($Dfe = null, $layout = null) {
+    if ($Dfe && $layout) {
+      $this->DFe = new MakeDFe($Dfe, $layout);
       $this->DFeReflection = new \ReflectionObject($this->DFe);
     }
   }

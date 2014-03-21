@@ -104,4 +104,9 @@ class Xsd2PhpArray {
       throw new \Exception(sprintf("The XSD source at %s could not be found / read.", $location));
     }
   }
+  
+  public function test($location) {
+    $this->xsd_content = get_headers($location);
+  }
+  
 }

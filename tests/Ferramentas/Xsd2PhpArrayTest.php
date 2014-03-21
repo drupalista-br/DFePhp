@@ -1,15 +1,15 @@
 <?php
-namespace DFePhp\Tests;
 
-use DFePhp\DFeTestCase;
-use DFePhp\Ferramentas;
+namespace {  
+  // This allow us to configure the behavior of the "global mock"  
+  $mockSocketCreate = false;  
+}
 
-class MakeDFeTest extends DFeTestCase {
-  public function setUp() {
-    $this->Xsd2PhpArray = new XsdPhpArray();
-  }
+namespace DFePhp\Ferramentas {
 
-  public function testMetodoLoadXsdContent(){
+  use \DFePhp\DFeTestCase;
+  
+  function get_headers($location) {
     $mock_http_response = array (
       'HTTP/1.1 200 OK',
       'Date: Fri, 21 Mar 2014 15:49:33 GMT',
@@ -24,17 +24,17 @@ class MakeDFeTest extends DFeTestCase {
       'Content-Type: text/xml',
     );
 
-    
-    //load_xsd_content
-    $path_subpasta = $this->DFe->get_path_da_biblioteca('dev/tests');
-    $biblioteca = $this->DFe->get_path_da_biblioteca();
-
-    // Testa o path + sub pasta.
-    $this->assertFileExists($path_subpasta);
-    // Testa o path somente da biblioteca.
-    $this->assertFileExists($biblioteca . DIRECTORY_SEPARATOR . 'phpunit.xml');
-    // Testa o path + arquivo.
-    $this->assertFileExists($path_subpasta . DIRECTORY_SEPARATOR . 'dfe.txt');
+    return $mock_http_response;
   }
+  
+  class Xsd2PhpArrayTest extends DFeTestCase {
 
+    public function setUp() {
+      $this->Xsd2PhpArray = new Xsd2PhpArray();
+    }
+  
+    public function testMetodoLoadXsdContent() {
+      
+    }
+  }
 }
