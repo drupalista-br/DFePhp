@@ -5,7 +5,7 @@ use DFePhp\DFeTestCase;
 
 class MakeDFeTest extends DFeTestCase {
   public function setUp() {
-    $this->DFe_set_up('NFePL008b');
+    $this->MakeDFe_set_up('NFePL008b');
   }
 
   public function testMetodoGetPathDaBiblioteca(){

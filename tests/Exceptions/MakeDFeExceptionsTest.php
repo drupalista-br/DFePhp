@@ -7,7 +7,7 @@ use DFePhp\Exceptions\MakeDFeExceptions;
 
 class MakeDFeExceptionsTest extends DFeTestCase {
   public function setUp() {
-    $this->DFe_set_up('NFePL008b');
+    $this->MakeDFe_set_up('NFePL008b');
     $this->DFeExceptions = new MakeDFeExceptions();
     $this->DFeExceptionsReflection = new \ReflectionObject($this->DFeExceptions);
   }

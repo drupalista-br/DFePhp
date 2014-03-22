@@ -1,6 +1,6 @@
 <?php
 /**
- * Customiza o \PHPUnit_Framework_TestCase.
+ * Arquivo com a classe DFeTestCase.
  *
  * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
  * @version https://github.com/drupalista-br/DFePhp/releases
@@ -11,6 +11,7 @@ namespace DFePhp;
 
 use DFePhp\MakeDFe;
 use DFePhp\Exceptions\MakeDFeExceptions;
+use DFePhp\Ferramentas\Xsd2PhpArray;
 
 /**
  * Classe para customizar o PHPUnit.
@@ -23,10 +24,10 @@ abstract class DFeTestCase extends \PHPUnit_Framework_TestCase {
    * @param String $layout
    *   A do layout a ser utilizado.
    */
-  public function DFe_set_up($Dfe = null, $layout = null) {
+  public function MakeDFe_set_up($Dfe = null, $layout = null) {
     if ($Dfe && $layout) {
-      $this->DFe = new MakeDFe($Dfe, $layout);
-      $this->DFeReflection = new \ReflectionObject($this->DFe);
+      $this->MakeDFe = new MakeDFe($Dfe, $layout);
+      $this->MakeDFeReflection = new \ReflectionObject($this->DFe);
     }
   }
 
@@ -46,7 +47,7 @@ abstract class DFeTestCase extends \PHPUnit_Framework_TestCase {
     $propriedade = $objeto->getProperty($nome_da_propriedade);
     // Caso a propriedade seja protegida ou privada.
     $propriedade->setAccessible(TRUE);
-    return $propriedade->getValue($obj);
+    return $propriedade->getValue($this->Xsd2PhpArray);
   }
 
   /**

@@ -84,6 +84,7 @@ class Xsd2PhpArray {
     $exist_check = is_readable($location);
 
     if (!$exist_check) {
+      
       // TODO: Set a error/warning handler instead of suppressing it.
       $exist_check = @get_headers($location);
 
