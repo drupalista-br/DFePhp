@@ -333,8 +333,7 @@ class MakeDFe {
    * TODO: Colocar na classe Validacoes.
    */
   private function validar_schema() {
-    function libxml_display_error($error)
-    {
+    function libxml_display_error($error) {
         $return = "<br/>\n";
         switch ($error->level) {
             case LIBXML_ERR_WARNING:
@@ -371,13 +370,8 @@ class MakeDFe {
     $xml->load('example.xml'); 
     
     if (!$xml->schemaValidate('example.xsd')) {
-        print '<b>DOMDocument::schemaValidate() Generated Errors!</b>';
-        libxml_display_errors();
+      print '<b>DOMDocument::schemaValidate() Generated Errors!</b>';
+      libxml_display_errors();
     }
-  }
-
-  public function test() {
-    echo "<pre>";
-    //print_r($this->dados_dfe_txt);
   }
 }

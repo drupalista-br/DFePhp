@@ -85,7 +85,7 @@ class Xsd2PhpArray {
 
     if (!$exist_check) {
       
-      // TODO: Set a error/warning handler instead of suppressing it.
+      // TODO: Set an error/warning handler instead of suppressing it.
       $exist_check = @get_headers($location);
 
       if (stripos($exist_check[0], "200 OK")) {
@@ -106,8 +106,12 @@ class Xsd2PhpArray {
     }
   }
   
-  public function test($location) {
-    $this->xsd_content = get_headers($location);
+  
+  
+  
+  
+  function get_xsd_content() {
+    return $this->xsd_content;
   }
   
 }

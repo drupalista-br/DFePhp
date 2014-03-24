@@ -63,15 +63,40 @@ namespace DFePhp\Ferramentas {
       $mock_simplexml_load_file = TRUE;
 
       $Xsd2PhpArray = $this->Xsd2PhpArray;
-
       $Xsd2PhpArray->load_xsd_content('http://xsdexiste.unittest/arquivo.xsd');
 
       $this->Xsd2PhpArrayReflection = new \ReflectionObject($Xsd2PhpArray);
 
       $xsd_content = $this->reflection_get_valor_da_propriedade('xsd_content', 'Xsd2PhpArrayReflection');
 
+      $this->assertTrue($xsd_content instanceof SimpleXMLElement);
+    }
 
-      $this->assertTrue(is_object($xsd_content));
+    /**
+     * @expectedException \Exception
+     */
+    public function testMetodoLoadXsdContentHttpResponseComException() {
+      $Xsd2PhpArray = $this->Xsd2PhpArray;
+      $Xsd2PhpArray->load_xsd_content('http://xsdNAOexiste.unittest/arquivo.xsd');
+    }
+
+    public function testMetodoLoadXsdContentArquivoXsdLocalExistente() {
+      $mock_xsd = realpath(__DIR__ . '/resources/mockxsd.xsd');
+      $Xsd2PhpArray = $this->Xsd2PhpArray;
+      $Xsd2PhpArray->load_xsd_content($mock_xsd);
+      
+      $this->Xsd2PhpArrayReflection = new \ReflectionObject($Xsd2PhpArray);
+      $xsd_content = $this->reflection_get_valor_da_propriedade('xsd_content', 'Xsd2PhpArrayReflection');
+
+      $this->assertTrue($xsd_content instanceof SimpleXMLElement);
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testMetodoLoadXsdContentArquivoXsdLocalComException() {
+      $Xsd2PhpArray = $this->Xsd2PhpArray;
+      $Xsd2PhpArray->load_xsd_content('/nao/existe/arquivo.xsd');
     }
   }
 }

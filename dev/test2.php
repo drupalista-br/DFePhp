@@ -2,19 +2,19 @@
 
 namespace DFePhp\Ferramentas;
 
-  include_once realpath(__DIR__ . '/../autoloader.php');
-
-  //use DFePhp\DFeTestCase;
-  //use \DFePhp\Ferramentas;
+$lib_path = realpath(__DIR__);
+include_once $lib_path . '/../autoloader.php';
   
+$dummy = new Xsd2PhpArray();  
+$dummy->load_xsd_content($lib_path . '/../dev/tests/dfe.xsd');
 
+$test = simplexml_load_file($lib_path . '/../dev/tests/dfe.xsd');
 
-  //global $mockSocketCreate;
-  $mockSocketCreate = true;  
-  $dummy = new Xsd2PhpArray();  
-  $dummy->load_xsd_content('http://saturnopecas.com.br/test.xsd');
+//print_r($test->xpath("./xs:complexType[1]/xs:annotation/xs:documentation"));
 
-  print_r($dummy);
-  
+$test = $dummy->get_xsd_content();
 
+$test = $test->xpath("./xs:complexType[1]/xs:sequence");
+print_r(get_class_methods($test[0]));
+print_r($test[0]->children());
 
