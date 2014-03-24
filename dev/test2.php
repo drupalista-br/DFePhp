@@ -14,7 +14,10 @@ $test = simplexml_load_file($lib_path . '/../dev/tests/dfe.xsd');
 
 $test = $dummy->get_xsd_content();
 
-$test = $test->xpath("./xs:complexType[1]/xs:sequence");
-print_r(get_class_methods($test[0]));
-print_r($test[0]->children());
+$test = $test->xpath("/xs:schema/xs:complexType[1]");
+//print_r(get_class_methods($test[0]));
+
+
+print_r($test);
+
 
