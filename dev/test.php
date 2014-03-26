@@ -48,16 +48,39 @@ print_r(get_class_methods($elementNames[0]));
 
 
 /*
+
+trigger_error('mesage') - default to E_USER_NOTICE
+
 complexTypes
+  xs:annotation
+    xs:documentation
   xs:sequence
   xs:choice
   xs:all
     xs:element
+    xs:attribute
       xs:annotation
         xs:documentation
-simpleType
-  xs:restriction
 
+simpleType
+  xs:annotation
+    xs:documentation
+  xs:restriction
+    xs:minLength
+    xs:maxLength
+    xs:pattern
+    xs:whiteSpace
+      value:preserve
+    xs:enumeration
+
+
+
+attributes
+  name
+  type
+  minOccurs
+  maxOccurs
+  
 
 */
 

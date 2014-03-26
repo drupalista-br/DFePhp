@@ -1,6 +1,6 @@
 <?php
 /**
- * Contrutor do Layout da NFe.
+ * Arquivo que contém a classe PL008bXsd310 em NFe.
  *
  * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
  * @version https://github.com/drupalista-br/DFePhp/releases
@@ -24,7 +24,7 @@ class PL008bXsd310 extends SchemaGeral {
         'producao' => array(),
       ),
       'dados_do_dfe' => array(
-        'nome' => 'NFe / NFCe',
+        'nome' => 'NFe',
         'txt' => array(
           'gera_txt' => TRUE,
           'tag_cabecalho_1a_linha_txt' => 'NOTAFISCAL',

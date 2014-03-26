@@ -14,22 +14,10 @@ namespace DFePhp\Schemas;
  */
 abstract class SchemaGeral {
   /**
-   * Quando o valor de entrada é requerido mas, caso não seja enviado, o valor
-   * padrão será usado.
+   * As instruções para se gerar o arquivo txt.
    */
-  const OPCIONAL = 2;
+  private $txt_layout;
 
-  /**
-   * O método informado em 'metodos_antes' ou 'metodos_depois' será chamado de
-   * forma estática.
-   */
-  const CHAMADA_ESTATICA = 1;
-
-  /**
-   * O método informado em 'metodos_antes' ou 'metodos_depois' será chamado de
-   * forma normal após a instanciação do objeto.
-   */
-  const CHAMADA_NORMAL = 2;
 
   /**
    * Lista todos os campos de dados do DFe.
