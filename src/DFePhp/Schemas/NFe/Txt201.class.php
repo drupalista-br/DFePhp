@@ -35,6 +35,7 @@ class Txt201 extends SchemaGeral {
       // YYYY-MM-DD
       'data_do_release' => '2013-05-15',
       'manual' => 'resources/docs/Nfe/[Emissor_NF-e]_Manual_de_layout_TXT-NF-e_v2.0.1.pdf',
+      'observacao' => 'Layout do Arquivo TXT.',
     );
   }
 

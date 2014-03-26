@@ -13,6 +13,12 @@ namespace DFePhp\Schemas;
  * Classe para criar os Layouts de Entrada de Dados dos DFe.
  */
 abstract class SchemaGeral {
+
+  /**
+   * Informações sobre o end-point servidor.
+   */
+  private $webservices;
+
   /**
    * As instruções para se gerar o arquivo txt.
    */
