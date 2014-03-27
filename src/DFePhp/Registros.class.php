@@ -10,8 +10,8 @@
 namespace DFePhp;
 
 /**
- * Classe para extrair os detalhes das definições dos componentes externos
- * de cada tipo de Documento Fiscal suportado por esta biblioteca.
+ * Lê as informações do método registro() das classes com definições de cada
+ * DFe suportada.
  */
 class Registros {
   
@@ -92,7 +92,7 @@ class Registros {
     }
 
     if ($registros) {
-      // TODO: Ordenar os registros por data.
+      // TODO: Ordenar os registros por data ( array key ).
       $this->componetes[$componente][$nome_do_DFe] = $registros;
     }
   }
