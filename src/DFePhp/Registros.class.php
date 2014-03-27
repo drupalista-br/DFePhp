@@ -9,10 +9,6 @@
 
 namespace DFePhp;
 
-use DFePhp\Schemas as Schemas;
-use DFePhp\Txts as Txts;
-use DFePhp\WebServices as WebServices;
-
 /**
  * Classe para extrair os detalhes das definições dos componentes externos
  * de cada tipo de Documento Fiscal suportado por esta biblioteca.
@@ -20,19 +16,13 @@ use DFePhp\WebServices as WebServices;
 class Registros {
   
   /**
-   * Detalhamento dos XML Schemas suportados.
+   * Informações sobre as classes de cada componente.
    */
-  private $componete_schemas;
-
-  /**
-   * Detalhamento dos Layouts de Arquivos TXT suportados.
-   */
-  private $componete_layouts_txts;
-
-  /**
-   * Detalhamento dos Webservices suportados.
-   */
-  private $componete_webservices;
+  private $componetes = array(
+    'Schemas' => array(),
+    'Txts' => array(),
+    'WebServices' => array(),
+  );
 
   /**
    * Construtor automático.
@@ -46,15 +36,12 @@ class Registros {
    */
   private function carrega_registros() {
     // propriedade => pasta do componente.
-    $componetes = array(
-      'componete_schemas' => 'Schemas',
-      'componete_layouts_txts' => 'Txts',
-      'componete_webservices' =>'WebServices',
-    );
+    $componetes = $this->componetes;
 
     $path_atual = realpath(__DIR__);
 
-    foreach($componetes as $propriedade => $pasta) {
+    // $registros nesta altura ainda está vario.
+    foreach($componetes as $pasta => $registros) {
       $path_do_componete = $path_atual . DIRECTORY_SEPARATOR . $pasta;
 
       $componete = new \DirectoryIterator($path_do_componete);
@@ -66,7 +53,7 @@ class Registros {
           $path_DFe = $path_do_componete . DIRECTORY_SEPARATOR . $nome_do_DFe;
 
           // Agora busca as classes em cada DFe.
-          $this->helper_carrega_registros($nome_do_DFe, $path_DFe, $pasta, $propriedade);
+          $this->helper_carrega_registros($nome_do_DFe, $path_DFe, $pasta);
         }
       }
     }
@@ -81,22 +68,22 @@ class Registros {
    *   O caminho físico da pasta onde as classes do DFe estão.
    * @param String $componente
    *   Nome do componente ( Schemas, Txts ou Webservices )
-   * @param String $propriedade
-   *   O nome da propriedade ( $componete_schemas, $componete_layouts_txts ou
-   *   $componete_webservices ).
    */
-  private function helper_carrega_registros($nome_do_DFe, $path_DFe, $componente, $propriedade) {
+  private function helper_carrega_registros($nome_do_DFe, $path_DFe, $componente) {
     $arquivos = new \DirectoryIterator($path_DFe);
 
     $registros = FALSE;
     foreach ($arquivos as $arquivo) {
       if ($arquivo->isFile()) {
         $nome_da_classe = explode('.', $arquivo->getFilename());
-        $nome_da_classe = "\\$componente\\" . $nome_da_classe[0];
-
+        $nome_da_classe = "\\DFePhp\\$componente\\$nome_do_DFe\\" . $nome_da_classe[0];
+   
         if (class_exists($nome_da_classe)) {
           if (method_exists($nome_da_classe, 'registro')) {
             $registro = $nome_da_classe::registro();
+            $registro['classe'] = $nome_da_classe;
+            $registro['componente'] = $componente;
+            $registro['DFe'] = $nome_do_DFe;
 
             $registros[$registro['data_do_release']] = $registro;
           }
@@ -105,7 +92,24 @@ class Registros {
     }
 
     if ($registros) {
-      $this->$propriedade[$nome_do_DFe] = ksort($registros);
+      // TODO: Ordenar os registros por data.
+      $this->componetes[$componente][$nome_do_DFe] = $registros;
     }
-  } 
+  }
+  
+  /**
+   * Public getter.
+   *
+   * @return Array
+   *   Informações das classes contidas em cada componente.
+   */
+  public function get_componentes_info() {
+    $componentes = array();
+    foreach ($this->componetes as $componente => $info) {
+      if (!empty($info)) {
+        $componentes[$componente] = $info;
+      }
+    }
+    return $componentes;
+  }
 }

@@ -24,7 +24,7 @@ class PL008bXsd310 extends SchemaGeral {
       'website' => 'http://www.nfe.fazenda.gov.br',
       'versao' => 'XSD 3.10',
       // YYYY-MM-DD
-      'data_do_release' => '2014-03-21',
+      'data_do_release' => '2013-12-11',
       'manual' => 'resources/docs/Nfe/Manual_de_Orientacao_Contribuinte_v_5.00.pdf',
       'observacao' => 'Pacote de Liberação No. 8b',
     );

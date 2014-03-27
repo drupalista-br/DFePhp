@@ -2,6 +2,8 @@
 
 namespace DFePhp\Ferramentas;
 
+use DFePhp\Registros;
+
 $lib_path = realpath(__DIR__);
 include_once $lib_path . '/../autoloader.php';
   
@@ -19,7 +21,8 @@ $query = $xsd->xpath("/xs:schema/*");
 
 //$test = (array)  $test[0];
 
-
+$registros = new Registros();
+print_r($registros->get_componentes_info());
 
 //print_r($lib_path . '/../src/DFePhp/Schemas');
 
