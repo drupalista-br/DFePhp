@@ -19,7 +19,9 @@ $query = $xsd->xpath("/xs:schema/*");
 
 //$test = (array)  $test[0];
 
-print_r($query);
+
+
+//print_r($lib_path . '/../src/DFePhp/Schemas');
 
 //trigger_error('mesage');
 /*

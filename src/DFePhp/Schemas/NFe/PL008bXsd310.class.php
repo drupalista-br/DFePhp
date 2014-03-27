@@ -12,7 +12,7 @@ namespace DFePhp\Schemas\NFe;
 use DFePhp\Schemas\SchemaGeral;
 
 /**
- * Classe para construir o Layout da NFe conforme o Manual do Contribuinte 5.0.
+ * Classe para construir o Layout da NFe conforme Pacote de Liberação No. 8b.
  */
 class PL008bXsd310 extends SchemaGeral {
 
@@ -26,7 +26,7 @@ class PL008bXsd310 extends SchemaGeral {
       // YYYY-MM-DD
       'data_do_release' => '2014-03-21',
       'manual' => 'resources/docs/Nfe/Manual_de_Orientacao_Contribuinte_v_5.00.pdf',
-      'observacao' => 'Pacote de Liberação No. 8c',
+      'observacao' => 'Pacote de Liberação No. 8b',
     );
   }
 }

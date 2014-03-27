@@ -7,7 +7,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
  */
 
-namespace DFePhp\Schemas\NFe;
+namespace DFePhp\Txts\NFe;
 
 use DFePhp\Schemas\SchemaGeral;
 
@@ -24,7 +24,7 @@ class Txt201 extends SchemaGeral {
   public function __construct() {
     $this->set_txt_layout();
   }
-  
+
   /**
    * Informações sobre a versão / release do manual do contribuinte.
    */
