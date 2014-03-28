@@ -7,11 +7,10 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
  */
 
-namespace DFePhp\Ferramentas;;
+namespace Drupalista_br;
 
 /**
  * Class for converting xsd ( xml schema ) content into a PHP Array.
- *
  */
 class Xsd2PhpArray {
 
@@ -31,17 +30,11 @@ class Xsd2PhpArray {
   private $xsd_namespace = 'xs';
   
   /**
-   * Iterates throgh the xsd content nodes generating an php array along the
+   * Iterates throgh the xsd content nodes generating a php array along the
    * way.
    */
-  public function generate_array ($array, $xpath_query = '/', $parents = FALSE) {
-
-    if (!empty($this->xsd_content)) {
-      $array = $this->xpath_query($xpath_query);
-    }
-    else {
-      // TODO: throw exception.
-    }
+  public function xsd_2_array($array, $xpath_query = '/', $parents = FALSE) {
+    $array = $this->xpath_query($xpath_query);
 
     $number_of_nodes = count($array);
 
@@ -89,13 +82,69 @@ class Xsd2PhpArray {
         $parents_temp = $lineages_of_this_call[$loop_count]['parents'];
         $xpath_query_temp = $lineages_of_this_call[$loop_count]['xpath_query'];
 
-        self::generate_array($node, $xpath_query_temp, $parents_temp);
+        self::xsd_2_array($node, $xpath_query_temp, $parents_temp);
       }
 
       $loop_count += 1;
     }
   }
-  
+
+  /**
+   * Performes a xpath query on $xsd_content property.
+   *
+   * @param String $query
+   *   The xpath query.
+   * @param String $parents_nesting_coordenates
+   *   The parents nesting coordinates of the current node.
+   */
+  private function xpath_query_assembling($query = '/', $parents_nesting_coordenates = FALSE) {
+    if (empty($this->xsd_content)) {
+      throw new \Exception("The XSD content has not been loaded. You must beforehand call \$myObject->load_xsd_content('/xsd/location/file.xsd').");
+    }
+
+    $xsd = $this->xsd_content;
+    $namespace = $this->xsd_namespace;
+
+    $xpath_query = $xsd->xpath("$query*");
+
+    $nodes = array();
+
+    foreach ($xpath_query as $key => $node) {
+      $xsd_tag = $node->getName();
+
+      $node_array = (array) $node;
+
+      $xml_tag = FALSE;
+      if (!empty($node_array['@attributes']['name'])) {
+        $xml_tag = $node_array['@attributes']['name'];
+      }
+
+      $nesting_separator = '-';
+      if (!$parents_nesting_coordenates) {
+        $nesting_separator = '';
+      }
+
+      // ${$xsd_tag} holds the per xsd element sequencing number.
+      if(empty(${$xsd_tag})) {
+        ${$xsd_tag} = 0;
+      }
+      ${$xsd_tag} += 1;
+
+      // $item_sequence holds the sequencing number of all xsd elements.
+      $item_sequence = $key + 1;
+
+      // The nesting coordinate address of the current XSD node.
+      $current_coordinates = $parents_nesting_coordenates . $nesting_separator . $item_sequence;
+
+      $nodes[$current_coordinates]['xsd_values'] = $node_array;
+      $nodes[$current_coordinates]['xsd_tag'] = $xsd_tag;
+      $nodes[$current_coordinates]['xml_tag'] = $xml_tag;
+      $nodes[$current_coordinates]['xpath_query_children'] = $query . "$namespace:$xsd_tag" . "[" . ${$xsd_tag} . "]/";
+    }
+
+    return $nodes;
+  }
+
   /**
    * Loads the XSD content into the $xsd_content property.
    */
@@ -121,57 +170,21 @@ class Xsd2PhpArray {
       $this->xsd_content = simplexml_load_file($location);
     }
     else {
-      // TODO: create on exception handler.
       throw new \Exception(sprintf("The XSD source at %s could not be found / read.", $location));
     }
   }
 
   /**
-   * Performes a xpath query on $xsd_content property.
-   *
-   * @param String $query
-   *   The xpath query.
-   */
-  private function xpath_query($query = '/') {
-  
-    $xsd = $this->xsd_content;
-    $namespace = $this->xsd_namespace;
-
-    $xpath_query = $xsd->xpath("$query*");
-
-    $nodes = array();
-    foreach ($xpath_query as $key => $node) {
-      $item = $key +1;
-
-      $xsd_tag = $node->getName();
-      $node_array = (array) $node;
-
-      $item_name = $item;
-      if (!empty($node_array['@attributes']['name'])) {
-        $item_name = $node_array['@attributes']['name'];
-      }
-
-      $nodes[$item_name] = $node_array;
-      $nodes[$item_name]['xsd_tag'] = $xsd_tag;
-      $nodes[$item_name]['xml_tag'] = !is_integer($item_name) ? $item_name : FALSE;
-      $nodes[$item_name]['xpath_query'] = $query . "$namespace:$xsd_tag" . "[$item]/";
-    }
-
-    return $nodes;
-  }
-  
-  /**
-   * Public setter.
+   * "xs" is the default value set at instantiation.
    *
    * @param String $namespace
-   *   O namespace usado pelo xpath query.
+   *   The Schema Namespace on which xpath queries will be carried out.
    */
   public function set_xsd_namespace($namespace) {
     $this->xsd_namespace = $namespace;
   }
 
-  function teste($query = '/') {
-    return $this->xpath_query($query);
+  function teste($query = '/', $parents_nesting_coordenates = FALSE) {
+    return $this->xpath_query_assembling($query, $parents_nesting_coordenates);
   }
-  
 }
