@@ -1,18 +1,17 @@
 <?php
 /**
- * Arquivo que contém a classe Xsd2PhpArray em Ferramentas.
+ * File containing the Xsd2PhpArray class.
  *
- * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
- * @version https://github.com/drupalista-br/DFePhp/releases
+ * @author https://github.com/drupalista-br/Xsd2PhpArray/graphs/contributors
+ * @version https://github.com/drupalista-br/Xsd2PhpArray/releases
  * @license http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
  */
 
-namespace DFePhp\Ferramentas;
+namespace DFePhp\Ferramentas;;
 
 /**
- * Classe para transformar arquivo xsd ( xml schema ) em uma array estruturada.
+ * Class for converting xsd ( xml schema ) content into a PHP Array.
  *
- * @todo Publicar e instalar esta classe como biblioteca stand-alone.
  */
 class Xsd2PhpArray {
 
@@ -36,6 +35,14 @@ class Xsd2PhpArray {
    * way.
    */
   public function generate_array ($array, $xpath_query = '/', $parents = FALSE) {
+
+    if (!empty($this->xsd_content)) {
+      $array = $this->xpath_query($xpath_query);
+    }
+    else {
+      // TODO: throw exception.
+    }
+
     $number_of_nodes = count($array);
 
     $lineages_of_this_call = array();
@@ -114,6 +121,7 @@ class Xsd2PhpArray {
       $this->xsd_content = simplexml_load_file($location);
     }
     else {
+      // TODO: create on exception handler.
       throw new \Exception(sprintf("The XSD source at %s could not be found / read.", $location));
     }
   }

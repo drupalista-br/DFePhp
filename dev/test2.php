@@ -2,7 +2,7 @@
 
 namespace DFePhp\Ferramentas;
 
-use DFePhp\Registros;
+//use Drupalista_br\Xsd2PhpArray;
 
 
 
@@ -13,6 +13,7 @@ use DFePhp\Registros;
 
 $lib_path = realpath(__DIR__);
 include_once $lib_path . '/../autoloader.php';
+//include_once '/opt/lampp/htdocs/sites/saturnopecas.com.br/libraries/DFePhp/src/DFePhp/Ferramentas/Xsd2PhpArray.class.php';
   
 $dummy = new Xsd2PhpArray();  
 $dummy->load_xsd_content($lib_path . '/../dev/tests/dfe.xsd');
