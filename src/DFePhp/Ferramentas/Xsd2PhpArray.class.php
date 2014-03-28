@@ -1,6 +1,6 @@
 <?php
 /**
- * Arquivo que contém a classe DFePhp\FerramentasXsd2PhpArray.
+ * Arquivo que contém a classe Xsd2PhpArray em Ferramentas.
  *
  * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
  * @version https://github.com/drupalista-br/DFePhp/releases
@@ -10,10 +10,9 @@
 namespace DFePhp\Ferramentas;
 
 /**
- * Classe para transformar arquivos xsd ( xml schema ) em arrays
- * estruturadas.
+ * Classe para transformar arquivo xsd ( xml schema ) em uma array estruturada.
  *
- * @see 
+ * @todo Publicar e instalar esta classe como biblioteca stand-alone.
  */
 class Xsd2PhpArray {
 
@@ -26,51 +25,64 @@ class Xsd2PhpArray {
    * Xsd content once 
    */
   private $xsd_content;
+
+  /**
+   * The Schema Namespace on which xpath queries will be carried out.
+   */
+  private $xsd_namespace = 'xs';
   
   /**
    * Iterates throgh the xsd content nodes generating an php array along the
    * way.
    */
-  public function generate_array ($array, $parentes = FALSE) {
+  public function generate_array ($array, $xpath_query = '/', $parents = FALSE) {
     $number_of_nodes = count($array);
 
     $lineages_of_this_call = array();
 
     for ($i = 1; $i <= $number_of_nodes; $i++) {
-      $lineages_of_this_call[$i] = $parentes;
+      $lineages_of_this_call[$i]['parents'] = $parents;
+      $lineages_of_this_call[$i]['xpath_query'] = $xpath_query;
     }
 
     $loop_count = 1;
     foreach ($array as $key => $node) {
 
       if (is_array($node)) {
-        // Padrão é não ter filhas.
-        $filhas = FALSE;
+        // By default it won't have children.
+        $children = FALSE;
 
         // Checa se as filhas são strings.
         foreach ($node as $sub_node_key => $sub_node) {
 
           if (!is_array($sub_node)) {
-            $parentes_das_filhas = $lineages_of_this_call[$loop_count];
-            $parentes_das_filhas[] = $key;
+            $children_parents = $lineages_of_this_call[$loop_count]['parents'];
+            $children_parents[] = $key;
 
-            $filhas[$sub_node_key] = array(
+            $children[] = array(
               'tag' => $sub_node_key,
               'value' => $sub_node,
-              'tags_parents' => $parentes_das_filhas,
+              'tags_parents' => $children_parents,
             );
           }
         }
 
-        $this->xsd_array[$key] = array(
+        $this->xsd_array[] = array(
           'tag' => $key,
           'value' => FALSE,
-          'tags_parents' => $lineages_of_this_call[$loop_count],
-          'tags_children' => $filhas,
+          'tags_parents' => $lineages_of_this_call[$loop_count]['parents'],
+          'tags_children' => $children,
         );
-        $lineages_of_this_call[$loop_count][] = $key;
 
-        self::generate_array($node, $lineages_of_this_call[$loop_count]);
+        // Add the values from the current call to the lineages.
+        $lineages_of_this_call[$loop_count]['parents'][] = $key;
+        //$lineages_of_this_call[$loop_count]['xpath_query'] .= $xpath_query;
+
+        // Call itself.
+        $parents_temp = $lineages_of_this_call[$loop_count]['parents'];
+        $xpath_query_temp = $lineages_of_this_call[$loop_count]['xpath_query'];
+
+        self::generate_array($node, $xpath_query_temp, $parents_temp);
       }
 
       $loop_count += 1;
@@ -105,13 +117,53 @@ class Xsd2PhpArray {
       throw new \Exception(sprintf("The XSD source at %s could not be found / read.", $location));
     }
   }
+
+  /**
+   * Performes a xpath query on $xsd_content property.
+   *
+   * @param String $query
+   *   The xpath query.
+   */
+  private function xpath_query($query = '/') {
   
+    $xsd = $this->xsd_content;
+    $namespace = $this->xsd_namespace;
+
+    $xpath_query = $xsd->xpath("$query*");
+
+    $nodes = array();
+    foreach ($xpath_query as $key => $node) {
+      $item = $key +1;
+
+      $xsd_tag = $node->getName();
+      $node_array = (array) $node;
+
+      $item_name = $item;
+      if (!empty($node_array['@attributes']['name'])) {
+        $item_name = $node_array['@attributes']['name'];
+      }
+
+      $nodes[$item_name] = $node_array;
+      $nodes[$item_name]['xsd_tag'] = $xsd_tag;
+      $nodes[$item_name]['xml_tag'] = !is_integer($item_name) ? $item_name : FALSE;
+      $nodes[$item_name]['xpath_query'] = $query . "$namespace:$xsd_tag" . "[$item]/";
+    }
+
+    return $nodes;
+  }
   
-  
-  
-  
-  function get_xsd_content() {
-    return $this->xsd_content;
+  /**
+   * Public setter.
+   *
+   * @param String $namespace
+   *   O namespace usado pelo xpath query.
+   */
+  public function set_xsd_namespace($namespace) {
+    $this->xsd_namespace = $namespace;
+  }
+
+  function teste($query = '/') {
+    return $this->xpath_query($query);
   }
   
 }

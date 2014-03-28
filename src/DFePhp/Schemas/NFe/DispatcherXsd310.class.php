@@ -1,6 +1,6 @@
 <?php
 /**
- * Arquivo que contém a classe PL008bXsd310 em NFe.
+ * Arquivo que contém a classe DispatcherXsd310 em Schemas/NFe.
  *
  * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
  * @version https://github.com/drupalista-br/DFePhp/releases

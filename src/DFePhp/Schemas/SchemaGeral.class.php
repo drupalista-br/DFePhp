@@ -1,7 +1,6 @@
 <?php
 /**
- * Comporta os layout da entrada de dados de cada Tipo de Documento Fiscal
- * Eletrônico.
+ * Arquivo que contém a classe SchemaGeral em Schemas.
  *
  * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
  * @version https://github.com/drupalista-br/DFePhp/releases
@@ -13,17 +12,6 @@ namespace DFePhp\Schemas;
  * Classe para criar os Layouts de Entrada de Dados dos DFe.
  */
 abstract class SchemaGeral {
-
-  /**
-   * Informações sobre o end-point servidor.
-   */
-  private $webservices;
-
-  /**
-   * As instruções para se gerar o arquivo txt.
-   */
-  private $txt_layout;
-
 
   /**
    * Lista todos os campos de dados do DFe.
