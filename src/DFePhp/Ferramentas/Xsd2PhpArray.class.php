@@ -33,8 +33,10 @@ class Xsd2PhpArray {
    * Iterates throgh the xsd content nodes generating a php array along the
    * way.
    */
-  public function xsd_2_array($array, $xpath_query = '/', $parents = FALSE) {
-    $array = $this->xpath_query($xpath_query);
+  public function xsd_2_array($xpath_query = '/') { //$array, $xpath_query = '/', $parents = FALSE) {
+
+
+    /*$array = $this->xpath_query($xpath_query);
 
     $number_of_nodes = count($array);
 
@@ -86,18 +88,20 @@ class Xsd2PhpArray {
       }
 
       $loop_count += 1;
-    }
+    }*/
   }
 
   /**
-   * Performes a xpath query on $xsd_content property.
+   * Performes a xpath query on a given XSD element node.
    *
-   * @param String $query
-   *   The xpath query.
+   * @param String $query_node
+   *   The xpath query address of a node.
    * @param String $parents_nesting_coordenates
-   *   The parents nesting coordinates of the current node.
+   *   The parent's nesting coordinates of the current node.
+   * @return Array
+   *   The children nodes of the specified XSD element node.
    */
-  private function xpath_query_assembling($query = '/', $parents_nesting_coordenates = FALSE) {
+  private function xpath_query($query_node = '/', $parents_nesting_coordenates = FALSE) {
     if (empty($this->xsd_content)) {
       throw new \Exception("The XSD content has not been loaded. You must beforehand call \$myObject->load_xsd_content('/xsd/location/file.xsd').");
     }
@@ -105,7 +109,7 @@ class Xsd2PhpArray {
     $xsd = $this->xsd_content;
     $namespace = $this->xsd_namespace;
 
-    $xpath_query = $xsd->xpath("$query*");
+    $xpath_query = $xsd->xpath("$query_node*");
 
     $nodes = array();
 
@@ -113,11 +117,6 @@ class Xsd2PhpArray {
       $xsd_tag = $node->getName();
 
       $node_array = (array) $node;
-
-      $xml_tag = FALSE;
-      if (!empty($node_array['@attributes']['name'])) {
-        $xml_tag = $node_array['@attributes']['name'];
-      }
 
       $nesting_separator = '-';
       if (!$parents_nesting_coordenates) {
@@ -136,10 +135,11 @@ class Xsd2PhpArray {
       // The nesting coordinate address of the current XSD node.
       $current_coordinates = $parents_nesting_coordenates . $nesting_separator . $item_sequence;
 
-      $nodes[$current_coordinates]['xsd_values'] = $node_array;
-      $nodes[$current_coordinates]['xsd_tag'] = $xsd_tag;
-      $nodes[$current_coordinates]['xml_tag'] = $xml_tag;
-      $nodes[$current_coordinates]['xpath_query_children'] = $query . "$namespace:$xsd_tag" . "[" . ${$xsd_tag} . "]/";
+      $nodes[$current_coordinates]['xsd_node_values'] = $node_array;
+      $nodes[$current_coordinates]['xsd_node_tag'] = $xsd_tag;
+      $nodes[$current_coordinates]['xpath_query_children'] = $query_node . "$namespace:$xsd_tag" . "[" . ${$xsd_tag} . "]/";
+      $nodes[$current_coordinates]['nesting_coordenates'] = $current_coordinates;
+      //$nodes[$current_coordinates]['has_children'] = FALSE;
     }
 
     return $nodes;
@@ -184,7 +184,7 @@ class Xsd2PhpArray {
     $this->xsd_namespace = $namespace;
   }
 
-  function teste($query = '/', $parents_nesting_coordenates = FALSE) {
-    return $this->xpath_query_assembling($query, $parents_nesting_coordenates);
+  function teste($query_node = '/', $parents_nesting_coordenates = FALSE) {
+    return $this->xpath_query($query_node, $parents_nesting_coordenates);
   }
 }

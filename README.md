@@ -1,6 +1,6 @@
 Biblioteca DFePhp
 =================
-<img src="https://raw.githubusercontent.com/drupalista-br/DFePhp/v0.x.x/resources/images/DFePhp-logo.png" alt="Logo do DFePhp" width="20%" align="right"/>
+<img src="https://raw.githubusercontent.com/drupalista-br/DFePhp/v0.x.x/resources/images/DFePhp-logo-250x176.png" alt="Logo do DFePhp" align="right"/>
 
 Biblioteca PHP para emitir e enviar Documentos Fiscais Eletrônicos, tais como:
 
