@@ -17,7 +17,7 @@ class Xsd2PhpArray {
   /**
    * The generated array from the xsd content.
    */
-  public $xsd_structure_array = array();
+  public $xsd_php_array = array();
 
   /**
    * Xsd content once 
@@ -30,12 +30,12 @@ class Xsd2PhpArray {
   private $xsd_namespace = 'xs';
 
   /**
-   * A list of XSD tags to be ignored by the xpath_query() method.
+   * A list of XSD tags to be ignored by the get_xsd_node_children() method.
    */
   private $filter_out_by_tag_name = array();
 
   /**
-   * A list of XSD tags to be ignored by the xpath_query() method only on
+   * A list of XSD tags to be ignored by the get_xsd_node_children() method only on
    * specified nesting_coordenates.
    */
   private $filter_out_by_nesting_coordenates = array();
@@ -48,31 +48,42 @@ class Xsd2PhpArray {
 
     if ($array === FALSE) {
       // This is the kick off call.
-      $array = $this->xpath_query();
-      $this->xsd_structure_array = $array;
+      $array = $this->get_xsd_node_children();
+      $this->xsd_php_array = $array;
     }
 
-    foreach ($array as $nesting_coordenate => $node) {
+    foreach ($array as $nesting_coordenates => $node) {
       // Get the grandparents.
-      $this_lineage_parents = $array[$nesting_coordenate]['node_parents'];
+      $this_lineage_parents = $array[$nesting_coordenates]['node_parents'];
       // Add the parent.
       $this_lineage_parents[] = array(
-        'tag' => $array[$nesting_coordenate]['node_tag'],
-        'element_sequence' => $array[$nesting_coordenate]['element_sequence'],
+        'tag' => $array[$nesting_coordenates]['node_tag'],
+        'element_sequence' => $array[$nesting_coordenates]['element_sequence'],
+        'nesting_coordenates' => $nesting_coordenates,
       );
 
-
       // $query_node.
-      $query_node[$nesting_coordenate] = $node['xpath_query_children'];
+      $query_node[$nesting_coordenates] = $node['xpath_query_children'];
       // $nesting_coordenates_parents.
-      $nesting_coordenates_parents[$nesting_coordenate] = $node['nesting_coordenates'];
+      $nesting_coordenates_parents[$nesting_coordenates] = $node['nesting_coordenates'];
 
-      $array_children = $this->xpath_query($query_node[$nesting_coordenate], $nesting_coordenates_parents[$nesting_coordenate], $this_lineage_parents);
+      $array_children = $this->get_xsd_node_children($query_node[$nesting_coordenates], $nesting_coordenates_parents[$nesting_coordenates], $this_lineage_parents);
       
       if (!empty($array_children)) {
-        $xsd_structure_array = $this->xsd_structure_array;
+        // Tell parent node "You're a daddy!"
+        $children = array();
+        foreach($array_children as $node_child_coordinates => $node_child) {
+          $children[] = array(
+            'tag' => $node_child['node_tag'],
+            'element_sequence' => $node_child['element_sequence'],
+            'nesting_coordenates' => $node_child['nesting_coordenates'],
+          );
+        }
+        $this->xsd_php_array[$nesting_coordenates]['node_children'] = $children;
+
+        $xsd_php_array = $this->xsd_php_array;
   
-        $this->xsd_structure_array = array_merge($xsd_structure_array, $array_children);
+        $this->xsd_php_array = array_merge($xsd_php_array, $array_children);
         
         self::xsd_2_array($array_children);
       }
@@ -80,10 +91,10 @@ class Xsd2PhpArray {
   }
 
   /**
-   * Performes a xpath query on a given XSD element node.
+   * Get the children of a given XSD element node.
    *
    * @param String $query_node
-   *   The xpath query address of a node.
+   *   The xpath query address of the node to be searched.
    * @param String $nesting_coordenates_parents
    *   The parent's nesting coordinates of the current node.
    * @param Array $node_parents
@@ -91,7 +102,7 @@ class Xsd2PhpArray {
    * @return Array
    *   The children nodes of the specified XSD element node.
    */
-  private function xpath_query($query_node = '/', $nesting_coordenates_parents = FALSE, $node_parents = FALSE) {
+  private function get_xsd_node_children($query_node = '/', $nesting_coordenates_parents = FALSE, $node_parents = FALSE) {
     if (empty($this->xsd_content)) {
       throw new \Exception("The XSD content has not been loaded. You must beforehand call \$myObject->load_xsd_content('/xsd/location/file.xsd').");
     }
@@ -106,20 +117,21 @@ class Xsd2PhpArray {
     foreach ($xpath_query as $key => $node) {
       $xsd_tag = $node->getName();
 
-      // Check if current node are not needed.
+      // Check if current node is not needed.
       if(in_array($xsd_tag, $this->filter_out_by_tag_name)) {
         continue;
       }
 
       $node_array = (array) $node;
 
-      // ${$xsd_tag} holds the per xsd element sequencing number.
+      // ${$xsd_tag} holds the per xsd tag element sequencing number.
       if(empty(${$xsd_tag})) {
         ${$xsd_tag} = 0;
       }
       ${$xsd_tag} += 1;
 
-      // $item_sequence holds the sequencing number of all xsd elements.
+      // $item_sequence holds the sequencing number of all xsd elements
+      // regardless of they having different tags.
       $item_sequence = $key + 1;
 
       $nesting_separator = '-';
@@ -132,12 +144,13 @@ class Xsd2PhpArray {
 
       $nodes[$current_coordinates] = array (
         'node_values' => $node_array,
-        'node_parents' => $node_parents,
         'node_tag' => $xsd_tag,
         'element_sequence' => ${$xsd_tag},
         // Concatenate the last ran xpath query with ns:nodetag[elementsequence]/
         'xpath_query_children' => $query_node . "$namespace:$xsd_tag" . "[" . ${$xsd_tag} . "]/",
         'nesting_coordenates' => $current_coordinates,
+        'node_parents' => $node_parents,
+        'node_children' => FALSE,
       );
     }
 
@@ -184,7 +197,7 @@ class Xsd2PhpArray {
   }
 
   /**
-   * Informs a list of XSD tags which will be ignored by the xpath_query()
+   * Informs a list of XSD tags which will be ignored by the get_xsd_node_children()
    * method.
    *
    * @param Array $tags
@@ -195,7 +208,7 @@ class Xsd2PhpArray {
   }
 
   /**
-   * Informs a list of XSD tags which will be ignored by the xpath_query()
+   * Informs a list of XSD tags which will be ignored by the get_xsd_node_children()
    * method only on specified nesting_coordenates.
    *
    * @param Array $tags
@@ -211,12 +224,12 @@ class Xsd2PhpArray {
    * @return Array
    *   The generated array from the xsd content.
    */
-  public function get_xsd_structure_array() {
-    return $this->xsd_structure_array;
+  public function get_xsd_php_array() {
+    return $this->xsd_php_array;
   }
 
   function teste($query_node = '/', $nesting_coordenates_parents = FALSE) {
-    // return $this->xpath_query();
-    //return $this->xpath_query($query_node, $nesting_coordenates_parents);
+    // return $this->get_xsd_node_children();
+    //return $this->get_xsd_node_children($query_node, $nesting_coordenates_parents);
   }
 }

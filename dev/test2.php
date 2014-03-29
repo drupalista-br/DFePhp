@@ -16,7 +16,7 @@ $dummy->xsd_2_array();
 
 
 // /xs:schema[1]/xs:complexType[2]/xs:annotation[1]/xs:documentation[1]
-print_r($dummy->get_xsd_structure_array());
+print_r($dummy->get_xsd_php_array());
 
 
 /*
