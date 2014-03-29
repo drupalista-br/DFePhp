@@ -53,14 +53,13 @@ class Xsd2PhpArray {
     }
 
     foreach ($array as $nesting_coordenate => $node) {
-      if (in_array($array[$nesting_coordenate]['node_tag'], $this->filter_out_by_tag_name)) {
-        continue;
-      }
-
       // Get the grandparents.
       $this_lineage_parents = $array[$nesting_coordenate]['node_parents'];
       // Add the parent.
-      $this_lineage_parents[] = $array[$nesting_coordenate]['node_tag'];
+      $this_lineage_parents[] = array(
+        'tag' => $array[$nesting_coordenate]['node_tag'],
+        'element_sequence' => $array[$nesting_coordenate]['element_sequence'],
+      );
 
 
       // $query_node.
@@ -107,12 +106,12 @@ class Xsd2PhpArray {
     foreach ($xpath_query as $key => $node) {
       $xsd_tag = $node->getName();
 
-      $node_array = (array) $node;
-
-      $nesting_separator = '-';
-      if (!$nesting_coordenates_parents) {
-        $nesting_separator = '';
+      // Check if current node are not needed.
+      if(in_array($xsd_tag, $this->filter_out_by_tag_name)) {
+        continue;
       }
+
+      $node_array = (array) $node;
 
       // ${$xsd_tag} holds the per xsd element sequencing number.
       if(empty(${$xsd_tag})) {
@@ -123,14 +122,23 @@ class Xsd2PhpArray {
       // $item_sequence holds the sequencing number of all xsd elements.
       $item_sequence = $key + 1;
 
+      $nesting_separator = '-';
+      if (!$nesting_coordenates_parents) {
+        $nesting_separator = '';
+      }
+
       // The nesting coordinate address of the current XSD node.
       $current_coordinates = $nesting_coordenates_parents . $nesting_separator . $item_sequence;
 
-      $nodes[$current_coordinates]['node_values'] = $node_array;
-      $nodes[$current_coordinates]['node_parents'] = $node_parents;
-      $nodes[$current_coordinates]['node_tag'] = $xsd_tag;
-      $nodes[$current_coordinates]['xpath_query_children'] = $query_node . "$namespace:$xsd_tag" . "[" . ${$xsd_tag} . "]/";
-      $nodes[$current_coordinates]['nesting_coordenates'] = $current_coordinates;
+      $nodes[$current_coordinates] = array (
+        'node_values' => $node_array,
+        'node_parents' => $node_parents,
+        'node_tag' => $xsd_tag,
+        'element_sequence' => ${$xsd_tag},
+        // Concatenate the last ran xpath query with ns:nodetag[elementsequence]/
+        'xpath_query_children' => $query_node . "$namespace:$xsd_tag" . "[" . ${$xsd_tag} . "]/",
+        'nesting_coordenates' => $current_coordinates,
+      );
     }
 
     return $nodes;
