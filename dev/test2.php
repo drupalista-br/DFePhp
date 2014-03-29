@@ -13,7 +13,8 @@ $dummy->load_xsd_content($lib_path . '/../dev/tests/dfe.xsd');
 
 
 // /xs:schema[1]/xs:complexType[2]/xs:annotation[1]/xs:documentation[1]
-print_r($dummy->teste('/xs:schema[1]/'));
+print_r($dummy->teste('/'));
+
 
 /*
 $test = explode('/', '/xs:schema[1]/');
