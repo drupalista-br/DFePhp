@@ -8,6 +8,8 @@
  */
 namespace DFePhp\Schemas;
 
+use DFePhp\Ferramentas as Ferramentas;
+
 /**
  * Classe para criar os Layouts de Entrada de Dados dos DFe.
  */
@@ -24,16 +26,24 @@ abstract class SchemaGeral {
   private $versao_dfe;
 
   /**
-   * O nome da pasta em Schemas/$dfe/$pasta_dos_xsd onde os arquivos dos
-   * Schemas XML estão guardados.
+   * Versão do Pacote de Liberação contendo os arquivos XSDs.
    */
-  private $pasta_dos_xsd;
+  private $versao_xsd;
 
   /**
    * Construtor automático.
+   *
+   * @param String $tipo_dfe
+   *   O tipo de Documento Fiscal Eletrônico.
+   * @param String $versao_dfe
+   *   A versão do Documento Fiscal Eletrônico.
+   * @param String $versao_xsd
+   *   A versão do Pacote de Liberação contendo os XSDs
    */
-  protected function __construct($tipo_dfe, $versao_dfe) {
+  protected function __construct($tipo_dfe, $versao_dfe, $versao_xsd) {
     $this->set_tipo_dfe($tipo_dfe);
+    $this->set_versao_dfe($versao_dfe);
+    $this->set_versao_xsd($versao_xsd);
   }
   
   /**
@@ -45,16 +55,31 @@ abstract class SchemaGeral {
 
   /**
    * Informa o Tipo de Documento Fiscal. Ex. NFe, CTe, etc.
+   *
+   * @param String $tipo_dfe
+   *   O tipo de Documento Fiscal Eletrônico.
    */
   public function set_tipo_dfe($tipo_dfe) {
     $this->tipo_dfe = $tipo_dfe;
   }
 
   /**
-   * Informa o nome da pasta em Schemas/$dfe/$pasta_dos_xsd onde os arquivos dos
-   * Schemas XML estão guardados.
+   * Informa a versão do DFe.
+   *
+   * @param String $versao_dfe
+   *   A versão do Documento Fiscal Eletrônico.
    */
-  public function set_pasta_dos_xsd($pasta_dos_xsd) {
-    $this->pasta_dos_xsd = $pasta_dos_xsd;
+  public function set_versao_dfe($versao_dfe) {
+    $this->versao_dfe($versao_dfe);
+  }
+
+  /**
+   * Informa a versão do Pacote de Liberação contendo os arquivos XSDs.
+   *
+   * @param String $versao_xsd
+   *   A versão do Pacote de Liberação contendo os XSDs.
+   */
+  public function set_versao_xsd($versao_xsd) {
+    $this->versao_xsd($versao_xsd);
   }
 }

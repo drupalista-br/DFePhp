@@ -1,6 +1,6 @@
 <?php
 /**
- * Arquivo que contém a classe \DFePhp\MakeDFe.
+ * Arquivo que contém a classe MakeDFe.
  *
  * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
  * @version https://github.com/drupalista-br/DFePhp/releases
@@ -11,6 +11,8 @@ namespace DFePhp;
 
 use DFePhp\Exceptions\MakeDFeExceptions;
 use DFePhp\Exceptions\DFeInvalidArgumentException;
+use DFePhp\Ferramentas\Constantes;
+use DFePhp\Ferramentas\PathRealDaBiblioteca;
 
 /**
  * Classe para construir o Documento Fiscal Eletrônico.
@@ -18,50 +20,10 @@ use DFePhp\Exceptions\DFeInvalidArgumentException;
 class MakeDFe {
 
   /**
-   * Extensão dos arquivos XML.
+   * TODO:
    */
-  const EXTENSAO_XML = 'xml';
-
-  /**
-   * Extensão dos rquivos TXT.
-   */
-  const EXTENSAO_TXT = 'txt';
-
-  /**
-   * Pasta para armazenar os arquivos TXT dos DFe.
-   */
-  const PASTA_TXTS = 'txts';
-
-  /**
-   * Pasta para armazenar os arquivos XMLs sem assinaturas.
-   */
-  const PASTA_XML_NAO_ASSINADOS = '1_xml_sem_assinaturas';
-
-  /**
-   * Pasta para armazenar os arquivos XMLs somente assinados.
-   */
-  const PASTA_XML_ASSINADOS = '2_xml_assinados';
-
-  /**
-   * Pasta para armazenar os arquivos XMLs Autorizados.
-   */
-  const PASTA_XML_AUTORIZADOS = '3_xml_autorizados';
-
-  /**
-   * Pasta para armazenar os arquivos XMLs NÃO Autorizados.
-   */
-  const PASTA_XML_NAO_AUTORIZADOS = '4_xml_nao_autorizados';
-
-  /**
-   * Pasta para armazenar os arquivos XMLs Cancelados.
-   */
-  const PASTA_XML_CANCELADOS = '5_xml_cancelados';
-
-  /**
-   * Nome da classe que gera o Layout do DFe.
-   */
-  private $dispatcher;
-
+  private $objeto_layout_dispatcher;
+  
   /**
    * Array com os dados do DFe.
    */
@@ -101,11 +63,13 @@ class MakeDFe {
    * Define a versão do layout da estrutura de dados do DFe.
    * 
    * @param String $tipo_dfe
-   *   Tipo
+   *   O tipo de Documento Fiscal Eletrônico.
    * @param String $versao_dfe
-   *   Versão do DFe.
+   *   A versão do Documento Fiscal Eletrônico.
+   * @param String $versao_xsd
+   *   A versão do Pacote de Liberação contendo os XSDs
    */
-  public function __construct($tipo_dfe = null, $versao_dfe = null) {
+  public function __construct($tipo_dfe = null, $versao_dfe = null, $versao_xsd = null) {
     // Instancia os Objetos para fazer Exception throws.
     $InvalidArgumentException = new DFeInvalidArgumentException();
     $exception = new MakeDFeExceptions();
@@ -113,36 +77,12 @@ class MakeDFe {
     // TODO:
     // InvalidArgumentException
     // Exception | Verificar se a $dispatcher existe.
-    $this->dispatcher = $dispatcher = "DFePhp\\Schemas\\$tipo_dfe\\Dispatcher$versao_xsd";
+    $dispatcher = "DFePhp\\Schemas\\$tipo_dfe\\Dispatcher$versao_dfe";
 
-    
-      if (!empty($schema) && is_string($schema)) {
-
-        if (!class_exists($dispatcher, TRUE)) {
-          $exception_error_message = "O Layout $schema nao e' valido ou nao e' mais suportado.";
-        }
-      }
-      else {
-        $exception_error_message = "Voce nao informou a versao do Layout do DFe ou o informado nao e' uma string.";
-      }
+    $this->objeto_layout_dispatcher = new $dispatcher($tipo_dfe, $versao_dfe, $versao_xsd);
 
     // Define o Path padrão onde os arquivos DFe ficarão armazenados.
-    $this->output_path = $this->get_path_da_biblioteca('DFe_outputs');
-  }
-
-  /**
-   * Constroi o caminho físico onde a biblioteca está instalada.
-   *
-   * @param String $file_path
-   *   Caminho interno da biblioteca. Opcionalmente poderá também informar
-   *   o nome do arquivo. Ex. 'arquivosDfe/txts/NF25.txt'
-   *
-   * @return String
-   *   O caminho físico da biblioteca + $file_path.
-   */
-  public function get_path_da_biblioteca($file_path = '') {
-    $lib_path = DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
-    return realpath(__DIR__ . $lib_path . $file_path);
+    $this->output_path = PathRealDaBiblioteca::mais(array('DFe_outputs'));
   }
 
   /**
@@ -192,11 +132,11 @@ class MakeDFe {
     $extensao = strtolower(pathinfo($input_nome_do_arquivo, PATHINFO_EXTENSION));
 
     switch($extensao) {
-      case self::EXTENSAO_TXT:
-        $this->input_extensao_do_arquivo = self::EXTENSAO_TXT;
+      case Constantes::EXTENSAO_TXT:
+        $this->input_extensao_do_arquivo = Constantes::EXTENSAO_TXT;
       break;
-      case self::EXTENSAO_XML:
-        $this->input_extensao_do_arquivo = self::EXTENSAO_XML;
+      case Constantes::EXTENSAO_XML:
+        $this->input_extensao_do_arquivo = Constantes::EXTENSAO_XML;
       break;
     }
     // TODO:
@@ -219,13 +159,13 @@ class MakeDFe {
     $input_nome_do_arquivo = $this->input_nome_do_arquivo;
 
     switch($input_extensao_do_arquivo) {
-      case self::EXTENSAO_TXT:
+      case Constantes::EXTENSAO_TXT:
         $this->dados_dfe_txt = fopen($input_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo, "r");
 
         // Checa se a propriedade $dados_dfe_txt está vazia.
         $exception->is_empty_dados_dfe_txt($this);
       break;
-      case self::EXTENSAO_XML:
+      case Constantes::EXTENSAO_XML:
         $this->dados_dfe_xml = simplexml_load_file($input_path . DIRECTORY_SEPARATOR . $input_nome_do_arquivo);
 
         // Checa se a propriedade $dados_dfe_xml está vazia.
