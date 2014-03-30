@@ -43,6 +43,9 @@ class Xsd2PhpArray {
   /**
    * Iterates throgh the xsd content nodes generating a php array along the
    * way.
+   *
+   * @param Array $array
+   *   List of children nodes of a single xsd element node.
    */
   public function xsd_2_array($array = FALSE) {
 
@@ -84,7 +87,7 @@ class Xsd2PhpArray {
         $xsd_php_array = $this->xsd_php_array;
   
         $this->xsd_php_array = array_merge($xsd_php_array, $array_children);
-        
+
         self::xsd_2_array($array_children);
       }
     }
@@ -117,7 +120,7 @@ class Xsd2PhpArray {
     foreach ($xpath_query as $key => $node) {
       $xsd_tag = $node->getName();
 
-      // Check if current node is not needed.
+      // Check if current xsd tag is listed for being filtered out.
       if(in_array($xsd_tag, $this->filter_out_by_tag_name)) {
         continue;
       }
@@ -141,6 +144,12 @@ class Xsd2PhpArray {
 
       // The nesting coordinate address of the current XSD node.
       $current_coordinates = $nesting_coordenates_parents . $nesting_separator . $item_sequence;
+
+      // Check if current node nesting coordinates is listed for being filtered
+      // out.
+      if(in_array($current_coordinates, $this->filter_out_by_nesting_coordenates)) {
+        continue;
+      }
 
       $nodes[$current_coordinates] = array (
         'node_values' => $node_array,

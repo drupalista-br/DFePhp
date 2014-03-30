@@ -35,51 +35,45 @@ class MakeDFe {
   /**
    * Pasta para armazenar os arquivos XMLs sem assinaturas.
    */
-  const PASTA_1_XML_NAO_ASSINADOS = '1_xml_sem_assinaturas';
+  const PASTA_XML_NAO_ASSINADOS = '1_xml_sem_assinaturas';
 
   /**
    * Pasta para armazenar os arquivos XMLs somente assinados.
    */
-  const PASTA_2_XML_ASSINADOS = '2_xml_assinados';
+  const PASTA_XML_ASSINADOS = '2_xml_assinados';
 
   /**
    * Pasta para armazenar os arquivos XMLs Autorizados.
    */
-  const PASTA_3_XML_AUTORIZADOS = '3_xml_autorizados';
+  const PASTA_XML_AUTORIZADOS = '3_xml_autorizados';
 
   /**
    * Pasta para armazenar os arquivos XMLs NÃO Autorizados.
    */
-  const PASTA_4_XML_NAO_AUTORIZADOS = '4_xml_nao_autorizados';
+  const PASTA_XML_NAO_AUTORIZADOS = '4_xml_nao_autorizados';
 
   /**
    * Pasta para armazenar os arquivos XMLs Cancelados.
    */
-  const PASTA_5_XML_CANCELADOS = '5_xml_cancelados';
+  const PASTA_XML_CANCELADOS = '5_xml_cancelados';
 
   /**
    * Nome da classe que gera o Layout do DFe.
    */
-  private $classe_do_schema;
+  private $dispatcher;
 
   /**
-   * Layout do DFe a ser gerado. O Layout é definido por uma sub-classe da
-   * classe LayoutDeDados.
-   */
-  private $layout_do_dfe;
-  
-  /**
-   * Array com os dados do DFe sendo gerado.
+   * Array com os dados do DFe.
    */
   private $dados_dfe_array;
 
   /**
-   * XML do DFe sendo gerado.
+   * XML com os dados do DFe.
    */
   private $dados_dfe_xml;
 
   /**
-   * TXT do DFe sendo gerado.
+   * TXT com os dados do DFe.
    */
   private $dados_dfe_txt;
 
@@ -106,35 +100,31 @@ class MakeDFe {
   /**
    * Define a versão do layout da estrutura de dados do DFe.
    * 
-   * @param String $schema
-   *   Versão do Layout para gerar o DFe.
+   * @param String $tipo_dfe
+   *   Tipo
+   * @param String $versao_dfe
+   *   Versão do DFe.
    */
-  public function __construct($DFe = null, $schema = null) {
+  public function __construct($tipo_dfe = null, $versao_dfe = null) {
     // Instancia os Objetos para fazer Exception throws.
     $InvalidArgumentException = new DFeInvalidArgumentException();
     $exception = new MakeDFeExceptions();
 
     // TODO:
-    // InvalidArgumentException | Verificar se $schema está vazio
-    //                            Verificar se $schema não é uma string.
-    // Exception | Verificar se a $classe_do_schema existe.
-    $this->classe_do_schema = $classe_do_schema = "DFePhp\\Schemas\\$DFe\\$schema";
+    // InvalidArgumentException
+    // Exception | Verificar se a $dispatcher existe.
+    $this->dispatcher = $dispatcher = "DFePhp\\Schemas\\$tipo_dfe\\Dispatcher$versao_xsd";
 
     
       if (!empty($schema) && is_string($schema)) {
 
-        if (!class_exists($classe_do_schema, TRUE)) {
+        if (!class_exists($dispatcher, TRUE)) {
           $exception_error_message = "O Layout $schema nao e' valido ou nao e' mais suportado.";
         }
       }
       else {
         $exception_error_message = "Voce nao informou a versao do Layout do DFe ou o informado nao e' uma string.";
       }
-
-    $this->layout_do_dfe = $classe_do_schema::layout();
-
-    // TODO:
-    // Exception | Verificar se $layout_do_dfe é uma array não vazia.
 
     // Define o Path padrão onde os arquivos DFe ficarão armazenados.
     $this->output_path = $this->get_path_da_biblioteca('DFe_outputs');

@@ -14,7 +14,7 @@ use DFePhp\Schemas\SchemaGeral;
 /**
  * Classe para construir o Layout da NFe conforme XSD v3.10.
  */
-class DispatcherXsd310 extends SchemaGeral {
+class Dispatcher310 extends SchemaGeral {
 
 
 }

@@ -1,0 +1,17 @@
+{
+  "dispatcher":
+    {
+      "classe": "Dispatcher310",
+      "versao_do_dfe": "3.10",
+    },
+  "schema":
+    {
+      "versao_do_xsd": "8b",
+      "release_do_xsd": "2013-12-11",
+      "observacao": "Pacote de Libera\u00e7\u00e3o No. 8b",
+      "layouts_xsd":
+      {
+        "0": "310_PL008b\/leiauteNFe_v3.10.xsd"
+      }
+    }
+}
