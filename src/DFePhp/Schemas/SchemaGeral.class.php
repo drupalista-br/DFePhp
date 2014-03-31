@@ -8,7 +8,7 @@
  */
 namespace DFePhp\Schemas;
 
-use DFePhp\Ferramentas as Ferramentas;
+use DFePhp\Ferramentas\PathRealDaBiblioteca;
 
 /**
  * Classe para criar os Layouts de Entrada de Dados dos DFe.
