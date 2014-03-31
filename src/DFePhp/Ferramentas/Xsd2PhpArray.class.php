@@ -71,7 +71,7 @@ class Xsd2PhpArray {
       $nesting_coordenates_parents[$nesting_coordenates] = $node['nesting_coordenates'];
 
       $array_children = $this->get_xsd_node_children($query_node[$nesting_coordenates], $nesting_coordenates_parents[$nesting_coordenates], $this_lineage_parents);
-      
+
       if (!empty($array_children)) {
         // Tell parent node "You're a daddy!"
         $children = array();
@@ -235,10 +235,5 @@ class Xsd2PhpArray {
    */
   public function get_xsd_php_array() {
     return $this->xsd_php_array;
-  }
-
-  function teste($query_node = '/', $nesting_coordenates_parents = FALSE) {
-    // return $this->get_xsd_node_children();
-    //return $this->get_xsd_node_children($query_node, $nesting_coordenates_parents);
   }
 }
