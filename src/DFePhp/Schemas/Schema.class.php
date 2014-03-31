@@ -8,12 +8,15 @@
  */
 namespace DFePhp\Schemas;
 
-use DFePhp\Ferramentas\PathRealDaBiblioteca;
+use DFePhp\Ferramentas\Arquivo;
+use Drupalista_br\Xsd2PhpArray;
+
+include_once Arquivo::endereco(array('src', 'DFePhp', 'Ferramentas', 'Xsd2PhpArray.class.php'));
 
 /**
  * Classe para criar os Layouts de Entrada de Dados dos DFe.
  */
-abstract class SchemaGeral {
+abstract class Schema {
 
   /**
    * Tipo de Documento Fiscal. Ex. NFe, CTe, etc.
@@ -34,7 +37,7 @@ abstract class SchemaGeral {
    * Construtor automático.
    *
    * @param String $tipo_dfe
-   *   O tipo de Documento Fiscal Eletrônico.
+   *   O tipo de Documento Fiscal Eletrônico. Ex. NFe, CTe, etc.
    * @param String $versao_dfe
    *   A versão do Documento Fiscal Eletrônico.
    * @param String $versao_xsd
@@ -46,13 +49,6 @@ abstract class SchemaGeral {
     $this->set_versao_xsd($versao_xsd);
   }
   
-  /**
-   *
-   */
-  private function xsd_carregar_layout() {
-    
-  }
-
   /**
    * Informa o Tipo de Documento Fiscal. Ex. NFe, CTe, etc.
    *

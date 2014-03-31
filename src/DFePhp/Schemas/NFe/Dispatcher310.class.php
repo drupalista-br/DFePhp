@@ -1,6 +1,6 @@
 <?php
 /**
- * Arquivo que contém a classe DispatcherXsd310 em Schemas/NFe.
+ * Arquivo que contém a classe Dispatcher310 em Schemas/NFe.
  *
  * @author https://github.com/drupalista-br/DFePhp/graphs/contributors
  * @version https://github.com/drupalista-br/DFePhp/releases
@@ -9,12 +9,12 @@
 
 namespace DFePhp\Schemas\NFe;
 
-use DFePhp\Schemas\SchemaGeral;
+use DFePhp\Schemas\Schema;
 
 /**
  * Classe para construir o Layout da NFe conforme XSD v3.10.
  */
-class Dispatcher310 extends SchemaGeral {
+class Dispatcher310 extends Schema {
 
 
 }

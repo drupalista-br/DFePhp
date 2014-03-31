@@ -35,6 +35,7 @@ class Arquivo {
    *   Cria a pasta ou arquivo caso não exista.
    * @param String $permission
    *   A permissão de acesso da pasta a ser criada. Padrão 0777.
+   *
    * @return String
    *   O endereço do caminho físico absoluto mais a(s) subpasta(s)/arquivo(s)
    *   enviado como argumento.
@@ -54,14 +55,14 @@ class Arquivo {
       // Pasta a ser criada.
       $pasta = $caminho_completo;
 
-      // Verifica se o último elemento da array trata-se de um nome de arquivo.
+      // Verifica se o último elemento do endereço trata-se de um nome de arquivo.
       $pathinfo = pathinfo($caminho_completo);
       if (!empty($pathinfo['extension'])) {
         // Sendo o último elemento um nome de arquivo, então esse é excluido
-        // do endereço para fique somente o endereço da pasta.
+        // do endereço para que fique somente o endereço da pasta.
         $pasta = $pathinfo['dirname'];
       }
-      
+
       if (!file_exists($pasta)) {
         mkdir($pasta, $permission, TRUE);
       }
@@ -70,7 +71,3 @@ class Arquivo {
     return $caminho_completo;
   }
 }
-
-$test = '/opt/lampp/htdocs/sites/saturnopecas.com.br/libraries/DFePhp/src/DFePhp';
-
-Arquivo::endereco('src/DFePhp/Ferramentas');

@@ -82,7 +82,7 @@ class MakeDFe {
     $this->objeto_layout_dispatcher = new $dispatcher($tipo_dfe, $versao_dfe, $versao_xsd);
 
     // Define o Path padrão onde os arquivos DFe ficarão armazenados.
-    $this->output_path = Arquivo::endereco(array('DFe_outputs'));
+    $this->output_path = Arquivo::endereco(array(Constantes::PASTA_OUTPUTS));
   }
 
   /**

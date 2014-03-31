@@ -24,6 +24,11 @@ class Constantes {
   const EXTENSAO_TXT = 'txt';
 
   /**
+   * Pasta pai para armazenar os arquivos gerados por esta biblioteca.
+   */
+  const PASTA_OUTPUTS = 'DFe_outputs';
+
+  /**
    * Pasta para armazenar os arquivos TXT dos DFe.
    */
   const PASTA_TXTS = 'txts';
